@@ -143,19 +143,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Core.h" />
+    <ClInclude Include="Event.h" />
     <ClInclude Include="GuitarTabStudio.h" />
+    <ClInclude Include="Midi.h" />
+    <ClInclude Include="MidiDevice.h" />
+    <ClInclude Include="MidiEvent.h" />
+    <ClInclude Include="MidiMessage.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Tact.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Event.cpp" />
     <ClCompile Include="GuitarTabStudio.cpp" />
+    <ClCompile Include="Midi.cpp" />
+    <ClCompile Include="MidiDevice.cpp" />
+    <ClCompile Include="MidiEvent.cpp" />
+    <ClCompile Include="MidiMessage.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Tact.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GuitarTabStudio.rc" />

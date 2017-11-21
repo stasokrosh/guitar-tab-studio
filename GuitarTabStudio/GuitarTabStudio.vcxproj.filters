@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Исходные файлы\core">
+      <UniqueIdentifier>{4e7bab8e-490e-4b4a-ac6e-9f29e650ed49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\core">
+      <UniqueIdentifier>{02abd475-d738-40e3-90ec-e2aeabe90332}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\midi">
+      <UniqueIdentifier>{634a1f36-bfbf-452a-bace-055ec9a2bc11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\midi">
+      <UniqueIdentifier>{c8b2e059-d06d-4a5e-8078-568621d65694}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -27,6 +39,27 @@
     <ClInclude Include="GuitarTabStudio.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Файлы заголовков\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Файлы заголовков\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Midi.h">
+      <Filter>Файлы заголовков\midi</Filter>
+    </ClInclude>
+    <ClInclude Include="MidiEvent.h">
+      <Filter>Файлы заголовков\midi</Filter>
+    </ClInclude>
+    <ClInclude Include="MidiMessage.h">
+      <Filter>Файлы заголовков\midi</Filter>
+    </ClInclude>
+    <ClInclude Include="MidiDevice.h">
+      <Filter>Файлы заголовков\midi</Filter>
+    </ClInclude>
+    <ClInclude Include="Tact.h">
+      <Filter>Файлы заголовков\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -34,6 +67,24 @@
     </ClCompile>
     <ClCompile Include="GuitarTabStudio.cpp">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>Исходные файлы\core</Filter>
+    </ClCompile>
+    <ClCompile Include="MidiEvent.cpp">
+      <Filter>Исходные файлы\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="MidiMessage.cpp">
+      <Filter>Исходные файлы\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="MidiDevice.cpp">
+      <Filter>Исходные файлы\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="Tact.cpp">
+      <Filter>Исходные файлы\core</Filter>
+    </ClCompile>
+    <ClCompile Include="Midi.cpp">
+      <Filter>Исходные файлы\midi</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

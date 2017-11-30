@@ -143,25 +143,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Callback.h" />
+    <ClInclude Include="Composition.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="GuitarTabStudio.h" />
+    <ClInclude Include="Instrument.h" />
     <ClInclude Include="Midi.h" />
+    <ClInclude Include="MidiComposition.h" />
     <ClInclude Include="MidiDevice.h" />
     <ClInclude Include="MidiEvent.h" />
     <ClInclude Include="MidiMessage.h" />
+    <ClInclude Include="MidiPlayer.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Sequence.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Tact.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="Track.h" />
+    <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Composition.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="GuitarTabStudio.cpp" />
+    <ClCompile Include="Instrument.cpp" />
     <ClCompile Include="Midi.cpp" />
+    <ClCompile Include="MidiComposition.cpp" />
     <ClCompile Include="MidiDevice.cpp" />
     <ClCompile Include="MidiEvent.cpp" />
     <ClCompile Include="MidiMessage.cpp" />
+    <ClCompile Include="MidiPlayer.cpp" />
+    <ClCompile Include="Sequence.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -169,6 +183,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Tact.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Track.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GuitarTabStudio.rc" />

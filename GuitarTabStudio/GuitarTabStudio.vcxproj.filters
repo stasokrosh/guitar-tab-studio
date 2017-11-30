@@ -19,11 +19,23 @@
     <Filter Include="Файлы заголовков\core">
       <UniqueIdentifier>{02abd475-d738-40e3-90ec-e2aeabe90332}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\midi">
+    <Filter Include="Исходные файлы\core\midi">
+      <UniqueIdentifier>{c8b2e059-d06d-4a5e-8078-568621d65694}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\core\midi">
       <UniqueIdentifier>{634a1f36-bfbf-452a-bace-055ec9a2bc11}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\midi">
-      <UniqueIdentifier>{c8b2e059-d06d-4a5e-8078-568621d65694}</UniqueIdentifier>
+    <Filter Include="Исходные файлы\core\drawing">
+      <UniqueIdentifier>{a0e4b3ee-c133-402a-9141-193a146ad369}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\core\drawing">
+      <UniqueIdentifier>{b6a4436b-4c6b-4508-888c-acd279c891b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\util">
+      <UniqueIdentifier>{70b533ea-b2bd-46aa-8c93-9d3316be8c48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\util">
+      <UniqueIdentifier>{9f528361-b9ff-4337-bb22-0b3b086f04b6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -46,19 +58,46 @@
       <Filter>Файлы заголовков\core</Filter>
     </ClInclude>
     <ClInclude Include="Midi.h">
-      <Filter>Файлы заголовков\midi</Filter>
+      <Filter>Файлы заголовков\core\midi</Filter>
     </ClInclude>
     <ClInclude Include="MidiEvent.h">
-      <Filter>Файлы заголовков\midi</Filter>
+      <Filter>Файлы заголовков\core\midi</Filter>
     </ClInclude>
     <ClInclude Include="MidiMessage.h">
-      <Filter>Файлы заголовков\midi</Filter>
+      <Filter>Файлы заголовков\core\midi</Filter>
     </ClInclude>
     <ClInclude Include="MidiDevice.h">
-      <Filter>Файлы заголовков\midi</Filter>
+      <Filter>Файлы заголовков\core\midi</Filter>
     </ClInclude>
     <ClInclude Include="Tact.h">
       <Filter>Файлы заголовков\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Track.h">
+      <Filter>Файлы заголовков\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence.h">
+      <Filter>Файлы заголовков\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Instrument.h">
+      <Filter>Файлы заголовков\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Composition.h">
+      <Filter>Файлы заголовков\core</Filter>
+    </ClInclude>
+    <ClInclude Include="MidiPlayer.h">
+      <Filter>Файлы заголовков\core\midi</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>Файлы заголовков\util</Filter>
+    </ClInclude>
+    <ClInclude Include="Callback.h">
+      <Filter>Файлы заголовков\util</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Файлы заголовков\util</Filter>
+    </ClInclude>
+    <ClInclude Include="MidiComposition.h">
+      <Filter>Файлы заголовков\core\midi</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -72,19 +111,40 @@
       <Filter>Исходные файлы\core</Filter>
     </ClCompile>
     <ClCompile Include="MidiEvent.cpp">
-      <Filter>Исходные файлы\midi</Filter>
+      <Filter>Исходные файлы\core\midi</Filter>
     </ClCompile>
     <ClCompile Include="MidiMessage.cpp">
-      <Filter>Исходные файлы\midi</Filter>
+      <Filter>Исходные файлы\core\midi</Filter>
     </ClCompile>
     <ClCompile Include="MidiDevice.cpp">
-      <Filter>Исходные файлы\midi</Filter>
+      <Filter>Исходные файлы\core\midi</Filter>
     </ClCompile>
     <ClCompile Include="Tact.cpp">
       <Filter>Исходные файлы\core</Filter>
     </ClCompile>
     <ClCompile Include="Midi.cpp">
-      <Filter>Исходные файлы\midi</Filter>
+      <Filter>Исходные файлы\core\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="Track.cpp">
+      <Filter>Исходные файлы\core</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence.cpp">
+      <Filter>Исходные файлы\core</Filter>
+    </ClCompile>
+    <ClCompile Include="Instrument.cpp">
+      <Filter>Исходные файлы\core</Filter>
+    </ClCompile>
+    <ClCompile Include="Composition.cpp">
+      <Filter>Исходные файлы\core</Filter>
+    </ClCompile>
+    <ClCompile Include="MidiPlayer.cpp">
+      <Filter>Исходные файлы\core\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Исходные файлы\util</Filter>
+    </ClCompile>
+    <ClCompile Include="MidiComposition.cpp">
+      <Filter>Исходные файлы\core\midi</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

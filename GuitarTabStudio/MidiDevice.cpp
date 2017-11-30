@@ -3,22 +3,13 @@
 
 
 MidiDevice::MidiDevice() {
-	closed = true;
-}
-
-BOOL MidiDevice::open() {
 	UCHAR midiDeviceCount = midiOutGetNumDevs();
 	UCHAR i = 0;
 	while (i < midiDeviceCount && midiOutOpen(&hMidi, i, 0, 0, CALLBACK_NULL) != MMSYSERR_NOERROR) {
 		i++;
 	}
-	return i != midiDeviceCount;
-}
-
-void MidiDevice::close() {
-	if (!closed) {
-		midiOutClose(hMidi);
-		closed = TRUE;
+	if (i != midiDeviceCount) {
+		throw exception("No midi devices available");
 	}
 }
 
@@ -28,5 +19,5 @@ void MidiDevice::sendMessage(MidiMessage midiMessage) {
 
 
 MidiDevice::~MidiDevice() {
-	close();
+	midiOutClose(hMidi);
 }

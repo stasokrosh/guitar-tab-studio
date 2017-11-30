@@ -8,7 +8,7 @@ MidiEvent::MidiEvent(UCHAR duration, UCHAR channel) {
 	this->channel = channel;
 }
 
-BOOL MidiEvent::play(MidiDevice midiDevice) {
+BOOL MidiEvent::play(MidiDevice* midiDevice) {
 	currentDuration--;
 	return currentDuration == 0;
 }

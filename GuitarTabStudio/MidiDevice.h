@@ -1,16 +1,16 @@
 #pragma once
 #include "Midi.h"
 #include <mmsystem.h>
+#include <exception>
+
+using namespace std;
 
 class MidiDevice {
 public:
 	MidiDevice();
 	~MidiDevice();
-	BOOL open();
-	void close();
 	void sendMessage(MidiMessage midiMessage);
 private:
-	BOOL closed;
 	HMIDIOUT hMidi;
 };
 

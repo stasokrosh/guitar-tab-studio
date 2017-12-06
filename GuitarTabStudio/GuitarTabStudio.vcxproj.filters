@@ -13,29 +13,41 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Исходные файлы\core">
-      <UniqueIdentifier>{4e7bab8e-490e-4b4a-ac6e-9f29e650ed49}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\core">
-      <UniqueIdentifier>{02abd475-d738-40e3-90ec-e2aeabe90332}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\core\midi">
-      <UniqueIdentifier>{c8b2e059-d06d-4a5e-8078-568621d65694}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\core\midi">
-      <UniqueIdentifier>{634a1f36-bfbf-452a-bace-055ec9a2bc11}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\core\drawing">
-      <UniqueIdentifier>{a0e4b3ee-c133-402a-9141-193a146ad369}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\core\drawing">
-      <UniqueIdentifier>{b6a4436b-4c6b-4508-888c-acd279c891b9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Файлы заголовков\util">
       <UniqueIdentifier>{70b533ea-b2bd-46aa-8c93-9d3316be8c48}</UniqueIdentifier>
     </Filter>
     <Filter Include="Исходные файлы\util">
       <UniqueIdentifier>{9f528361-b9ff-4337-bb22-0b3b086f04b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\common">
+      <UniqueIdentifier>{4e7bab8e-490e-4b4a-ac6e-9f29e650ed49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\common\midi">
+      <UniqueIdentifier>{c8b2e059-d06d-4a5e-8078-568621d65694}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\common\view">
+      <UniqueIdentifier>{4aa91625-79f8-4920-b2b1-685baba0b8dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\common">
+      <UniqueIdentifier>{02abd475-d738-40e3-90ec-e2aeabe90332}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\common\midi">
+      <UniqueIdentifier>{634a1f36-bfbf-452a-bace-055ec9a2bc11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\common\view">
+      <UniqueIdentifier>{bbc17c01-1c58-4a99-a889-c80522348c81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\guitar">
+      <UniqueIdentifier>{ea18bb50-76f7-4eb4-b3f8-dc7d66fbc2db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\guitar">
+      <UniqueIdentifier>{72c183b9-3097-4fac-9bc2-e31dac401f30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\guitar\midi">
+      <UniqueIdentifier>{675c5c65-1710-4cda-b12c-2074372154f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\guitar\midi">
+      <UniqueIdentifier>{e98fa917-1cfd-4cd8-acd7-8d1e774c06ea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -52,43 +64,40 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Core.h">
-      <Filter>Файлы заголовков\core</Filter>
+      <Filter>Файлы заголовков\common</Filter>
     </ClInclude>
     <ClInclude Include="Event.h">
-      <Filter>Файлы заголовков\core</Filter>
+      <Filter>Файлы заголовков\common</Filter>
     </ClInclude>
     <ClInclude Include="Midi.h">
-      <Filter>Файлы заголовков\core\midi</Filter>
+      <Filter>Файлы заголовков\common\midi</Filter>
     </ClInclude>
     <ClInclude Include="MidiEvent.h">
-      <Filter>Файлы заголовков\core\midi</Filter>
+      <Filter>Файлы заголовков\common\midi</Filter>
     </ClInclude>
     <ClInclude Include="MidiMessage.h">
-      <Filter>Файлы заголовков\core\midi</Filter>
+      <Filter>Файлы заголовков\common\midi</Filter>
     </ClInclude>
     <ClInclude Include="MidiDevice.h">
-      <Filter>Файлы заголовков\core\midi</Filter>
+      <Filter>Файлы заголовков\common\midi</Filter>
     </ClInclude>
     <ClInclude Include="Tact.h">
-      <Filter>Файлы заголовков\core</Filter>
+      <Filter>Файлы заголовков\common</Filter>
     </ClInclude>
     <ClInclude Include="Track.h">
-      <Filter>Файлы заголовков\core</Filter>
+      <Filter>Файлы заголовков\common</Filter>
     </ClInclude>
     <ClInclude Include="Sequence.h">
-      <Filter>Файлы заголовков\core</Filter>
+      <Filter>Файлы заголовков\common</Filter>
     </ClInclude>
     <ClInclude Include="Instrument.h">
-      <Filter>Файлы заголовков\core</Filter>
+      <Filter>Файлы заголовков\common</Filter>
     </ClInclude>
     <ClInclude Include="Composition.h">
-      <Filter>Файлы заголовков\core</Filter>
+      <Filter>Файлы заголовков\common</Filter>
     </ClInclude>
     <ClInclude Include="MidiPlayer.h">
-      <Filter>Файлы заголовков\core\midi</Filter>
-    </ClInclude>
-    <ClInclude Include="Util.h">
-      <Filter>Файлы заголовков\util</Filter>
+      <Filter>Файлы заголовков\common\midi</Filter>
     </ClInclude>
     <ClInclude Include="Callback.h">
       <Filter>Файлы заголовков\util</Filter>
@@ -97,7 +106,40 @@
       <Filter>Файлы заголовков\util</Filter>
     </ClInclude>
     <ClInclude Include="MidiComposition.h">
-      <Filter>Файлы заголовков\core\midi</Filter>
+      <Filter>Файлы заголовков\common\midi</Filter>
+    </ClInclude>
+    <ClInclude Include="MidiTrack.h">
+      <Filter>Файлы заголовков\common\midi</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewComponent.h">
+      <Filter>Файлы заголовков\common\view</Filter>
+    </ClInclude>
+    <ClInclude Include="View.h">
+      <Filter>Файлы заголовков\common\view</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseEvent.h">
+      <Filter>Файлы заголовков\common</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseMidiEvent.h">
+      <Filter>Файлы заголовков\common\midi</Filter>
+    </ClInclude>
+    <ClInclude Include="StringInstrument.h">
+      <Filter>Файлы заголовков\guitar</Filter>
+    </ClInclude>
+    <ClInclude Include="Guitar.h">
+      <Filter>Файлы заголовков\guitar</Filter>
+    </ClInclude>
+    <ClInclude Include="StringInstrumentChordEvent.h">
+      <Filter>Файлы заголовков\guitar</Filter>
+    </ClInclude>
+    <ClInclude Include="SteelGuitar.h">
+      <Filter>Файлы заголовков\guitar</Filter>
+    </ClInclude>
+    <ClInclude Include="StringInstrumentChordMidiEvent.h">
+      <Filter>Файлы заголовков\guitar\midi</Filter>
+    </ClInclude>
+    <ClInclude Include="NotesEditor.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -108,43 +150,73 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Event.cpp">
-      <Filter>Исходные файлы\core</Filter>
+      <Filter>Исходные файлы\common</Filter>
     </ClCompile>
     <ClCompile Include="MidiEvent.cpp">
-      <Filter>Исходные файлы\core\midi</Filter>
+      <Filter>Исходные файлы\common\midi</Filter>
     </ClCompile>
     <ClCompile Include="MidiMessage.cpp">
-      <Filter>Исходные файлы\core\midi</Filter>
+      <Filter>Исходные файлы\common\midi</Filter>
     </ClCompile>
     <ClCompile Include="MidiDevice.cpp">
-      <Filter>Исходные файлы\core\midi</Filter>
+      <Filter>Исходные файлы\common\midi</Filter>
     </ClCompile>
     <ClCompile Include="Tact.cpp">
-      <Filter>Исходные файлы\core</Filter>
+      <Filter>Исходные файлы\common</Filter>
     </ClCompile>
     <ClCompile Include="Midi.cpp">
-      <Filter>Исходные файлы\core\midi</Filter>
+      <Filter>Исходные файлы\common\midi</Filter>
     </ClCompile>
     <ClCompile Include="Track.cpp">
-      <Filter>Исходные файлы\core</Filter>
+      <Filter>Исходные файлы\common</Filter>
     </ClCompile>
     <ClCompile Include="Sequence.cpp">
-      <Filter>Исходные файлы\core</Filter>
+      <Filter>Исходные файлы\common</Filter>
     </ClCompile>
     <ClCompile Include="Instrument.cpp">
-      <Filter>Исходные файлы\core</Filter>
+      <Filter>Исходные файлы\common</Filter>
     </ClCompile>
     <ClCompile Include="Composition.cpp">
-      <Filter>Исходные файлы\core</Filter>
+      <Filter>Исходные файлы\common</Filter>
     </ClCompile>
     <ClCompile Include="MidiPlayer.cpp">
-      <Filter>Исходные файлы\core\midi</Filter>
+      <Filter>Исходные файлы\common\midi</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Исходные файлы\util</Filter>
     </ClCompile>
     <ClCompile Include="MidiComposition.cpp">
-      <Filter>Исходные файлы\core\midi</Filter>
+      <Filter>Исходные файлы\common\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="MidiTrack.cpp">
+      <Filter>Исходные файлы\common\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewComponent.cpp">
+      <Filter>Исходные файлы\common\view</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseEvent.cpp">
+      <Filter>Исходные файлы\common</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseMidiEvent.cpp">
+      <Filter>Исходные файлы\common\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="StringInstrument.cpp">
+      <Filter>Исходные файлы\guitar</Filter>
+    </ClCompile>
+    <ClCompile Include="Guitar.cpp">
+      <Filter>Исходные файлы\guitar</Filter>
+    </ClCompile>
+    <ClCompile Include="StringInstrumentChordEvent.cpp">
+      <Filter>Исходные файлы\guitar</Filter>
+    </ClCompile>
+    <ClCompile Include="SteelGuitar.cpp">
+      <Filter>Исходные файлы\guitar</Filter>
+    </ClCompile>
+    <ClCompile Include="StringInstrumentChordMidiEvent.cpp">
+      <Filter>Исходные файлы\guitar\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="NotesEditor.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

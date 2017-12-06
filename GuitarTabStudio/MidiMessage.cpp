@@ -2,17 +2,17 @@
 #include "MidiMessage.h"
 
 
-MidiMessage MidiMessage::startNoteMessage(UCHAR channel, UCHAR frequency, UCHAR velocity) {
+MidiMessage MidiMessage::StartNoteMessage(UCHAR channel, UCHAR frequency, UCHAR velocity) {
 	Message message;
 	return MidiMessage(message);
 }
 
-MidiMessage MidiMessage::stopNoteMessage(UCHAR channel, UCHAR frequency) {
+MidiMessage MidiMessage::StopNoteMessage(UCHAR channel, UCHAR frequency) {
 	Message message;
 	return MidiMessage(message);
 }
 
-MidiMessage MidiMessage::changeInstrumentMessage(UCHAR channel, UCHAR instrument) {
+MidiMessage MidiMessage::ChangeInstrumentMessage(UCHAR channel, UCHAR instrument) {
 	Message message;
 	return MidiMessage(message);
 }

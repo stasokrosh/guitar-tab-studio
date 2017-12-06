@@ -17,3 +17,7 @@ UCHAR Instrument::getNumber() {
 string Instrument::getName() {
 	return this->name;
 }
+
+UCHAR Instrument::getPreferedChannel() {
+	return -1;
+}

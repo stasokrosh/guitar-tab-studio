@@ -37,3 +37,8 @@ template<class T>
 vector<T*>::iterator Sequence<T>::getEnd() {
 	return this->elements.end();
 }
+
+template<class T>
+UCHAR Sequence<T>::getSize() {
+	return this->elements.size();
+}

@@ -9,7 +9,7 @@ class MidiDevice {
 public:
 	MidiDevice();
 	~MidiDevice();
-	void sendMessage(MidiMessage midiMessage);
+	void sendMessage(MidiMessage* midiMessage);
 private:
 	HMIDIOUT hMidi;
 };

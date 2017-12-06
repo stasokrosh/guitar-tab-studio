@@ -9,13 +9,20 @@ MidiPlayer::MidiPlayer(Timer * timer, Callback * changeNoteCallback) {
 	this->midiComposition = NULL;
 }
 
-MidiPlayer::~MidiPlayer() {}
+MidiPlayer::~MidiPlayer() {
+	delete this->changeNoteCallback;
+	if (this->midiComposition != NULL) {
+		delete this->midiComposition;
+	}
+}
 
-MidiComposition* MidiPlayer::play(Composition* composition) {
+MidiComposition* MidiPlayer::play(Composition* composition, Track* selectedTrack, TactInfo* selectedTact) {
 	if (this->midiComposition != NULL) {
 		return NULL;
 	}
-	this->midiComposition = composition->createMidiComposition(&midiDevice);
+	this->midiComposition = composition->createMidiComposition(&midiDevice, selectedTrack, selectedTact);
+	this->midiComposition->setChangeNoteCallBack(this->changeNoteCallback);
+	this->midiComposition->setCompositionEndCallback(new CompositionEndCallback(this));
 	this->startComposition();
 	return this->midiComposition;
 }
@@ -53,4 +60,12 @@ void MidiPlayer::startComposition() {
 
 void MidiPlayer::stopComposition() {
 	this->timer->deleteCallBack(this->midiComposition);
+}
+
+MidiPlayer::CompositionEndCallback::CompositionEndCallback(MidiPlayer * midiPlayer) {
+	this->midiPlayer = midiPlayer;
+}
+
+void MidiPlayer::CompositionEndCallback::call() {
+	this->midiPlayer->stop();
 }

@@ -147,6 +147,7 @@
     <ClInclude Include="Composition.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="Guitar.h" />
     <ClInclude Include="GuitarTabStudio.h" />
     <ClInclude Include="Instrument.h" />
     <ClInclude Include="Midi.h" />
@@ -155,18 +156,28 @@
     <ClInclude Include="MidiEvent.h" />
     <ClInclude Include="MidiMessage.h" />
     <ClInclude Include="MidiPlayer.h" />
+    <ClInclude Include="MidiTrack.h" />
+    <ClInclude Include="NotesEditor.h" />
+    <ClInclude Include="PauseEvent.h" />
+    <ClInclude Include="PauseMidiEvent.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sequence.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="SteelGuitar.h" />
+    <ClInclude Include="StringInstrument.h" />
+    <ClInclude Include="StringInstrumentChordEvent.h" />
+    <ClInclude Include="StringInstrumentChordMidiEvent.h" />
     <ClInclude Include="Tact.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Track.h" />
-    <ClInclude Include="Util.h" />
+    <ClInclude Include="View.h" />
+    <ClInclude Include="ViewComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Composition.cpp" />
     <ClCompile Include="Event.cpp" />
+    <ClCompile Include="Guitar.cpp" />
     <ClCompile Include="GuitarTabStudio.cpp" />
     <ClCompile Include="Instrument.cpp" />
     <ClCompile Include="Midi.cpp" />
@@ -175,6 +186,10 @@
     <ClCompile Include="MidiEvent.cpp" />
     <ClCompile Include="MidiMessage.cpp" />
     <ClCompile Include="MidiPlayer.cpp" />
+    <ClCompile Include="MidiTrack.cpp" />
+    <ClCompile Include="NotesEditor.cpp" />
+    <ClCompile Include="PauseEvent.cpp" />
+    <ClCompile Include="PauseMidiEvent.cpp" />
     <ClCompile Include="Sequence.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -182,9 +197,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="SteelGuitar.cpp" />
+    <ClCompile Include="StringInstrument.cpp" />
+    <ClCompile Include="StringInstrumentChordEvent.cpp" />
+    <ClCompile Include="StringInstrumentChordMidiEvent.cpp" />
     <ClCompile Include="Tact.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Track.cpp" />
+    <ClCompile Include="ViewComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GuitarTabStudio.rc" />

@@ -1,5 +1,5 @@
 #pragma once
-#include "Core.h"
+#include <vector>
 
 using namespace std;
 
@@ -13,6 +13,7 @@ public:
 	void deleteElement(vector<T*>::iterator iterator);
 	vector<T*>::iterator getBegin();
 	vector<T*>::iterator getEnd();
+	UCHAR getSize();
 protected:
 	vector<T*> elements;
 };

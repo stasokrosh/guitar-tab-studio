@@ -27,3 +27,8 @@ enum Notes {
 };
 
 UCHAR GetFrequency(UCHAR octave, Notes note);
+
+struct Note {
+	Notes frequency;
+	UCHAR octave;
+};

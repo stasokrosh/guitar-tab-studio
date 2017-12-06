@@ -13,8 +13,8 @@ MidiDevice::MidiDevice() {
 	}
 }
 
-void MidiDevice::sendMessage(MidiMessage midiMessage) {
-	midiOutShortMsg(hMidi, midiMessage.getMessage());
+void MidiDevice::sendMessage(MidiMessage* midiMessage) {
+	midiOutShortMsg(hMidi, midiMessage->getMessage());
 }
 
 

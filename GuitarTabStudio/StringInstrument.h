@@ -7,9 +7,7 @@ public:
 	StringInstrument(UCHAR number, string name, UCHAR stringCount);
 	virtual ~StringInstrument();
 	UCHAR getStringCount();
-	Note operator[](UCHAR stringNum) {
-		return formation[stringNum];
-	}
+	UCHAR getFrequency(CHAR note, UCHAR stringNum);
 protected:
 	virtual void initializeStrings() = 0;
 	Note* formation;

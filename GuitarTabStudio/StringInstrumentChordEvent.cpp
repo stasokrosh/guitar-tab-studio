@@ -14,6 +14,21 @@ StringInstrumentChordEvent::~StringInstrumentChordEvent() {
 	delete[] this->notes;
 }
 
-MidiEvent * StringInstrumentChordEvent::getMidiEvent(UCHAR channel) {
-	return ;
+MidiEvent * StringInstrumentChordEvent::getMidiEvent(UCHAR channel, UCHAR* velocity) {
+	vector<UCHAR> notes;
+	for (int i = 0; i < this->stringInstrument->getStringCount; i++) {
+		if (this->notes[i] >= 0) {
+			notes.push_back(this->stringInstrument->getFrequency(this->notes[i], i));
+		}
+	}
+	return new StringInstrumentChordMidiEvent(this->getAbsoluteBeatCount(), channel, this, notes ,this->chordDirection ,velocity);
+}
+
+BOOL StringInstrumentChordEvent::isEmpty() {
+	for (int i = 0; i < this->stringInstrument->getStringCount; i++) {
+		if (this->notes[i] >= 0) {
+			return FALSE;
+		}
+	}
+	return TRUE;
 }

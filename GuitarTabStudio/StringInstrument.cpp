@@ -16,3 +16,7 @@ StringInstrument::~StringInstrument() {
 UCHAR StringInstrument::getStringCount() {
 	return this->stringCount;
 }
+
+UCHAR StringInstrument::getFrequency(CHAR note, UCHAR stringNum) {
+	return GetFrequency(this->formation[stringNum].octave, this->formation[stringNum].frequency) + note;
+}

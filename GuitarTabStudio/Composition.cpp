@@ -1,10 +1,9 @@
 #include "stdafx.h"
 #include "Composition.h"
 
-Composition::Composition(CompositionInfo compositionInfo, UCHAR tempo, TactDuration tactDuration) {
+Composition::Composition(CompositionInfo compositionInfo, UCHAR velocity) {
 	this->compositionInfo = compositionInfo;
-	this->tempo = tempo;
-	this->tactDuration = tactDuration;
+	this->setVelocity(velocity);
 }
 
 
@@ -19,32 +18,36 @@ MidiComposition * Composition::createMidiComposition(MidiDevice * midiDevice, Tr
 	if (!channelSet) {
 		return NULL;
 	}
-	vector<MidiTrack*>* tracks = new vector<MidiTrack*>();
+	MidiTrack* selectedMidiTrack;
+	MidiTrack** tracks = new MidiTrack*[this->getSize()];
 	TrackIterator begin = this->getBegin();
 	TrackIterator end = this->getEnd();
 	UCHAR notPreferredChannelBeginValue = 0;
+	int i = 0;
 	while (begin != end) {
-		UCHAR preferedChannel = (*begin)->instrument->getPreferedChannel();
+		UCHAR preferedChannel = (*begin)->getTrackInfo()->instrument->getPreferedChannel();
 		if (preferedChannel == -1) {
 			notPreferredChannelBeginValue = Composition::findMinValueNotInSet(notPreferredChannelBeginValue, channelSet);
 			preferedChannel = notPreferredChannelBeginValue;
 			notPreferredChannelBeginValue++;
 		}
-		tracks->push_back((*begin)->getMidiTrack(preferedChannel, midiDevice, selectedTact));
+		tracks[i] = (*begin)->getMidiTrack(preferedChannel, midiDevice, selectedTact);
+		if (*begin == selectedTrack) {
+			selectedMidiTrack = tracks[i];
+		}
+		i++;
 		begin++;
 	}
 	delete channelSet;
-	return new MidiComposition(midiDevice, this->tempo, tracks);
+	return new MidiComposition(midiDevice, this->compositionInfo.tempo, tracks, this->getSize(), selectedMidiTrack);
 }
 
-TrackIterator Composition::addElement(Track * pElement) {
-	pElement->composition = this;
-	return Sequence<Track>::addElement(pElement);
+TrackIterator Composition::addTrack(TrackInfo trackInfo, UCHAR velocity) {
+	return Sequence<Track>::addElement(new Track(trackInfo, velocity, this));
 }
 
-void Composition::insertElement(TrackIterator iterator, Track * pElement) {
-	pElement->composition = this;
-	Sequence<Track>::insertElement(iterator, pElement);
+void Composition::insertTrack(TrackIterator iterator, TrackInfo trackInfo, UCHAR velocity) {
+	Sequence<Track>::insertElement(iterator, new Track(trackInfo, velocity, this));
 }
 
 BOOL Composition::isValid() {
@@ -59,12 +62,26 @@ BOOL Composition::isValid() {
 	return TRUE;
 }
 
+void Composition::setVelocity(UCHAR velocity) {
+	this->velocity = velocity;
+	TrackIterator begin = this->getBegin();
+	TrackIterator end = this->getEnd();
+	while (begin != end) {
+		(*begin)->setVelocity((*begin)->getVelocity());
+		begin++;
+	}
+}
+
+UCHAR Composition::getVelocity() {
+	return UCHAR();
+}
+
 set<UCHAR>* Composition::validateChannelRelation() {
 	TrackIterator begin = this->getBegin();
 	TrackIterator end = this->getEnd();
 	set<UCHAR>* channelSet = new set<UCHAR>();
 	while (begin != end) {
-		UCHAR preferedChannel = (*begin)->instrument->getPreferedChannel();
+		UCHAR preferedChannel = (*begin)->getTrackInfo()->instrument->getPreferedChannel();
 		if (preferedChannel != -1) {
 			std::pair<set<UCHAR>::iterator, bool> pair = channelSet->insert(preferedChannel);
 			if (!pair.second) {

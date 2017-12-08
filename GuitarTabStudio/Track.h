@@ -14,18 +14,23 @@ typedef vector<Tact*>::iterator TactIterator;
 
 class Track : public Sequence<Tact> {
 public:
-	Track(Instrument* pInstrument, string name);
+	Track(TrackInfo trackInfo,UCHAR velocity, Composition* composition);
 	~Track();
-	virtual vector<Tact*>::iterator addElement(Tact* pElement);
-	virtual void insertElement(TactIterator iterator, Tact* pElement);
+	virtual TactIterator addTact(TactInfo* tactInfo);
+	virtual void insertTact(TactIterator iterator, TactInfo* tactInfo);
 	MidiTrack* getMidiTrack(UCHAR channel, MidiDevice* midiDevice, TactInfo* tactInfo);
 	TactIterator findTactByTactInfo(TactInfo* tactInfo);
 	BOOL isValid();
+	UCHAR getVelocity();
+	void setVelocity(UCHAR velocity);
+	Composition* getComposition();
+	TrackInfo* getTrackInfo();
 
-	Composition* composition;
-	Instrument* instrument;
-	string name;
 private:
+	Composition* composition;
+	TrackInfo trackInfo;
+	UCHAR velocity;
+	UCHAR effectiveVelocity;
 	TactIterator moveIteratorBack(TactIterator current, TactIterator begin);
 	TactIterator createNewReprise(TactIterator current, TactIterator begin, vector<pair<TactIterator, UCHAR>>* repriseStack);
 };

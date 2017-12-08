@@ -1,15 +1,22 @@
 #include "Event.h"
 
-Event::Event(BeatType beatType, BeatTypeEx beatTypeEx, UCHAR dotCount) {
-	this->beatType = beatType;
-	this->beatTypeEx = beatTypeEx;
-	this->dotCount = dotCount;
+Event::Event(EventInfo eventInfo, Tact* tact) {
+	this->eventInfo = eventInfo;
+	this->tact = tact;
 }
 
 UCHAR Event::getAbsoluteBeatCount() {
-	UCHAR absoluteBeatCount = ABSOLUTE_BEAT_COUNT_BASE / (1 << this->beatType) * NORMAL / this->beatTypeEx;
-	absoluteBeatCount = absoluteBeatCount * 2 - absoluteBeatCount / (1 << this->dotCount);
+	UCHAR absoluteBeatCount = ABSOLUTE_BEAT_COUNT_BASE / (1 << this->eventInfo.beatType) * NORMAL / this->eventInfo.beatTypeEx;
+	absoluteBeatCount = absoluteBeatCount * 2 - absoluteBeatCount / (1 << this->eventInfo.dotCount);
 	return absoluteBeatCount;
+}
+
+Tact * Event::getTact() {
+	return this->tact;
+}
+
+EventInfo * Event::getEventInfo() {
+	return &(this->eventInfo);
 }
 
 

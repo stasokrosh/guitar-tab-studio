@@ -5,3 +5,7 @@ enum Scale {
 	MDM = 100,
 	HGH = 125
 };
+
+struct ViewInfo {
+	Scale scale;
+};

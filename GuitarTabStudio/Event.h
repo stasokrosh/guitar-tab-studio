@@ -10,14 +10,15 @@
 
 class Event {
 public:	
-	Event(BeatType beatType, BeatTypeEx beatTypeEx, UCHAR dotCount);
+	Event(EventInfo eventInfo, Tact* tact);
 	UCHAR getAbsoluteBeatCount();
-	virtual MidiEvent* getMidiEvent(UCHAR channel) = 0;
-	virtual ViewComponent* getViewComponent(Scale scale) = 0;
-
+	virtual MidiEvent* getMidiEvent(UCHAR channel, UCHAR* velocity) = 0;
+	virtual ViewComponent* getViewComponent(ViewInfo viewInfo) = 0;
+	virtual BOOL isEmpty() = 0;
+	Tact* getTact();
+	EventInfo* getEventInfo();
+private:
+	EventInfo eventInfo;
 	Tact* tact;
-	BeatType beatType;
-	BeatTypeEx beatTypeEx;
-	UCHAR dotCount;
 };
 

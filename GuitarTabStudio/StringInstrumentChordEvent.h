@@ -1,6 +1,7 @@
 #pragma once
 #include "Event.h"
 #include "StringInstrument.h"
+#include "StringInstrumentChordMidiEvent.h"
 
 enum ChordDirections {
 	UP,
@@ -13,7 +14,8 @@ public:
 	StringInstrumentChordEvent(BeatType beatType, BeatTypeEx beatTypeEx, UCHAR dotCount,
 		StringInstrument* stringInstrument, ChordDirections chordDirection);
 	~StringInstrumentChordEvent();
-	virtual MidiEvent* getMidiEvent(UCHAR channel);
+	virtual MidiEvent* getMidiEvent(UCHAR channel, UCHAR* velocity);
+	virtual BOOL isEmpty();
 
 	ChordDirections chordDirection;
 	CHAR* notes;

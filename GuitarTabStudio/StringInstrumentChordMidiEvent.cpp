@@ -7,7 +7,6 @@ StringInstrumentChordMidiEvent::StringInstrumentChordMidiEvent(UCHAR duration, U
 	this->chordDirection = chordDirection;
 	this->notes = notes;
 	this->velocity = velocity;
-
 }
 
 

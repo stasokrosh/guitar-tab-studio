@@ -147,6 +147,7 @@
     <ClInclude Include="Composition.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="EventFactory.h" />
     <ClInclude Include="Guitar.h" />
     <ClInclude Include="GuitarTabStudio.h" />
     <ClInclude Include="Instrument.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Track.h" />
+    <ClInclude Include="TrackEditor.h" />
     <ClInclude Include="View.h" />
     <ClInclude Include="ViewComponent.h" />
   </ItemGroup>
@@ -204,6 +206,7 @@
     <ClCompile Include="Tact.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Track.cpp" />
+    <ClCompile Include="TrackEditor.cpp" />
     <ClCompile Include="ViewComponent.cpp" />
   </ItemGroup>
   <ItemGroup>

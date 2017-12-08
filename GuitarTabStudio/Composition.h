@@ -12,19 +12,22 @@ typedef vector<Track*>::iterator TrackIterator;
 
 class Composition : public Sequence<Track>{
 public:
-	Composition(CompositionInfo compositionInfo,UCHAR tempo, TactDuration tactDuration);
+	Composition(CompositionInfo compositionInfo, UCHAR velocity);
 	~Composition();
-	CompositionInfo compositionInfo;
-	UCHAR tempo;
 	MidiComposition* createMidiComposition(MidiDevice* midiDevice, Track* selectedTrack, TactInfo* selectedTact);
-	virtual vector<Track*>::iterator addElement(Track* pElement);
-	virtual void insertElement(TrackIterator iterator, Track* pElement);
-	BOOL isValid();
+	virtual TrackIterator addTrack(TrackInfo trackInfo, UCHAR velocity);
+	virtual void insertTrack(TrackIterator iterator, TrackInfo trackInfo, UCHAR velocity);
+	
 
-	TactDuration tactDuration;
-	vector<TactInfo> tactsSchema;
+	BOOL isValid();
+	void setVelocity(UCHAR velocity);
+	UCHAR getVelocity();
+
 private:
+	UCHAR velocity;
 	set<UCHAR>* validateChannelRelation();
 	static UCHAR findMinValueNotInSet(UCHAR beginValue, set<UCHAR>* set);
+	vector<TactInfo> tactsSchema;
+	CompositionInfo compositionInfo;
 };
 

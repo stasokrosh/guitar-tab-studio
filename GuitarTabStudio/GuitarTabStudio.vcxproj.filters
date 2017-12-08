@@ -139,7 +139,13 @@
       <Filter>Файлы заголовков\guitar\midi</Filter>
     </ClInclude>
     <ClInclude Include="NotesEditor.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\common</Filter>
+    </ClInclude>
+    <ClInclude Include="TrackEditor.h">
+      <Filter>Файлы заголовков\common</Filter>
+    </ClInclude>
+    <ClInclude Include="EventFactory.h">
+      <Filter>Файлы заголовков\common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -216,7 +222,10 @@
       <Filter>Исходные файлы\guitar\midi</Filter>
     </ClCompile>
     <ClCompile Include="NotesEditor.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\common</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackEditor.cpp">
+      <Filter>Исходные файлы\common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

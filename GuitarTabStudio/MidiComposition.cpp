@@ -2,10 +2,9 @@
 #include "MidiComposition.h"
 
 
-MidiComposition::MidiComposition(MidiDevice* midiDevice, UCHAR tempo, MidiTrack** tracks, UCHAR trackCount, MidiTrack* selectedTrack) {
+MidiComposition::MidiComposition(MidiDevice* midiDevice, UCHAR tempo, MidiTrack** tracks, UCHAR trackCount) {
 	this->midiDevice = midiDevice;
 	this->timerElapse = MidiComposition::getTimerElapseFromTempo(tempo);
-	this->selectedTrack = NULL;
 	this->trackCount = trackCount;
 	this->tracks = tracks;
 	this->trackEnded = new BOOL[trackCount] { FALSE }; 
@@ -29,31 +28,8 @@ void MidiComposition::initialize() {
 	}
 }
 
-void MidiComposition::setChangeNoteCallBack(Callback * changeNoteCallBack) {
-	this->changeNoteCallback = changeNoteCallBack;
-	this->selectedTrack->setChangeNoteCallback(changeNoteCallBack);
-}
-
 void MidiComposition::setCompositionEndCallback(Callback* compositionEndCallback) {
 	this->compositionEndCallback = compositionEndCallback;
-}
-
-void MidiComposition::selectTrack(Track * track) {
-	UCHAR i = 0;
-	MidiTrack* selectedTrack;
-	while (i < this->trackCount) {
-		if (this->tracks[i]->getTrack() == track) {
-			selectedTrack = this->tracks[i];
-			break;
-		}
-		i++;
-	}
-	if (i == this->trackCount) {
-		return;
-	}
-	this->selectedTrack->setChangeNoteCallback(NULL);
-	this->selectedTrack = selectedTrack;
-	this->selectedTrack->setChangeNoteCallback(this->changeNoteCallback);
 }
 
 void MidiComposition::call() {

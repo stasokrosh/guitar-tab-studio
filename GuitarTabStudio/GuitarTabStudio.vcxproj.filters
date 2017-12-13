@@ -13,41 +13,89 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Файлы заголовков\util">
-      <UniqueIdentifier>{70b533ea-b2bd-46aa-8c93-9d3316be8c48}</UniqueIdentifier>
+    <Filter Include="Исходные файлы\model">
+      <UniqueIdentifier>{a6422f7b-d367-4982-bbc5-3d88b7d655b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\midi">
+      <UniqueIdentifier>{146b5d03-9567-4bef-8fab-c7303dee48f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\impl">
+      <UniqueIdentifier>{b56046e4-cded-47bc-a3ff-afb0a38f0972}</UniqueIdentifier>
     </Filter>
     <Filter Include="Исходные файлы\util">
-      <UniqueIdentifier>{9f528361-b9ff-4337-bb22-0b3b086f04b6}</UniqueIdentifier>
+      <UniqueIdentifier>{1b249ff3-65a4-4731-bce9-756580e38cc9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\common">
-      <UniqueIdentifier>{4e7bab8e-490e-4b4a-ac6e-9f29e650ed49}</UniqueIdentifier>
+    <Filter Include="Исходные файлы\view">
+      <UniqueIdentifier>{38a34ba0-3edf-4af0-91e6-205aac1cffee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\common\midi">
-      <UniqueIdentifier>{c8b2e059-d06d-4a5e-8078-568621d65694}</UniqueIdentifier>
+    <Filter Include="Файлы заголовков\model">
+      <UniqueIdentifier>{dc66d910-40d2-43b6-b651-eea40ad73056}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\common\view">
-      <UniqueIdentifier>{4aa91625-79f8-4920-b2b1-685baba0b8dc}</UniqueIdentifier>
+    <Filter Include="Файлы заголовков\impl">
+      <UniqueIdentifier>{e616bdc2-cda8-4a4f-8c48-9b5bf699e6b5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\common">
-      <UniqueIdentifier>{02abd475-d738-40e3-90ec-e2aeabe90332}</UniqueIdentifier>
+    <Filter Include="Файлы заголовков\view">
+      <UniqueIdentifier>{c1280162-b393-4b41-88c0-6d68fc73c36b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\common\midi">
-      <UniqueIdentifier>{634a1f36-bfbf-452a-bace-055ec9a2bc11}</UniqueIdentifier>
+    <Filter Include="Файлы заголовков\util">
+      <UniqueIdentifier>{030b180d-6334-44e8-8c00-44a06c785a41}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\common\view">
-      <UniqueIdentifier>{bbc17c01-1c58-4a99-a889-c80522348c81}</UniqueIdentifier>
+    <Filter Include="Файлы заголовков\midi">
+      <UniqueIdentifier>{e5eeaabb-543b-4bd4-96ce-db61801b6c8b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\guitar">
-      <UniqueIdentifier>{ea18bb50-76f7-4eb4-b3f8-dc7d66fbc2db}</UniqueIdentifier>
+    <Filter Include="Исходные файлы\editor">
+      <UniqueIdentifier>{87e7b6db-ab35-4625-8bbc-cf45bf6b333c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\guitar">
-      <UniqueIdentifier>{72c183b9-3097-4fac-9bc2-e31dac401f30}</UniqueIdentifier>
+    <Filter Include="Файлы заголовков\editor">
+      <UniqueIdentifier>{9e9593f2-a386-4eb7-80fd-38149b3e1421}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\guitar\midi">
-      <UniqueIdentifier>{675c5c65-1710-4cda-b12c-2074372154f3}</UniqueIdentifier>
+    <Filter Include="Файлы заголовков\impl\guitar">
+      <UniqueIdentifier>{fd6f7647-f3bf-4eae-b2d4-cbd45656ee6e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\guitar\midi">
-      <UniqueIdentifier>{e98fa917-1cfd-4cd8-acd7-8d1e774c06ea}</UniqueIdentifier>
+    <Filter Include="Исходные файлы\impl\guitar">
+      <UniqueIdentifier>{c8d5b2de-bbd1-4667-9bc3-1d535f7edc22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\view\tact">
+      <UniqueIdentifier>{78c29afd-1b57-4112-893d-4e8eb530e912}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\view\tact">
+      <UniqueIdentifier>{d968f259-cd54-4dcb-8097-caa5e2e822f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\view\page">
+      <UniqueIdentifier>{b22cb836-0271-49df-b848-cbc08418b4c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\view\page">
+      <UniqueIdentifier>{6694d462-f3e2-4281-a701-675d546a4674}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\impl\guitar\view">
+      <UniqueIdentifier>{d579c2a3-635f-412d-afda-32febbdd03c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\impl\guitar\view">
+      <UniqueIdentifier>{59ba1019-3fcc-471a-aead-25386a4f9c6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\impl\guitar\model">
+      <UniqueIdentifier>{a91fad66-1a9a-472f-b9b0-da4fef2f1623}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\impl\guitar\model">
+      <UniqueIdentifier>{dcf48c70-4361-4a61-909f-a18bfb71ebc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\impl\guitar\midi">
+      <UniqueIdentifier>{570c3f5f-f858-4481-ac64-879cfc74a27b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\impl\guitar\editor">
+      <UniqueIdentifier>{3bfe019c-1867-42c6-971c-dab6bced1610}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\impl\guitar\midi">
+      <UniqueIdentifier>{0d24b1a7-bfbb-453d-b36a-e69e68960687}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\impl\guitar\editor">
+      <UniqueIdentifier>{79a8e0b0-7669-4fff-86ef-fa4f29fdcee5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\impl\guitar\factory">
+      <UniqueIdentifier>{2785813c-30a4-4c57-8e8c-2fcdbd7d836d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\impl\guitar\factory">
+      <UniqueIdentifier>{3123273c-d3c1-4963-abfe-dd189f8c2183}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,41 +111,41 @@
     <ClInclude Include="GuitarTabStudio.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Core.h">
-      <Filter>Файлы заголовков\common</Filter>
+    <ClInclude Include="Composition.h">
+      <Filter>Файлы заголовков\model</Filter>
     </ClInclude>
     <ClInclude Include="Event.h">
-      <Filter>Файлы заголовков\common</Filter>
+      <Filter>Файлы заголовков\model</Filter>
     </ClInclude>
-    <ClInclude Include="Midi.h">
-      <Filter>Файлы заголовков\common\midi</Filter>
+    <ClInclude Include="EventFactory.h">
+      <Filter>Файлы заголовков\model</Filter>
     </ClInclude>
-    <ClInclude Include="MidiEvent.h">
-      <Filter>Файлы заголовков\common\midi</Filter>
-    </ClInclude>
-    <ClInclude Include="MidiMessage.h">
-      <Filter>Файлы заголовков\common\midi</Filter>
-    </ClInclude>
-    <ClInclude Include="MidiDevice.h">
-      <Filter>Файлы заголовков\common\midi</Filter>
-    </ClInclude>
-    <ClInclude Include="Tact.h">
-      <Filter>Файлы заголовков\common</Filter>
-    </ClInclude>
-    <ClInclude Include="Track.h">
-      <Filter>Файлы заголовков\common</Filter>
-    </ClInclude>
-    <ClInclude Include="Sequence.h">
-      <Filter>Файлы заголовков\common</Filter>
+    <ClInclude Include="EventIterator.h">
+      <Filter>Файлы заголовков\model</Filter>
     </ClInclude>
     <ClInclude Include="Instrument.h">
-      <Filter>Файлы заголовков\common</Filter>
+      <Filter>Файлы заголовков\model</Filter>
     </ClInclude>
-    <ClInclude Include="Composition.h">
-      <Filter>Файлы заголовков\common</Filter>
+    <ClInclude Include="Model.h">
+      <Filter>Файлы заголовков\model</Filter>
     </ClInclude>
-    <ClInclude Include="MidiPlayer.h">
-      <Filter>Файлы заголовков\common\midi</Filter>
+    <ClInclude Include="Tact.h">
+      <Filter>Файлы заголовков\model</Filter>
+    </ClInclude>
+    <ClInclude Include="TactFactory.h">
+      <Filter>Файлы заголовков\model</Filter>
+    </ClInclude>
+    <ClInclude Include="TactIterator.h">
+      <Filter>Файлы заголовков\model</Filter>
+    </ClInclude>
+    <ClInclude Include="Track.h">
+      <Filter>Файлы заголовков\model</Filter>
+    </ClInclude>
+    <ClInclude Include="View.h">
+      <Filter>Файлы заголовков\view</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewComponent.h">
+      <Filter>Файлы заголовков\view</Filter>
     </ClInclude>
     <ClInclude Include="Callback.h">
       <Filter>Файлы заголовков\util</Filter>
@@ -105,47 +153,149 @@
     <ClInclude Include="Timer.h">
       <Filter>Файлы заголовков\util</Filter>
     </ClInclude>
+    <ClInclude Include="Midi.h">
+      <Filter>Файлы заголовков\midi</Filter>
+    </ClInclude>
     <ClInclude Include="MidiComposition.h">
-      <Filter>Файлы заголовков\common\midi</Filter>
+      <Filter>Файлы заголовков\midi</Filter>
+    </ClInclude>
+    <ClInclude Include="MidiDevice.h">
+      <Filter>Файлы заголовков\midi</Filter>
+    </ClInclude>
+    <ClInclude Include="MidiEvent.h">
+      <Filter>Файлы заголовков\midi</Filter>
+    </ClInclude>
+    <ClInclude Include="MidiMessage.h">
+      <Filter>Файлы заголовков\midi</Filter>
+    </ClInclude>
+    <ClInclude Include="MidiPlayer.h">
+      <Filter>Файлы заголовков\midi</Filter>
     </ClInclude>
     <ClInclude Include="MidiTrack.h">
-      <Filter>Файлы заголовков\common\midi</Filter>
-    </ClInclude>
-    <ClInclude Include="ViewComponent.h">
-      <Filter>Файлы заголовков\common\view</Filter>
-    </ClInclude>
-    <ClInclude Include="View.h">
-      <Filter>Файлы заголовков\common\view</Filter>
-    </ClInclude>
-    <ClInclude Include="PauseEvent.h">
-      <Filter>Файлы заголовков\common</Filter>
+      <Filter>Файлы заголовков\midi</Filter>
     </ClInclude>
     <ClInclude Include="PauseMidiEvent.h">
-      <Filter>Файлы заголовков\common\midi</Filter>
-    </ClInclude>
-    <ClInclude Include="StringInstrument.h">
-      <Filter>Файлы заголовков\guitar</Filter>
-    </ClInclude>
-    <ClInclude Include="Guitar.h">
-      <Filter>Файлы заголовков\guitar</Filter>
-    </ClInclude>
-    <ClInclude Include="StringInstrumentChordEvent.h">
-      <Filter>Файлы заголовков\guitar</Filter>
-    </ClInclude>
-    <ClInclude Include="SteelGuitar.h">
-      <Filter>Файлы заголовков\guitar</Filter>
-    </ClInclude>
-    <ClInclude Include="StringInstrumentChordMidiEvent.h">
-      <Filter>Файлы заголовков\guitar\midi</Filter>
+      <Filter>Файлы заголовков\midi</Filter>
     </ClInclude>
     <ClInclude Include="NotesEditor.h">
-      <Filter>Файлы заголовков\common</Filter>
+      <Filter>Файлы заголовков\editor</Filter>
     </ClInclude>
     <ClInclude Include="TrackEditor.h">
-      <Filter>Файлы заголовков\common</Filter>
+      <Filter>Файлы заголовков\editor</Filter>
     </ClInclude>
-    <ClInclude Include="EventFactory.h">
-      <Filter>Файлы заголовков\common</Filter>
+    <ClInclude Include="TrackEditorFactory.h">
+      <Filter>Файлы заголовков\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryOfTrackEditorFactory.h">
+      <Filter>Файлы заголовков\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="TactTemplate.h">
+      <Filter>Файлы заголовков\model</Filter>
+    </ClInclude>
+    <ClInclude Include="EventIteratorTemplate.h">
+      <Filter>Файлы заголовков\model</Filter>
+    </ClInclude>
+    <ClInclude Include="TrackTemplate.h">
+      <Filter>Файлы заголовков\model</Filter>
+    </ClInclude>
+    <ClInclude Include="TactIteratorTemplate.h">
+      <Filter>Файлы заголовков\model</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewConfiguration.h">
+      <Filter>Файлы заголовков\view</Filter>
+    </ClInclude>
+    <ClInclude Include="TactViewComponent.h">
+      <Filter>Файлы заголовков\view\tact</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderPageViewComponent.h">
+      <Filter>Файлы заголовков\view\page</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderViewComponent.h">
+      <Filter>Файлы заголовков\view\page</Filter>
+    </ClInclude>
+    <ClInclude Include="PageViewComponent.h">
+      <Filter>Файлы заголовков\view\page</Filter>
+    </ClInclude>
+    <ClInclude Include="SimplePageViewComponent.h">
+      <Filter>Файлы заголовков\view\page</Filter>
+    </ClInclude>
+    <ClInclude Include="TactContainerViewComponent.h">
+      <Filter>Файлы заголовков\view\page</Filter>
+    </ClInclude>
+    <ClInclude Include="EventContainerViewComponent.h">
+      <Filter>Файлы заголовков\view\tact</Filter>
+    </ClInclude>
+    <ClInclude Include="EventViewComponent.h">
+      <Filter>Файлы заголовков\view</Filter>
+    </ClInclude>
+    <ClInclude Include="Guitar.h">
+      <Filter>Файлы заголовков\impl\guitar\model</Filter>
+    </ClInclude>
+    <ClInclude Include="GuitarEvent.h">
+      <Filter>Файлы заголовков\impl\guitar\model</Filter>
+    </ClInclude>
+    <ClInclude Include="GuitarEventContainerViewComponent.h">
+      <Filter>Файлы заголовков\impl\guitar\view</Filter>
+    </ClInclude>
+    <ClInclude Include="GuitarEventFactory.h">
+      <Filter>Файлы заголовков\impl\guitar\model</Filter>
+    </ClInclude>
+    <ClInclude Include="GuitarEventViewComponent.h">
+      <Filter>Файлы заголовков\impl\guitar\view</Filter>
+    </ClInclude>
+    <ClInclude Include="GuitarMidiEvent.h">
+      <Filter>Файлы заголовков\impl\guitar\midi</Filter>
+    </ClInclude>
+    <ClInclude Include="GuitarTactFactory.h">
+      <Filter>Файлы заголовков\impl\guitar\model</Filter>
+    </ClInclude>
+    <ClInclude Include="GuitarTrackEditor.h">
+      <Filter>Файлы заголовков\impl\guitar\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="GuitarTrackEditorFactory.h">
+      <Filter>Файлы заголовков\impl\guitar\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="InstrumentFactory.h">
+      <Filter>Файлы заголовков\model</Filter>
+    </ClInclude>
+    <ClInclude Include="GuitarView.h">
+      <Filter>Файлы заголовков\impl\guitar\view</Filter>
+    </ClInclude>
+    <ClInclude Include="GuitarTactViewComponent.h">
+      <Filter>Файлы заголовков\impl\guitar\view</Filter>
+    </ClInclude>
+    <ClInclude Include="TrackViewComponent.h">
+      <Filter>Файлы заголовков\view</Filter>
+    </ClInclude>
+    <ClInclude Include="GuitarNoteViewComponent.h">
+      <Filter>Файлы заголовков\impl\guitar\view</Filter>
+    </ClInclude>
+    <ClInclude Include="GuitarHeadTactViewComponent.h">
+      <Filter>Файлы заголовков\impl\guitar\view</Filter>
+    </ClInclude>
+    <ClInclude Include="GuitarTact.h">
+      <Filter>Файлы заголовков\impl\guitar\model</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectGuitarNoteCallback.h">
+      <Filter>Файлы заголовков\impl\guitar\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectGuitarEventCallback.h">
+      <Filter>Файлы заголовков\impl\guitar\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="GuitarFactory.h">
+      <Filter>Файлы заголовков\impl\guitar\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="SixStringGuitarFactory.h">
+      <Filter>Файлы заголовков\impl\guitar\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="BassGuitarFactory.h">
+      <Filter>Файлы заголовков\impl\guitar\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryOfTrackEditorFactoryImpl.h">
+      <Filter>Файлы заголовков\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="GuitarInstrumentFactory.h">
+      <Filter>Файлы заголовков\impl\guitar\factory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -155,77 +305,167 @@
     <ClCompile Include="GuitarTabStudio.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Composition.cpp">
+      <Filter>Исходные файлы\model</Filter>
+    </ClCompile>
     <ClCompile Include="Event.cpp">
-      <Filter>Исходные файлы\common</Filter>
-    </ClCompile>
-    <ClCompile Include="MidiEvent.cpp">
-      <Filter>Исходные файлы\common\midi</Filter>
-    </ClCompile>
-    <ClCompile Include="MidiMessage.cpp">
-      <Filter>Исходные файлы\common\midi</Filter>
-    </ClCompile>
-    <ClCompile Include="MidiDevice.cpp">
-      <Filter>Исходные файлы\common\midi</Filter>
-    </ClCompile>
-    <ClCompile Include="Tact.cpp">
-      <Filter>Исходные файлы\common</Filter>
-    </ClCompile>
-    <ClCompile Include="Midi.cpp">
-      <Filter>Исходные файлы\common\midi</Filter>
-    </ClCompile>
-    <ClCompile Include="Track.cpp">
-      <Filter>Исходные файлы\common</Filter>
-    </ClCompile>
-    <ClCompile Include="Sequence.cpp">
-      <Filter>Исходные файлы\common</Filter>
+      <Filter>Исходные файлы\model</Filter>
     </ClCompile>
     <ClCompile Include="Instrument.cpp">
-      <Filter>Исходные файлы\common</Filter>
+      <Filter>Исходные файлы\model</Filter>
     </ClCompile>
-    <ClCompile Include="Composition.cpp">
-      <Filter>Исходные файлы\common</Filter>
+    <ClCompile Include="Tact.cpp">
+      <Filter>Исходные файлы\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Track.cpp">
+      <Filter>Исходные файлы\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Midi.cpp">
+      <Filter>Исходные файлы\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="MidiComposition.cpp">
+      <Filter>Исходные файлы\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="MidiDevice.cpp">
+      <Filter>Исходные файлы\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="MidiEvent.cpp">
+      <Filter>Исходные файлы\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="MidiMessage.cpp">
+      <Filter>Исходные файлы\midi</Filter>
     </ClCompile>
     <ClCompile Include="MidiPlayer.cpp">
-      <Filter>Исходные файлы\common\midi</Filter>
+      <Filter>Исходные файлы\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="MidiTrack.cpp">
+      <Filter>Исходные файлы\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseMidiEvent.cpp">
+      <Filter>Исходные файлы\midi</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Исходные файлы\util</Filter>
     </ClCompile>
-    <ClCompile Include="MidiComposition.cpp">
-      <Filter>Исходные файлы\common\midi</Filter>
-    </ClCompile>
-    <ClCompile Include="MidiTrack.cpp">
-      <Filter>Исходные файлы\common\midi</Filter>
-    </ClCompile>
     <ClCompile Include="ViewComponent.cpp">
-      <Filter>Исходные файлы\common\view</Filter>
-    </ClCompile>
-    <ClCompile Include="PauseEvent.cpp">
-      <Filter>Исходные файлы\common</Filter>
-    </ClCompile>
-    <ClCompile Include="PauseMidiEvent.cpp">
-      <Filter>Исходные файлы\common\midi</Filter>
-    </ClCompile>
-    <ClCompile Include="StringInstrument.cpp">
-      <Filter>Исходные файлы\guitar</Filter>
-    </ClCompile>
-    <ClCompile Include="Guitar.cpp">
-      <Filter>Исходные файлы\guitar</Filter>
-    </ClCompile>
-    <ClCompile Include="StringInstrumentChordEvent.cpp">
-      <Filter>Исходные файлы\guitar</Filter>
-    </ClCompile>
-    <ClCompile Include="SteelGuitar.cpp">
-      <Filter>Исходные файлы\guitar</Filter>
-    </ClCompile>
-    <ClCompile Include="StringInstrumentChordMidiEvent.cpp">
-      <Filter>Исходные файлы\guitar\midi</Filter>
+      <Filter>Исходные файлы\view</Filter>
     </ClCompile>
     <ClCompile Include="NotesEditor.cpp">
-      <Filter>Исходные файлы\common</Filter>
+      <Filter>Исходные файлы\editor</Filter>
     </ClCompile>
     <ClCompile Include="TrackEditor.cpp">
-      <Filter>Исходные файлы\common</Filter>
+      <Filter>Исходные файлы\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="TactIterator.cpp">
+      <Filter>Исходные файлы\model</Filter>
+    </ClCompile>
+    <ClCompile Include="TactTemplate.cpp">
+      <Filter>Исходные файлы\model</Filter>
+    </ClCompile>
+    <ClCompile Include="EventIterator.cpp">
+      <Filter>Исходные файлы\model</Filter>
+    </ClCompile>
+    <ClCompile Include="EventIteratorTemplate.cpp">
+      <Filter>Исходные файлы\model</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackTemplate.cpp">
+      <Filter>Исходные файлы\model</Filter>
+    </ClCompile>
+    <ClCompile Include="TactIteratorTemplate.cpp">
+      <Filter>Исходные файлы\model</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewConfiguration.cpp">
+      <Filter>Исходные файлы\view</Filter>
+    </ClCompile>
+    <ClCompile Include="TactViewComponent.cpp">
+      <Filter>Исходные файлы\view\tact</Filter>
+    </ClCompile>
+    <ClCompile Include="HeaderPageViewComponent.cpp">
+      <Filter>Исходные файлы\view\page</Filter>
+    </ClCompile>
+    <ClCompile Include="HeaderViewComponent.cpp">
+      <Filter>Исходные файлы\view\page</Filter>
+    </ClCompile>
+    <ClCompile Include="PageViewComponent.cpp">
+      <Filter>Исходные файлы\view\page</Filter>
+    </ClCompile>
+    <ClCompile Include="SimplePageViewComponent.cpp">
+      <Filter>Исходные файлы\view\page</Filter>
+    </ClCompile>
+    <ClCompile Include="TactContainerViewComponent.cpp">
+      <Filter>Исходные файлы\view\page</Filter>
+    </ClCompile>
+    <ClCompile Include="EventContainerViewComponent.cpp">
+      <Filter>Исходные файлы\view\tact</Filter>
+    </ClCompile>
+    <ClCompile Include="EventViewComponent.cpp">
+      <Filter>Исходные файлы\view</Filter>
+    </ClCompile>
+    <ClCompile Include="Guitar.cpp">
+      <Filter>Исходные файлы\impl\guitar\model</Filter>
+    </ClCompile>
+    <ClCompile Include="GuitarEvent.cpp">
+      <Filter>Исходные файлы\impl\guitar\model</Filter>
+    </ClCompile>
+    <ClCompile Include="GuitarEventFactory.cpp">
+      <Filter>Исходные файлы\impl\guitar\model</Filter>
+    </ClCompile>
+    <ClCompile Include="GuitarTactFactory.cpp">
+      <Filter>Исходные файлы\impl\guitar\model</Filter>
+    </ClCompile>
+    <ClCompile Include="GuitarEventContainerViewComponent.cpp">
+      <Filter>Исходные файлы\impl\guitar\view</Filter>
+    </ClCompile>
+    <ClCompile Include="GuitarEventViewComponent.cpp">
+      <Filter>Исходные файлы\impl\guitar\view</Filter>
+    </ClCompile>
+    <ClCompile Include="GuitarMidiEvent.cpp">
+      <Filter>Исходные файлы\impl\guitar\midi</Filter>
+    </ClCompile>
+    <ClCompile Include="GuitarTrackEditor.cpp">
+      <Filter>Исходные файлы\impl\guitar\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="GuitarTrackEditorFactory.cpp">
+      <Filter>Исходные файлы\impl\guitar\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="GuitarView.cpp">
+      <Filter>Исходные файлы\impl\guitar\view</Filter>
+    </ClCompile>
+    <ClCompile Include="GuitarTactViewComponent.cpp">
+      <Filter>Исходные файлы\impl\guitar\view</Filter>
+    </ClCompile>
+    <ClCompile Include="TrackViewComponent.cpp">
+      <Filter>Исходные файлы\view</Filter>
+    </ClCompile>
+    <ClCompile Include="View.cpp">
+      <Filter>Исходные файлы\view</Filter>
+    </ClCompile>
+    <ClCompile Include="GuitarNoteViewComponent.cpp">
+      <Filter>Исходные файлы\impl\guitar\view</Filter>
+    </ClCompile>
+    <ClCompile Include="GuitarHeadTactViewComponent.cpp">
+      <Filter>Исходные файлы\impl\guitar\view</Filter>
+    </ClCompile>
+    <ClCompile Include="GuitarTact.cpp">
+      <Filter>Исходные файлы\impl\guitar\model</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectGuitarNoteCallback.cpp">
+      <Filter>Исходные файлы\impl\guitar\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectGuitarEventCallback.cpp">
+      <Filter>Исходные файлы\impl\guitar\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="SixStringGuitarFactory.cpp">
+      <Filter>Исходные файлы\impl\guitar\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="BassGuitarFactory.cpp">
+      <Filter>Исходные файлы\impl\guitar\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="FactoryOfTrackEditorFactoryImpl.cpp">
+      <Filter>Исходные файлы\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="GuitarInstrumentFactory.cpp">
+      <Filter>Исходные файлы\impl\guitar\factory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

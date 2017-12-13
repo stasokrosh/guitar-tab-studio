@@ -1,102 +1,129 @@
 #include "stdafx.h"
 #include "Composition.h"
 
-Composition::Composition(CompositionInfo compositionInfo, UCHAR velocity) {
+Composition::Composition(CompositionInfo compositionInfo) {
 	this->compositionInfo = compositionInfo;
-	this->setVelocity(velocity);
+	this->setVelocity(this->getVelocity());
 }
 
 
-Composition::~Composition() {}
-
-
-MidiComposition * Composition::createMidiComposition(MidiDevice * midiDevice, Track* selectedTrack, TactInfo* selectedTact) {
-	if (!this->isValid()) {
-		return FALSE;
+Composition::~Composition() {
+	for (Track* track : this->tracks) {
+		delete track;
 	}
-	set<UCHAR>* channelSet = this->validateChannelRelation();
-	if (!channelSet) {
-		return NULL;
-	}
-	MidiTrack* selectedMidiTrack;
-	MidiTrack** tracks = new MidiTrack*[this->getSize()];
-	TrackIterator begin = this->getBegin();
-	TrackIterator end = this->getEnd();
-	UCHAR notPreferredChannelBeginValue = 0;
-	int i = 0;
-	while (begin != end) {
-		UCHAR preferedChannel = (*begin)->getTrackInfo()->instrument->getPreferedChannel();
-		if (preferedChannel == -1) {
-			notPreferredChannelBeginValue = Composition::findMinValueNotInSet(notPreferredChannelBeginValue, channelSet);
-			preferedChannel = notPreferredChannelBeginValue;
-			notPreferredChannelBeginValue++;
-		}
-		tracks[i] = (*begin)->getMidiTrack(preferedChannel, midiDevice, selectedTact);
-		if (*begin == selectedTrack) {
-			selectedMidiTrack = tracks[i];
-		}
-		i++;
-		begin++;
-	}
-	delete channelSet;
-	return new MidiComposition(midiDevice, this->compositionInfo.tempo, tracks, this->getSize(), selectedMidiTrack);
 }
 
-TrackIterator Composition::addTrack(TrackInfo trackInfo, UCHAR velocity) {
-	return Sequence<Track>::addElement(new Track(trackInfo, velocity, this));
-}
-
-void Composition::insertTrack(TrackIterator iterator, TrackInfo trackInfo, UCHAR velocity) {
-	Sequence<Track>::insertElement(iterator, new Track(trackInfo, velocity, this));
-}
 
 BOOL Composition::isValid() {
-	TrackIterator begin = this->getBegin();
-	TrackIterator end = this->getEnd();
-	while (begin != end) {
-		if (!(*begin)->isValid()) {
+	for (Track* track : this->tracks) {
+		if (!track->isValid()) {
 			return FALSE;
 		}
-		begin++;
 	}
 	return TRUE;
 }
 
 void Composition::setVelocity(UCHAR velocity) {
-	this->velocity = velocity;
-	TrackIterator begin = this->getBegin();
-	TrackIterator end = this->getEnd();
-	while (begin != end) {
-		(*begin)->setVelocity((*begin)->getVelocity());
-		begin++;
+	this->compositionInfo.velocity = velocity;
+	for (Track* track : this->tracks) {
+		track->updateVelocity();
 	}
+}
+
+void Composition::setTempo(UCHAR tempo) {
+	this->compositionInfo.tempo = tempo;
+}
+
+void Composition::setTactDuration(TactDuration tactDuration) {
+	this->compositionInfo.tactDuration = tactDuration;
+}
+
+void Composition::pushTactInfo(TactInfo* tactInfo) {
+	this->tactsSchema.push_back(tactInfo);
+}
+
+void Composition::deleteTactInfo(TactInfo* tactInfo) {
+	vector<TactInfo*>::iterator current = this->tactsSchema.begin();
+	vector<TactInfo*>::iterator end = this->tactsSchema.end();
+	while (current != end) {
+		if (*current = tactInfo) {
+			this->tactsSchema.erase(current, current);
+			return;
+		}
+		current++;
+	}
+}
+
+void Composition::popTactInfo() {
+	this->tactsSchema.pop_back();
 }
 
 UCHAR Composition::getVelocity() {
+	return this->compositionInfo.velocity;
+}
+
+UCHAR Composition::getSize() {
+	return this->tracks.size();
+}
+
+wstring Composition::getName() {
+	return this->compositionInfo.name;
+}
+
+wstring Composition::getAuthor() {
+	return this->compositionInfo.author;
+}
+
+UCHAR Composition::getTempo() {
+	return this->compositionInfo.tempo;
+}
+
+TactDuration* Composition::getTactDuration() {
+	return &(this->compositionInfo.tactDuration);
+}
+
+UCHAR Composition::getTactInfoCount() {
 	return UCHAR();
 }
 
-set<UCHAR>* Composition::validateChannelRelation() {
-	TrackIterator begin = this->getBegin();
-	TrackIterator end = this->getEnd();
-	set<UCHAR>* channelSet = new set<UCHAR>();
-	while (begin != end) {
-		UCHAR preferedChannel = (*begin)->getTrackInfo()->instrument->getPreferedChannel();
-		if (preferedChannel != -1) {
-			std::pair<set<UCHAR>::iterator, bool> pair = channelSet->insert(preferedChannel);
-			if (!pair.second) {
-				delete channelSet;
-				return NULL;
-			}
-		}
-		begin++;
-	}
-	return channelSet;
+TactInfo* Composition::getTactInfo(UCHAR number) {
+	return this->tactsSchema.at(number);
 }
 
-UCHAR Composition::findMinValueNotInSet(UCHAR beginValue, set<UCHAR>* set) {
-	while (set->find(beginValue) != set->end()) {
-		beginValue++;
-	}
-	return beginValue;
+CompositionInfo * Composition::getCompositionInfo() {
+	return &(this->compositionInfo);
 }
+
+void Composition::setName(wstring name) {
+	this->compositionInfo.name = name;
+}
+
+void Composition::setAuthor(wstring author) {
+	this->compositionInfo.author = author;
+}
+
+Track * Composition::getTrack(UCHAR number) {
+	return this->tracks.at(number);
+}
+
+Track * Composition::addTrack(Track* track) {
+	track->setComposition(this);
+	this->tracks.push_back(track);
+	return this->tracks.back;
+}
+
+void Composition::deleteTrack(UCHAR number) {
+	UCHAR i = 0;
+	vector<TactInfo*>::iterator current = this->tactsSchema.begin();
+	vector<TactInfo*>::iterator end = this->tactsSchema.end();
+	while (i < number && current != end) {
+		current++;
+	}
+	if (current != end) {
+		this->tactsSchema.erase(current, current);
+	}
+}
+
+
+
+

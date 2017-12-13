@@ -2,22 +2,33 @@
 #include "ViewComponent.h"
 
 
-ViewComponent::ViewComponent(USHORT x, USHORT y, USHORT width, USHORT height) {
-	this->x = x;
-	this->y = y;
-	this->width = width;
-	this->height = height;
+ViewComponent::ViewComponent(ViewInfo* viewInfo, Callback* clickCallback, Callback* doubleClickCallback) {
+	this->viewInfo = viewInfo;
+	this->clickCallBack = clickCallBack;
+	this->doubleClickCallback = doubleClickCallback;
+	this->width = 0;
+	this->height = 0;
+	this->x = 0;
+	this->y = 0;
 }
 
 
-ViewComponent::~ViewComponent() {}
-
-void ViewComponent::draw(HDC hdc, USHORT width, USHORT height) {
-	if (width > x && height > y) {
-		this->selfDraw(hdc, width, height);
+ViewComponent::~ViewComponent() {
+	for (ViewComponent* viewComponent : this->components) {
+		delete viewComponent;
 	}
+	if (this->clickCallBack != NULL) {
+		delete this->clickCallBack;
+	}
+	if (this->doubleClickCallback != NULL) {
+		delete this->doubleClickCallback;
+	}
+}
+
+void ViewComponent::draw(HDC hdc) {
+	this->selfDraw(hdc);
 	for (ViewComponent* component : this->components) {
-		component->draw(hdc, width, height);
+		component->draw(hdc);
 	}
 }
 
@@ -32,7 +43,9 @@ void ViewComponent::click(USHORT x, USHORT y) {
 			return;
 		}
 	}
-	this->selfClick();
+	if (this->clickCallBack != NULL) {
+		this->clickCallBack->call();
+	}
 }
 
 void ViewComponent::doubleClick(USHORT x, USHORT y) {
@@ -42,16 +55,51 @@ void ViewComponent::doubleClick(USHORT x, USHORT y) {
 			return;
 		}
 	}
-	this->selfDoubleClick();
+	if (this->doubleClickCallback != NULL) {
+		this->doubleClickCallback->call();
+	}
 }
 
 void ViewComponent::move(USHORT x, USHORT y) {
+	USHORT deltaX = x - this->x;
+	USHORT deltaY = y - this->y;
 	this->x = x;
 	this->y = y;
+	for (ViewComponent* viewComponent : this->components) {
+		viewComponent->move(viewComponent->getX() + deltaX, viewComponent->getY() + deltaY);
+	}
 }
 
 void ViewComponent::resize(USHORT width, USHORT height) {
 	this->width = width;
 	this->height = height;
 }
+
+void ViewComponent::updateSize() {}
+
+vector<ViewComponent*>* ViewComponent::getComponents() {
+	return &(this->components);
+}
+
+USHORT ViewComponent::getX() {
+	return this->x;
+}
+
+USHORT ViewComponent::getY() {
+	return this->y;
+}
+
+USHORT ViewComponent::getWidth() {
+	return this->width;
+}
+
+USHORT ViewComponent::getHeight() {
+	return this->height;
+}
+
+ViewInfo * ViewComponent::getViewInfo() {
+	return this->viewInfo;
+}
+
+void ViewComponent::selfDraw(HDC hdc) {}
 

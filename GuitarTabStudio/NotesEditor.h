@@ -1,46 +1,51 @@
 #pragma once
 #include "Composition.h"
-#include "Event.h"
-#include "TrackEditor.h"
-
-#define DEFAULT_BEAT_TYPE QUATER
-#define DEFAULT_BEAT_TYPE_EX NORMAL
-#define DEFAULT_DOT_COUNT 0
+#include <set>
+#include "FactoryOfTrackEditorFactory.h"
 
 class NotesEditor {
 public:
-	NotesEditor();
+	NotesEditor(FactoryOfTrackEditorFactory* factoryOfTEFactory);
 	~NotesEditor();
 	void CreateComposition(CompositionInfo compositionInfo);
-	void LoadComposition(string fileName);
-	void SaveCompositionAs(string fileName);
-	void SaveComposition();
-
-	void setBeatType(BeatType beatType);
-	void setBeatTypeEx(BeatTypeEx beatTypeEx);
-	void setDotCount(UCHAR dotCount);
-	void setCompositionInfo(CompositionInfo compositionInfo);
-	void setTrackName(string trackName);
-
-	BeatType getBeatType();
-	BeatTypeEx getBeatTypeEx();
-	UCHAR getDotCount();
-	string getFileName();
-	CompositionInfo getCompositionInfo();
-	Instrument* getInstrument();
-	string getTrackName();
-
-	AddTact
-private:
-	void initializeTrackEditors();
-	void clearTrackEditorsVector();
-	void selectTrackEditor(TrackEditor* trackEditor);
+	BOOL addTrack(TrackInfo trackInfo, Instruments instrumentType, wstring instrumentName);
+	Composition* getComposition();
+	MidiComposition* createMidiComposition(MidiDevice* midiDevice);
+	vector<Track*> getTracks();
+	EventInfo* getEventInfo();
+	void deleteTrack(Track* track);
+	void selectTrack(Track* track);
+	void selectTact(Tact* tactInfo);
+	void selectEvent(Event* event);
 	Track* getSelectedTrack();
-
-	EventInfo eventInfo;
+	void setEventPause();
+	void moveForward();
+	void moveBackward();
+	void moveUp();
+	void moveDown();
+	Tact* getSelectedTact();
+	Event* getSelectedEvent();
+private:
 	Composition* composition;
-	string fileName;
+	FactoryOfTrackEditorFactory* factoryOfTEFactory;
 	vector<TrackEditor*> trackEditors;
 	TrackEditor* selectedTrackEditor;
+	TactIterator* selectedTact;
+	EventIterator* selectedEvent;
+	BOOL tactSelected;
+	EventInfo eventInfo;
+
+	void addEmptyTact(Track* track, vector<EventInfo> events, TactInfo* tactInfo);
+	void moveNextTact();
+	void movePrevTact();
+	void setTactSelected(BOOL tactSelected);
+	set<UCHAR>* validateChannelRelation();
+	void selectTrackEditor(TrackEditor* trackEditor);
+	BOOL emptyEnding();
+	void deleteEnding();
+	TrackEditor* findTrackEditorByTrack(Track* track);
+	vector<TrackEditor*>::iterator findTrackEditorIteratorByTrack(Track* track);
+	static UCHAR findMinValueNotInSet(UCHAR beginValue, set<UCHAR>* set);
+	static vector<EventInfo> getEventsForTactDuration(TactDuration* tactDuration);
 };
 

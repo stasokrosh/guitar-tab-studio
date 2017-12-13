@@ -32,3 +32,5 @@ struct Note {
 	Notes frequency;
 	UCHAR octave;
 };
+
+wstring NoteToWstring(Notes note);

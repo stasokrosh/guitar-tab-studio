@@ -1,18 +1,20 @@
 #pragma once
-#include "Core.h"
+#include "Model.h"
 #include <string>
 
 using namespace std;
 
 class Instrument {
 public:
-	Instrument(UCHAR number, string name);
+	Instrument(UCHAR number, wstring name, Instruments instrumentType);
 	~Instrument();
 	UCHAR getNumber();
-	string getName();
+	wstring getName();
+	Instruments getInstrumentType();
 	virtual UCHAR getPreferedChannel();
 private:
+	Instruments instrumentType;
 	UCHAR number;
-	string name;
+	wstring name;
 };
 

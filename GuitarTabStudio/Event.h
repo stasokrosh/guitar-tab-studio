@@ -1,9 +1,6 @@
 #pragma once
-#include "Core.h"
+#include "Model.h"
 #include "Tact.h"
-
-#include "ViewComponent.h"
-#include "View.h"
 
 #include "MidiEvent.h"
 
@@ -11,13 +8,22 @@
 class Event {
 public:	
 	Event(EventInfo eventInfo, Tact* tact);
-	UCHAR getAbsoluteBeatCount();
-	virtual MidiEvent* getMidiEvent(UCHAR channel, UCHAR* velocity) = 0;
-	virtual ViewComponent* getViewComponent(ViewInfo viewInfo) = 0;
-	virtual BOOL isEmpty() = 0;
 	Tact* getTact();
 	EventInfo* getEventInfo();
-private:
+	BeatType getBeatType();
+	BeatTypeEx getBeatTypeEx();
+	UCHAR getDotCount();
+	BOOL isPause();
+	void setBeatType(BeatType beatType);
+	void setBeatTypeEx(BeatTypeEx beatTypeEx);
+	void setDotCount(UCHAR dotCount);
+	static UCHAR getAbsoluteBeatCount(EventInfo* eventInfo);
+	UCHAR getAbsoluteBeatCount();
+	virtual MidiEvent* getMidiEvent(UCHAR channel, UCHAR* velocity) = 0;
+	virtual void setPause(BOOL pause);
+	virtual BOOL isEmpty() = 0;
+	virtual void setEmpty() = 0;
+protected:
 	EventInfo eventInfo;
 	Tact* tact;
 };

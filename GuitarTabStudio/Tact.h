@@ -1,24 +1,30 @@
 #pragma once
-#include "Core.h"
-#include "Sequence.h"
+#include "Model.h"
 #include "Event.h"
-#include "MidiTrack.h"
-#include "EventFactory.h";
+#include "EventIterator.h"
+#include "Track.h"
+#include "EventFactory.h"
 
-typedef vector<Event*>::iterator EventIterator;
-
-class Tact : public Sequence<Event> {
+class Tact {
 public:
-	Tact(TactInfo* tactInfo, Track* track);
+	Tact(TactInfo* tactInfo, Track* track, EventFactory* eventFactory);
 	~Tact();
-	BOOL isValid();
+	TactValidity isValid();
 	void addMidiEventsToVector(UCHAR channel, UCHAR* velocity, vector<MidiEvent*>* vector);
-	virtual EventIterator addEvent(EventInfo eventInfo, EventFactory* eventFactory);
-	virtual void insertEvent(EventIterator iterator, EventInfo eventInfo, EventFactory * eventFactory);
 	Track* getTrack();
 	TactInfo* getTactInfo();
-private: 
+	BOOL isEmpty();
+	static USHORT getTactAbsoluteBeatCount(TactDuration* tactDuration);
+	virtual void pushEvent(EventInfo eventInfo) = 0;
+	virtual void popEvent() = 0;
+	virtual Event* getFront() = 0;
+	virtual Event* getBack() = 0;
+	virtual UCHAR getSize() = 0;
+	virtual EventIterator* getBegin() = 0;
+	virtual EventIterator* getEnd() = 0;
+protected: 
 	Track* track;
 	TactInfo* tactInfo;
+	EventFactory* eventFactory;
 };
 

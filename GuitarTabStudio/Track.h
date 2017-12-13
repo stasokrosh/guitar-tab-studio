@@ -1,37 +1,48 @@
 #pragma once
-#include "Core.h"
-#include "Instrument.h"
-#include "Sequence.h"
+#include "Model.h"
 #include "Tact.h"
 #include "Composition.h"
+#include "TactIterator.h"
+#include "TactFactory.h"
 
 #include "MidiTrack.h"
 #include "MidiDevice.h"
 
+#include "NotesEditor.h"
+
 using namespace std;
 
-typedef vector<Tact*>::iterator TactIterator;
-
-class Track : public Sequence<Tact> {
+class Track {
 public:
-	Track(TrackInfo trackInfo,UCHAR velocity, Composition* composition);
+	Track(TrackInfo trackInfo, Instrument* instrument, TactFactory* tactFactory);
 	~Track();
-	virtual TactIterator addTact(TactInfo* tactInfo);
-	virtual void insertTact(TactIterator iterator, TactInfo* tactInfo);
-	MidiTrack* getMidiTrack(UCHAR channel, MidiDevice* midiDevice, TactInfo* tactInfo);
-	TactIterator findTactByTactInfo(TactInfo* tactInfo);
 	BOOL isValid();
-	UCHAR getVelocity();
-	void setVelocity(UCHAR velocity);
+	void setComposition(Composition* composition);
 	Composition* getComposition();
+	MidiTrack* getMidiTrack(NotesEditor* notesEditor, UCHAR channel, MidiDevice* midiDevice, TactInfo* tact, Callback* changeNoteCallback);
+	UCHAR getVelocity();
+	wstring getName();
+	Instrument* getInstrument();
 	TrackInfo* getTrackInfo();
+	void setName(wstring name);
+	void updateVelocity();
+	void setVelocity(UCHAR velocity);
+	TactIterator* findIteratorByTactInfo(TactInfo* tactInfo);
 
-private:
+	virtual Tact* getFront() = 0;
+	virtual Tact* getBack() = 0;
+	virtual TactIterator* pushTact(TactInfo* tactInfo) = 0;
+	virtual void popTact() = 0;
+	virtual UCHAR getSize() = 0;
+	virtual TactIterator* getBegin() = 0;
+	virtual TactIterator* getEnd() = 0;
+protected:
 	Composition* composition;
 	TrackInfo trackInfo;
-	UCHAR velocity;
 	UCHAR effectiveVelocity;
-	TactIterator moveIteratorBack(TactIterator current, TactIterator begin);
-	TactIterator createNewReprise(TactIterator current, TactIterator begin, vector<pair<TactIterator, UCHAR>>* repriseStack);
-};
+	TactFactory* tactFactory;
+	Instrument* instrument;
 
+	void moveSelectorBack(TactIterator* current, TactIterator* begin);
+	void createNewReprise(TactIterator* current, vector<pair<Tact*, UCHAR>>* repriseStack);
+};

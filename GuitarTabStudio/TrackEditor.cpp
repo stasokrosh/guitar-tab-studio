@@ -4,27 +4,25 @@
 
 TrackEditor::TrackEditor(Track* track, NotesEditor* notesEditor) {
 	this->track = track;
-	this->eventIterator = (*(track->getBegin()))->getBegin();
-	this->selectedEvent = *(this->eventIterator);
-	this->selectedTact = NULL;
 	this->notesEditor = notesEditor;
 }
 
 
-TrackEditor::~TrackEditor() { }
-
-Event * TrackEditor::getSelectedEvent() {
-	return this->selectedEvent;
-}
-
-Tact * TrackEditor::getSelectedTact() {
-	return this->selectedTact;
+TrackEditor::~TrackEditor() {
+	delete this->track;
 }
 
 Track * TrackEditor::getTrack() {
 	return this->track;
 }
 
-void TrackEditor::moveIteratorForward() {}
+void TrackEditor::getIteratorByTactInfo(TactInfo * tactInfo, TactIterator ** tactIterator) {
+	*tactIterator = this->track->findIteratorByTactInfo(tactInfo);
+}
 
-void TrackEditor::moveIteratorBackward() {}
+void TrackEditor::getIteratorsByEvent(TactInfo * tactInfo, TactIterator ** tactIterator, EventIterator ** eventIterator) {}
+
+Event * TrackEditor::getSelectedEvent() {
+	return this->notesEditor->getSelectedEvent();
+}
+

@@ -1,79 +1,93 @@
 #include "stdafx.h"
 #include "Track.h"
 
-Track::Track(TrackInfo trackInfo, UCHAR velocity, Composition* composition) {
+Track::Track(TrackInfo trackInfo, Instrument* instrument, TactFactory* tactFactory) {
 	this->trackInfo = trackInfo;
-	this->composition = composition;
-	this->setVelocity(velocity);
+	this->tactFactory = tactFactory;
+	this->instrument = instrument;
 }
 
 Track::~Track() {
-	delete this->trackInfo.instrument;
+	delete this->instrument;
 }
 
-TactIterator Track::addTact(TactInfo* tactInfo) {
-	return Sequence<Tact>::addElement(new Tact(tactInfo, this));
-}
-
-void Track::insertTact(TactIterator iterator, TactInfo* tactInfo) {
-	Sequence<Tact>::insertElement(iterator, new Tact(tactInfo, this));
-}
-
-
-MidiTrack * Track::getMidiTrack(UCHAR channel, MidiDevice * midiDevice, TactInfo* tactInfo) {
-	TactIterator begin = this->findTactByTactInfo(tactInfo);
-	TactIterator current = begin;
-	TactIterator end = this->getEnd();
+MidiTrack * Track::getMidiTrack(NotesEditor* notesEditor, UCHAR channel, MidiDevice * midiDevice, TactInfo* tact, Callback* changeNoteCallback) {
+	TactIterator* current = this->findIteratorByTactInfo(tact);
+	TactIterator* begin = this->getBegin();
+	TactIterator* end = this->getEnd();
 	vector<MidiEvent*>* events = new vector<MidiEvent*>();
-	vector<pair<TactIterator, UCHAR>> repriseStack;
-	while (current != end) {
-		(*current)->addMidiEventsToVector(channel, &(this->effectiveVelocity), events);
+	vector<pair<Tact*, UCHAR>> repriseStack;
+	while (!current->equal(end)) {
+		current->getTact()->addMidiEventsToVector(channel, &(this->effectiveVelocity), events);
 		if (repriseStack.size() > 0) {
-			pair<TactIterator, UCHAR> currentReprise = repriseStack.back();
-			if (current == currentReprise.first) {
+			pair<Tact*, UCHAR> currentReprise = repriseStack.back();
+			if (current->getTact() == currentReprise.first) {
 				currentReprise.second--;
 				if (currentReprise.second == 0) {
 					repriseStack.pop_back();
-					current++;
+					current->moveForward();
 				} else {
-					this->moveIteratorBack(current, begin);
+					this->moveSelectorBack(current);
 				}
 			} else {
-				this->createNewReprise(current, begin, &repriseStack);
+				this->createNewReprise(current, &repriseStack);
 			}
 		} else {
-			this->createNewReprise(current, begin, &repriseStack);
+			this->createNewReprise(current, &repriseStack);
 		}
 	}
+	delete current;
+	delete begin;
+	delete end;
+	return new MidiTrack(channel, this->instrument->getNumber(), notesEditor, midiDevice, events);
 }
 
-TactIterator Track::findTactByTactInfo(TactInfo * tactInfo) {
-	TactIterator iterator = this->getBegin();
-	TactIterator end = this->getEnd();
-	while (iterator != end && (*iterator)->getTactInfo() != tactInfo) {
-		iterator++;
-	}
-	return iterator;
+wstring Track::getName() {
+	return this->trackInfo.name;
 }
+
+Instrument* Track::getInstrument() {
+	return this->instrument;
+}
+
+TrackInfo* Track::getTrackInfo() {
+	return &(this->trackInfo);
+}
+
+void Track::setName(wstring name) {
+	this->trackInfo.name = name;
+}
+
 
 BOOL Track::isValid() {
-	TactIterator iterator = this->getBegin();
-	TactIterator end = this->getEnd();
-	while (iterator != end) {
-		if (!(*iterator)->isValid()) {
+	TactIterator* current = this->getBegin();
+	TactIterator* end = this->getEnd();
+	while (!current->equal(end)) {
+		if (current->getTact()->isValid() != VALID) {
 			return FALSE;
 		}
-		iterator++;
-	}
+		current->moveForward();
+	};
+	delete current;
+	delete end;
 	return TRUE;
 }
 
+void Track::setComposition(Composition * composition) {
+	this->composition = composition;
+	this->updateVelocity();
+}
+
 UCHAR Track::getVelocity() {
-	return this->velocity;
+	return this->trackInfo.velocity;
+}
+
+void Track::updateVelocity() {
+	this->setVelocity(this->getVelocity);
 }
 
 void Track::setVelocity(UCHAR velocity) {
-	this->velocity = velocity;
+	this->trackInfo.velocity = velocity;
 	this->effectiveVelocity = velocity * this->composition->getVelocity / 0xFF;
 }
 
@@ -81,25 +95,27 @@ Composition * Track::getComposition() {
 	return this->composition;
 }
 
-TrackInfo * Track::getTrackInfo() {
-	return &(this->trackInfo);
-}
-
-TactIterator Track::moveIteratorBack(TactIterator current, TactIterator begin) {
-	while (current != begin || (*current)->getTactInfo()->repriseBegin) {
-		current--;
+TactIterator * Track::findIteratorByTactInfo(TactInfo * tactInfo) {
+	TactIterator* iterator = this->getBegin();
+	while (iterator->getTact()->getTactInfo() != tactInfo) {
+		iterator->moveForward();
 	}
-	return current;
+	delete iterator;
 }
 
-TactIterator Track::createNewReprise(TactIterator current, TactIterator begin, vector<pair<TactIterator, UCHAR>>* repriseStack) {
-	if ((*current)->getTactInfo()->repriseEnd > 1) {
-		pair<TactIterator, UCHAR> newReprise(current, (*current)->getTactInfo()->repriseEnd - 1);
+
+void Track::moveSelectorBack(TactIterator* current, TactIterator* begin) {
+	while (!current->equal(begin) && !current->getTact()->getTactInfo()->repriseBegin) {
+		current->moveBackwards();
+	}
+}
+
+void Track::createNewReprise(TactIterator* current, vector<pair<Tact*, UCHAR>>* repriseStack) {
+	if (current->getTact()->getTactInfo()->repriseEnd > 1) {
+		pair<Tact*, UCHAR> newReprise(current->getTact(), current->getTact()->getTactInfo()->repriseEnd - 1);
 		repriseStack->push_back(newReprise);
-		this->moveIteratorBack(current, begin);
+		this->moveSelectorBack(current);
 	} else {
-		current++;
+		current->moveForward();
 	}
-	return current;
 }
-

@@ -2,29 +2,35 @@
 #include "Guitar.h"
 
 
-Guitar::Guitar(UCHAR number, string guitarName, UCHAR capo) : StringInstrument(number,guitarName + " guitar") {
-	this->capo = capo;
+Guitar::Guitar(UCHAR number, wstring name, UCHAR stringCount, Note* defaultFormation, UCHAR capo) : Instrument(number, name, GUITAR) {
+	this->stringCount = stringCount;
+	this->formation = new Note[stringCount];
+	for (int i = 0; i < stringCount; i++) {
+		this->formation[i] = defaultFormation[i];
+	}
 }
 
 
-Guitar::~Guitar() {}
+Guitar::~Guitar() {
+	delete[] this->formation;
+}
 
-void Guitar::initializeStrings() {
-	this->formation[0].frequency = E;
-	this->formation[0].octave = 1;
+UCHAR Guitar::getStringCount() {
+	return this->stringCount;
+}
 
-	this->formation[1].frequency = H;
-	this->formation[1].octave = 1;
+UCHAR Guitar::getFrequency(CHAR note, UCHAR stringNum) {
+	return GetFrequency(this->formation[stringNum].octave, this->formation[stringNum].frequency) + note;
+}
 
-	this->formation[2].frequency = G;
-	this->formation[2].octave = 1;
-	
-	this->formation[3].frequency = D;
-	this->formation[3].octave = 1;
+Note * Guitar::getString(UCHAR stringNum) {
+	return &this->formation[stringNum];
+}
 
-	this->formation[4].frequency = A;
-	this->formation[4].octave = 1;
+UCHAR Guitar::getCapo() {
+	return this->capo;
+}
 
-	this->formation[5].frequency = E;
-	this->formation[5].octave = 1;
+void Guitar::setCapo(UCHAR capo) {
+	this->capo = capo;
 }

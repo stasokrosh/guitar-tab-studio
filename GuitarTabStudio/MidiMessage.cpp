@@ -24,3 +24,5 @@ ULONG MidiMessage::getMessage() {
 MidiMessage::MidiMessage(Message message) {
 	this->message = message;
 }
+
+MidiMessage::MidiMessage() {}

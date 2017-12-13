@@ -1,38 +1,39 @@
 #include "stdafx.h"
 #include "Tact.h"
 
-Tact::Tact(TactInfo* tactInfo, Track* track) {
+Tact::Tact(TactInfo* tactInfo, Track* track, EventFactory* eventFactory) {
 	this->tactInfo = tactInfo;
 	this->track = track;
+	this->eventFactory = eventFactory;
 }
 
 Tact::~Tact() {}
 
-BOOL Tact::isValid() {
-	USHORT tactAbsoluteBeatCount = ABSOLUTE_BEAT_COUNT_BASE * this->tactInfo->tactDuration->beatCount / this->tactInfo->tactDuration->beatType;
+TactValidity Tact::isValid() {
+	USHORT tactAbsoluteBeatCount = Tact::getTactAbsoluteBeatCount(this->tactInfo->tactDuration);
 	USHORT notesAboluteBeatCount = 0;
-	for (Event* pEvent : this->elements) {
-		notesAboluteBeatCount += pEvent->getAbsoluteBeatCount();
-	}
-	return tactAbsoluteBeatCount == notesAboluteBeatCount;
+	EventIterator* currentIterator = this->getBegin();
+	EventIterator* endIterator = this->getBegin();
+	while (!currentIterator->equal(endIterator)) {
+		notesAboluteBeatCount += currentIterator->getEvent()->getAbsoluteBeatCount();
+		currentIterator->moveForward();
+	};
+	delete currentIterator;
+	delete endIterator;
+	return tactAbsoluteBeatCount == notesAboluteBeatCount ? VALID : tactAbsoluteBeatCount > notesAboluteBeatCount ? LESS : MORE;
 }
 
 void Tact::addMidiEventsToVector(UCHAR channel, UCHAR* velocity, vector<MidiEvent*>* vector) {	
-	EventIterator iterator = this->getBegin();
-	EventIterator endIterator = this->getEnd();
-	while (iterator != endIterator) {
-		vector->push_back((*iterator)->getMidiEvent(channel, velocity));
-		iterator++;
-	}
+	EventIterator* currentIterator = this->getBegin();
+	EventIterator* endIterator = this->getBegin();
+	while (!currentIterator->equal(endIterator)) {
+		vector->push_back(currentIterator->getEvent()->getMidiEvent(channel, velocity));
+		currentIterator->moveForward();
+	};
+	delete currentIterator;
+	delete endIterator;
 }
 
-EventIterator Tact::addEvent(EventInfo eventInfo, EventFactory * eventFactory) {
-	return Sequence::addElement(eventFactory->createEvent(eventInfo, this));
-}
-
-void Tact::insertEvent(EventIterator iterator, EventInfo eventInfo, EventFactory * eventFactory) {
-	Sequence::insertElement(iterator, eventFactory->createEvent(eventInfo, this));
-}
 
 Track * Tact::getTrack() {
 	return this->track;
@@ -41,5 +42,23 @@ Track * Tact::getTrack() {
 TactInfo * Tact::getTactInfo() {
 	return this->tactInfo;
 }
+
+BOOL Tact::isEmpty() {
+	EventIterator* currentIterator = this->getBegin();
+	EventIterator* endIterator = this->getBegin();
+	while (!currentIterator->equal(endIterator)) {
+		if (!currentIterator->getEvent()->isPause() && !currentIterator->getEvent()->isEmpty()) {
+			return FALSE;
+		}
+	}
+	return TRUE;
+}
+
+USHORT Tact::getTactAbsoluteBeatCount(TactDuration * tactDuration) {
+	return ABSOLUTE_BEAT_COUNT_BASE * tactDuration->beatCount / tactDuration->beatType;
+}
+
+
+
 
 

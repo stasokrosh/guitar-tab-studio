@@ -2,9 +2,10 @@
 #include "Instrument.h"
 
 
-Instrument::Instrument(UCHAR number, string name) {
+Instrument::Instrument(UCHAR number, wstring name, Instruments instrumentType) {
 	this->number = number;
 	this->name = name;
+	this->instrumentType = instrumentType;
 }
 
 
@@ -14,8 +15,12 @@ UCHAR Instrument::getNumber() {
 	return this->number;
 }
 
-string Instrument::getName() {
+wstring Instrument::getName() {
 	return this->name;
+}
+
+Instruments Instrument::getInstrumentType() {
+	return this->instrumentType;
 }
 
 UCHAR Instrument::getPreferedChannel() {

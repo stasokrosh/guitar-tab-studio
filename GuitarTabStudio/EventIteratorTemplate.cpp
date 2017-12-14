@@ -65,3 +65,14 @@ template<class T>
 BOOL EventIteratorTemplate<T>::isFirst() {
 	return this->getEvent() == this->events->front();
 }
+
+template<class T>
+USHORT EventIteratorTemplate<T>::getPosition() {
+	USHORT position = 0;
+	vector<T*>::iterator iterator = this->events->begin();
+	while (iterator != this->iterator) {
+		position++;
+		iterator++;
+	}
+	return position;
+}

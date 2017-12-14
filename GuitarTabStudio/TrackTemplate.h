@@ -16,6 +16,7 @@ public:
 	virtual UCHAR getSize();
 	virtual TactIteratorTemplate<T>* getBegin();
 	virtual TactIteratorTemplate<T>* getEnd();
+	virtual TactIteratorTemplate<T>* getTactIteratorByPosition(USHORT position);
 private:
 	vector<T*> tacts;
 };

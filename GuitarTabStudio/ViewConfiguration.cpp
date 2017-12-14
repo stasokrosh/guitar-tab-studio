@@ -78,3 +78,7 @@ HFONT ViewConfiguration::getFont(UCHAR fontHeight) {
 HPEN ViewConfiguration::getPen(int style, int width, COLORREF color) {
 	return HPEN();
 }
+
+HBRUSH ViewConfiguration::getSolidBrush(COLORREF color) {
+	return HBRUSH();
+}

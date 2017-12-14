@@ -1,5 +1,5 @@
 #pragma once
-#include "Model.h"
+#include "Common.h"
 #include "Tact.h"
 #include "Composition.h"
 #include "TactIterator.h"
@@ -36,6 +36,7 @@ public:
 	virtual UCHAR getSize() = 0;
 	virtual TactIterator* getBegin() = 0;
 	virtual TactIterator* getEnd() = 0;
+	virtual TactIteratorTemplate<T>* getTactIteratorByPosition(USHORT position) = 0;
 protected:
 	Composition* composition;
 	TrackInfo trackInfo;

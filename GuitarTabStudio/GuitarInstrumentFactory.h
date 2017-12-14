@@ -5,9 +5,7 @@
 #include "SixStringGuitarFactory.h" 
 #include "BassGuitarFactory.h"
 #include <map>
-#include <fstream>
-#include <sstream>
-
+#include "Serialization.h"
 using namespace std;
 
 #define GUITAR_DATA_FILE_NAME "guitars.ini"

@@ -1,18 +1,25 @@
 #pragma once
 #include "Composition.h"
-#include <set>
 #include "FactoryOfTrackEditorFactory.h"
+#include "Serialization.h"
+
+#include <set>
+#include <fstream>
 
 class NotesEditor {
 public:
 	NotesEditor(FactoryOfTrackEditorFactory* factoryOfTEFactory);
 	~NotesEditor();
-	void CreateComposition(CompositionInfo compositionInfo);
+	void createComposition(CompositionInfo compositionInfo);
+	BOOL loadComposition(wstring name);
+	void saveComposition(wstring name);
+	void saveComposition();
+	wstring getFileName();
 	BOOL addTrack(TrackInfo trackInfo, Instruments instrumentType, wstring instrumentName);
 	Composition* getComposition();
 	MidiComposition* createMidiComposition(MidiDevice* midiDevice);
 	vector<Track*> getTracks();
-	EventInfo* getEventInfo();
+	EventInfo getEventInfo();
 	void deleteTrack(Track* track);
 	void selectTrack(Track* track);
 	void selectTact(Tact* tactInfo);
@@ -21,8 +28,6 @@ public:
 	void setEventPause();
 	void moveForward();
 	void moveBackward();
-	void moveUp();
-	void moveDown();
 	Tact* getSelectedTact();
 	Event* getSelectedEvent();
 private:
@@ -34,6 +39,7 @@ private:
 	EventIterator* selectedEvent;
 	BOOL tactSelected;
 	EventInfo eventInfo;
+	wstring fileName;
 
 	void addEmptyTact(Track* track, vector<EventInfo> events, TactInfo* tactInfo);
 	void moveNextTact();
@@ -45,7 +51,8 @@ private:
 	void deleteEnding();
 	TrackEditor* findTrackEditorByTrack(Track* track);
 	vector<TrackEditor*>::iterator findTrackEditorIteratorByTrack(Track* track);
-	static UCHAR findMinValueNotInSet(UCHAR beginValue, set<UCHAR>* set);
-	static vector<EventInfo> getEventsForTactDuration(TactDuration* tactDuration);
+	void clearComposition();
+	static UCHAR FindMinValueNotInSet(UCHAR beginValue, set<UCHAR>* set);
+	static vector<EventInfo> GetEventsForTactDuration(TactDuration* tactDuration);
 };
 

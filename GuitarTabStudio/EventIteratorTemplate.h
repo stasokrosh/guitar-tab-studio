@@ -6,14 +6,15 @@ class EventIteratorTemplate : public EventIterator {
 public:
 	EventIteratorTemplate(vector<T*>* events, vector<T*>::iterator iterator, Tact* tact, EventFactory* eventFactory);
 	~EventIteratorTemplate();
-	Event* getEvent();
+	virtual Event* getEvent();
 	T* getTemplateEvent();
-	void deleteEvent();
-	void moveForward();
-	void moveBackwards();
-	void insertEvent(EventInfo eventInfo);
-	BOOL isLast();
-	BOOL isFirst();
+	virtual void deleteEvent();
+	virtual void moveForward();
+	virtual void moveBackwards();
+	virtual void insertEvent(EventInfo eventInfo);
+	virtual BOOL isLast();
+	virtual BOOL isFirst();
+	virtual USHORT getPosition();
 private:
 	vector<T*>* events;
 	vector<T*>::iterator iterator;

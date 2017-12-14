@@ -7,7 +7,7 @@ class TactTemplate : public Tact {
 public:
 	TactTemplate(TactInfo* tactInfo, Track* track, EventFactory* eventFactory);
 	~TactTemplate();
-	virtual void pushEvent(EventInfo eventInfo);
+	virtual EventIterator*  pushEvent(EventInfo eventInfo);
 	virtual void popEvent();
 	virtual T* getTemplateFront();
 	virtual T* getTemplateBack();
@@ -16,6 +16,7 @@ public:
 	virtual UCHAR getSize();
 	virtual EventIteratorTemplate<T>* getBegin();
 	virtual EventIteratorTemplate<T>* getEnd();
+	virtual EventIterator* getEventIteratorByPosition(USHORT position);
 private:
 	vector<T> events;
 };

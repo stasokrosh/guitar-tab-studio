@@ -22,5 +22,6 @@ public:
 	USHORT getInformationIntervalHeight(Scale scale);
 	HFONT getFont(UCHAR fontHeight);
 	HPEN getPen(int style, int width, COLORREF color);
+	HBRUSH getSolidBrush(COLORREF color);
 };
 

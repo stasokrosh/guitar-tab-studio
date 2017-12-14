@@ -7,12 +7,13 @@
 
 class MidiPlayer {
 public:
-	MidiPlayer(Timer* timer, Callback* changeNoteCallback);
+	MidiPlayer(Timer* timer, Callback* stopCompositionCallback);
 	~MidiPlayer();
-	MidiComposition* play(Composition* composition,Track* selectedTrack,TactInfo* selectedTact);
+	MidiComposition* play(MidiComposition* composition);
 	BOOL pause();
 	BOOL stop();
 	BOOL resume();
+	MidiDevice* getMidiDevice();
 
 	class CompositionEndCallback : public Callback {
 	public:
@@ -25,7 +26,8 @@ private:
 	MidiComposition* midiComposition;
 	MidiDevice midiDevice;
 	Timer* timer;
-	Callback* changeNoteCallback;
+	Callback* stopCompositionCallback;
+
 	void startComposition();
 	void stopComposition();
 };

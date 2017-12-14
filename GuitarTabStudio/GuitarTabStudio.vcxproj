@@ -168,7 +168,7 @@
     <ClInclude Include="HeaderPageViewComponent.h" />
     <ClInclude Include="HeaderViewComponent.h" />
     <ClInclude Include="InstrumentFactory.h" />
-    <ClInclude Include="Model.h" />
+    <ClInclude Include="Common.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventIterator.h" />
     <ClInclude Include="GuitarTabStudio.h" />
@@ -180,10 +180,13 @@
     <ClInclude Include="MidiMessage.h" />
     <ClInclude Include="MidiPlayer.h" />
     <ClInclude Include="MidiTrack.h" />
+    <ClInclude Include="Model.h" />
     <ClInclude Include="NotesEditor.h" />
     <ClInclude Include="PageViewComponent.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="SelectGuitarEventCallback.h" />
     <ClInclude Include="SelectGuitarNoteCallback.h" />
+    <ClInclude Include="Serialization.h" />
     <ClInclude Include="SimplePageViewComponent.h" />
     <ClInclude Include="SixStringGuitarFactory.h" />
     <ClInclude Include="TactContainerViewComponent.h" />
@@ -244,8 +247,10 @@
     <ClCompile Include="MidiTrack.cpp" />
     <ClCompile Include="NotesEditor.cpp" />
     <ClCompile Include="PageViewComponent.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="SelectGuitarEventCallback.cpp" />
     <ClCompile Include="SelectGuitarNoteCallback.cpp" />
+    <ClCompile Include="Serialization.cpp" />
     <ClCompile Include="SimplePageViewComponent.cpp" />
     <ClCompile Include="SixStringGuitarFactory.cpp" />
     <ClCompile Include="TactContainerViewComponent.cpp" />

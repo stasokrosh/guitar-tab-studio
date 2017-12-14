@@ -10,18 +10,13 @@ GuitarInstrumentFactory::GuitarInstrumentFactory() {
 }
 
 BOOL GuitarInstrumentFactory::initialize() {
+	wifstream stream;
 	try {
-		wifstream stream(GUITAR_DATA_FILE_NAME);
+		stream.open(GUITAR_DATA_FILE_NAME);
 		while (!stream.eof()) {
 			wstring guitarRecord;
-			getline(stream, guitarRecord, L'\n');
-			vector<wstring> parts;
-			wstringstream sstream(guitarRecord);
-			while (!sstream.eof()) {
-				wstring part;
-				getline(sstream, part, L' ');
-				parts.push_back(part);
-			}
+			ReadLine(&stream, &guitarRecord);
+			vector<wstring> parts = Divide(guitarRecord);
 			if (parts.size() != 3) {
 				return FALSE;
 			}
@@ -31,9 +26,13 @@ BOOL GuitarInstrumentFactory::initialize() {
 			UCHAR instrumentNum = stoi(parts.at(2));
 			this->guitarsData.insert(pair<wstring, pair<wstring, UCHAR>>(parts.at(0), pair<wstring, UCHAR>(parts.at(1), instrumentNum)));
 		}
+		stream.close();
 		return TRUE;
 	}
 	catch (exception e) {
+		if (stream.open) {
+			stream.close();
+		}
 		return FALSE;
 	}
 }

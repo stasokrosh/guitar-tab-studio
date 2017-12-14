@@ -55,3 +55,14 @@ template<class T>
 TactIterator * TrackTemplate<T>::getEnd() {
 	return new TactIteratorTemplate<T>(&(this->tacts), this->tacts.end(), this->tactFactory, this);
 }
+
+template<class T>
+TactIteratorTemplate<T>* TrackTemplate<T>::getTactIteratorByPosition(USHORT position) {
+	vector<T*>::iterator = this->events.begin();
+	USHORT i = 0;
+	while (i < position) {
+		i++;
+		iterator++;
+	}
+	return new TactIteratorTemplate<T>(&(this->tacts), iterator, this->tactFactory, this);
+}

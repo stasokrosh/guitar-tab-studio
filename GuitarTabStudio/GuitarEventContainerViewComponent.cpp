@@ -33,9 +33,17 @@ void GuitarEventContainerViewComponent::selfDraw(HDC hdc) {
 	BeatTypeEx beatTypeEx = (BeatTypeEx)-1;
 	for (GuitarEventViewComponent* event : this->events) {
 		x = event->getX();
-		UCHAR stickHeight = GetStickHeight(this->viewInfo, event->getEvent()->getBeatType());
+		BeatType beatType = event->getEvent()->getBeatType();
+		UCHAR stickHeight = GetStickHeight(this->viewInfo, beatType);
 		if (stickHeight != 0) {
 			DrawLine(hdc, x, y, x, y + stickHeight, pen);
+		}
+		UCHAR dotCount = event->getEvent()->getDotCount();
+		if (dotCount > 0) {
+			UCHAR dotHeight = y + 2 * (beatType / 8 + 1);
+			for (UCHAR j = 1; j <= dotCount; j++) {
+				DrawLine(hdc, x + 2 * j, dotHeight, x + 2 * j, dotHeight, pen);
+			}
 		}
 		UCHAR eventDuration = Event::getAbsoluteBeatCount(event->getEvent()->getEventInfo());
 		BeatTypeEx eventBeatTypeEx = event->getEvent()->getBeatTypeEx();

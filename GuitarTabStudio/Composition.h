@@ -16,7 +16,7 @@ public:
 	wstring getAuthor();
 	UCHAR getTempo();
 	TactDuration* getTactDuration();
-	UCHAR getTactInfoCount();
+	USHORT getTactInfoCount();
 	TactInfo* getTactInfo(UCHAR number);
 	CompositionInfo* getCompositionInfo() ;
 	void setName(wstring name);
@@ -34,6 +34,5 @@ private:
 	vector<Track*> tracks;
 	vector<TactInfo*> tactsSchema;
 	CompositionInfo compositionInfo;
-
 };
 

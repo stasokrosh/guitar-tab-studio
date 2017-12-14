@@ -21,6 +21,8 @@ private:
 	BOOL selected;
 	BOOL* notesSelected;
 	UCHAR stringCount;
+	GuitarEvent* guitarEvent;
+
 	void drawPause(HDC hdc, BeatType beatType);
 };
 

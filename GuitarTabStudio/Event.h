@@ -1,5 +1,5 @@
 #pragma once
-#include "Model.h"
+#include "Common.h"
 #include "Tact.h"
 
 #include "MidiEvent.h"

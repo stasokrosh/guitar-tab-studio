@@ -9,8 +9,9 @@ template<class T>
 TactTemplate::~TactTemplate() {}
 
 template<class T>
-void TactTemplate<T>::pushEvent(EventInfo eventInfo) {
+EventIterator* TactTemplate<T>::pushEvent(EventInfo eventInfo) {
 	this->events.push_back(this->eventFactory->createEvent(eventInfo, this));
+	return new EventIteratorTemplate<T>(&(this->events), this->events.end()--, this, this->eventFactory);
 }
 
 template<class T>
@@ -51,4 +52,15 @@ EventIteratorTemplate<T> * TactTemplate<T>::getBegin() {
 template<class T>
 EventIteratorTemplate<T> * TactTemplate<T>::getEnd() {
 	return new EventIteratorTemplate<T>(&(this->events), this->events.end(), this, this->eventFactory);
+}
+
+template<class T>
+EventIterator * TactTemplate<T>::getEventIteratorByPosition(USHORT position) {
+	vector<T*>::iterator = this->events.begin();
+	USHORT i = 0;
+	while (i < position) {
+		i++;
+		iterator++;
+	}
+	return new EventIteratorTemplate<T>(&(this->events), iterator, this, this->eventFactory);
 }

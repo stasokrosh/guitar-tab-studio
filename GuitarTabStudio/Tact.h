@@ -1,5 +1,5 @@
 #pragma once
-#include "Model.h"
+#include "Common.h"
 #include "Event.h"
 #include "EventIterator.h"
 #include "Track.h"
@@ -15,13 +15,14 @@ public:
 	TactInfo* getTactInfo();
 	BOOL isEmpty();
 	static USHORT getTactAbsoluteBeatCount(TactDuration* tactDuration);
-	virtual void pushEvent(EventInfo eventInfo) = 0;
+	virtual EventIterator* pushEvent(EventInfo eventInfo) = 0;
 	virtual void popEvent() = 0;
 	virtual Event* getFront() = 0;
 	virtual Event* getBack() = 0;
 	virtual UCHAR getSize() = 0;
 	virtual EventIterator* getBegin() = 0;
 	virtual EventIterator* getEnd() = 0;
+	virtual EventIterator* getEventIteratorByPosition(USHORT position) = 0;
 protected: 
 	Track* track;
 	TactInfo* tactInfo;

@@ -65,3 +65,14 @@ template<class T>
 BOOL TactIteratorTemplate<T>::isFirst() {
 	return this->getTact() == this->tacts->front();
 }
+
+template<class T>
+USHORT TactIteratorTemplate<T>::getPosition() {
+	USHORT position = 0;
+	vector<T*>::iterator iterator = this->events->begin();
+	while (iterator != this->iterator) {
+		position++;
+		iterator++;
+	}
+	return position;
+}

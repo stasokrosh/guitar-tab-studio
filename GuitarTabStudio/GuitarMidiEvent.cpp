@@ -2,8 +2,8 @@
 #include "GuitarMidiEvent.h"
 
 
-GuitarMidiEvent::GuitarMidiEvent(UCHAR duration, UCHAR channel, GuitarEvent* event,
-	vector<UCHAR> notes, ChordDirections chordDirection, UCHAR* velocity) : MidiEvent(duration, channel, event) {
+GuitarMidiEvent::GuitarMidiEvent(UCHAR duration, UCHAR channel, vector<UCHAR> notes,
+	ChordDirections chordDirection, UCHAR* velocity, Callback* callback) : MidiEvent(duration, channel, callback) {
 	this->chordDirection = chordDirection;
 	this->notes = notes;
 	this->velocity = velocity;

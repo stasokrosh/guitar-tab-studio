@@ -1,9 +1,10 @@
 #pragma once
 #include <Windows.h>
 #include <string>
-#include "Instrument.h"
 
 #define ABSOLUTE_BEAT_COUNT_BASE 192
+
+using namespace std;
 
 enum Instruments {
 	GUITAR
@@ -53,7 +54,6 @@ struct CompositionInfo {
 	wstring author;
 	UCHAR tempo;
 	TactDuration tactDuration;
-	UCHAR velocity;
 };
 
 struct TactInfo {

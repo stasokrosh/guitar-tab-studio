@@ -1,6 +1,7 @@
 #pragma once
 #include "Windows.h"
-#include "View.h"
+#include "ViewInfo.h"
+#include "Drawing.h"
 
 #define LINE_STYLE PS_SOLID
 #define LINE_WIDTH 1

@@ -2,11 +2,10 @@
 #include "Callback.h"
 #include "MidiDevice.h"
 #include "MidiTrack.h"
-#include "Track.h"
 
 class MidiComposition : public Callback {
 public:
-	MidiComposition(MidiDevice* midiDevice,UCHAR tempo,MidiTrack** tracks, UCHAR trackCount);
+	MidiComposition(MidiDevice* midiDevice,UCHAR tempo, MidiTrack** tracks, UCHAR trackCount);
 	~MidiComposition();
 	void initialize();
 	void setCompositionEndCallback(Callback* compositionEndCallback);

@@ -1,6 +1,9 @@
 #pragma once
 #include "Track.h"
 #include "TactIteratorTemplate.h"
+#include <vector>
+
+using namespace std;
 
 template<class T>
 class TrackTemplate : public Track {
@@ -11,12 +14,13 @@ public:
 	virtual Tact* getBack();
 	virtual T* getTemplateFront();
 	virtual T* getTemplateBack();
-	virtual TactIteratorTemplate<T>* pushTact(TactInfo* tactInfo);
+	virtual TactIterator* pushTact(TactInfo* tactInfo);
 	virtual void popTact();
 	virtual UCHAR getSize();
-	virtual TactIteratorTemplate<T>* getBegin();
-	virtual TactIteratorTemplate<T>* getEnd();
-	virtual TactIteratorTemplate<T>* getTactIteratorByPosition(USHORT position);
+	virtual TactIterator* getBegin();
+	virtual TactIterator* getEnd();
+	virtual TactIteratorTemplate<T>* getTemplateBegin();
+	virtual TactIteratorTemplate<T>* getTemplateEnd();
 private:
 	vector<T*> tacts;
 };

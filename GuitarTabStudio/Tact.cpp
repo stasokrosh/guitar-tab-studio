@@ -1,9 +1,8 @@
 #include "stdafx.h"
 #include "Tact.h"
 
-Tact::Tact(TactInfo* tactInfo, Track* track, EventFactory* eventFactory) {
+Tact::Tact(TactInfo* tactInfo, EventFactory* eventFactory) {
 	this->tactInfo = tactInfo;
-	this->track = track;
 	this->eventFactory = eventFactory;
 }
 
@@ -23,21 +22,6 @@ TactValidity Tact::isValid() {
 	return tactAbsoluteBeatCount == notesAboluteBeatCount ? VALID : tactAbsoluteBeatCount > notesAboluteBeatCount ? LESS : MORE;
 }
 
-void Tact::addMidiEventsToVector(UCHAR channel, UCHAR* velocity, vector<MidiEvent*>* vector) {	
-	EventIterator* currentIterator = this->getBegin();
-	EventIterator* endIterator = this->getBegin();
-	while (!currentIterator->equal(endIterator)) {
-		vector->push_back(currentIterator->getEvent()->getMidiEvent(channel, velocity));
-		currentIterator->moveForward();
-	};
-	delete currentIterator;
-	delete endIterator;
-}
-
-
-Track * Tact::getTrack() {
-	return this->track;
-}
 
 TactInfo * Tact::getTactInfo() {
 	return this->tactInfo;

@@ -3,13 +3,13 @@
 
 void WriteLine(wofstream * stream, wstring line) {
 	line += L"\n";
-	(*stream).write(line.c_str, line.size());
+	(*stream).write(line.c_str(), line.size());
 }
 
 void WriteCompositionInfo(wofstream * stream, CompositionInfo * compositionInfo) {
 	wstring line = compositionInfo->name + L" " + compositionInfo->author + L" " +
 		to_wstring(compositionInfo->tactDuration.beatCount) + L" " + to_wstring(compositionInfo->tactDuration.beatType) +
-		to_wstring(compositionInfo->tempo) + L" " + to_wstring(compositionInfo->velocity);
+		to_wstring(compositionInfo->tempo);
 	WriteLine(stream, line);
 }
 
@@ -41,7 +41,7 @@ void ReadLine(wifstream * stream, wstring * line) {
 
 vector<wstring> Divide(wstring text) {
 	vector<wstring> parts;
-	wstringstream sstream(text);
+	wstringstream sstream;
 	while (!sstream.eof()) {
 		wstring part;
 		getline(sstream, part, L' ');
@@ -52,7 +52,7 @@ vector<wstring> Divide(wstring text) {
 
 BOOL ReadCompositionInfo(wifstream * stream, CompositionInfo * compositionInfo) {
 	vector<wstring> parts = ReadVector(stream);
-	if (parts.size() != 6) {
+	if (parts.size() != 5) {
 		return FALSE;
 	}
 	compositionInfo->name = parts.at(0);
@@ -60,7 +60,6 @@ BOOL ReadCompositionInfo(wifstream * stream, CompositionInfo * compositionInfo) 
 	compositionInfo->tactDuration.beatCount = stoi(parts.at(2));
 	compositionInfo->tactDuration.beatType = (BeatType)stoi(parts.at(3));
 	compositionInfo->tempo = (UCHAR)stoi(parts.at(4));
-	compositionInfo->velocity = (UCHAR)stoi(parts.at(5));
 	return TRUE;
 }
 

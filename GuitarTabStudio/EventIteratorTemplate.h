@@ -1,10 +1,14 @@
 #pragma once
 #include "EventIterator.h"
+#include "EventFactory.h"
+#include <vector>
+
+using namespace std;
 
 template<class T>
 class EventIteratorTemplate : public EventIterator {
 public:
-	EventIteratorTemplate(vector<T*>* events, vector<T*>::iterator iterator, Tact* tact, EventFactory* eventFactory);
+	EventIteratorTemplate(vector<T*>* events, typename vector<T*>::iterator iterator, EventFactory* eventFactory);
 	~EventIteratorTemplate();
 	virtual Event* getEvent();
 	T* getTemplateEvent();
@@ -14,11 +18,10 @@ public:
 	virtual void insertEvent(EventInfo eventInfo);
 	virtual BOOL isLast();
 	virtual BOOL isFirst();
-	virtual USHORT getPosition();
+	virtual EventIterator* copy();
 private:
 	vector<T*>* events;
-	vector<T*>::iterator iterator;
-	Tact* tact;
+	typename vector<T*>::iterator iterator;
 	EventFactory* eventFactory;
 };
 

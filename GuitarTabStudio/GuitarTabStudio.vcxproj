@@ -143,13 +143,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Application.h" />
     <ClInclude Include="BassGuitarFactory.h" />
     <ClInclude Include="Callback.h" />
+    <ClInclude Include="ChordDirections.h" />
     <ClInclude Include="Composition.h" />
+    <ClInclude Include="Drawing.h" />
     <ClInclude Include="EventContainerViewComponent.h" />
     <ClInclude Include="EventFactory.h" />
     <ClInclude Include="EventIteratorTemplate.h" />
-    <ClInclude Include="EventViewComponent.h" />
     <ClInclude Include="FactoryOfTrackEditorFactory.h" />
     <ClInclude Include="FactoryOfTrackEditorFactoryImpl.h" />
     <ClInclude Include="GuitarEventContainerViewComponent.h" />
@@ -173,6 +175,7 @@
     <ClInclude Include="EventIterator.h" />
     <ClInclude Include="GuitarTabStudio.h" />
     <ClInclude Include="Instrument.h" />
+    <ClInclude Include="MainForm.h" />
     <ClInclude Include="Midi.h" />
     <ClInclude Include="MidiComposition.h" />
     <ClInclude Include="MidiDevice.h" />
@@ -180,17 +183,14 @@
     <ClInclude Include="MidiMessage.h" />
     <ClInclude Include="MidiPlayer.h" />
     <ClInclude Include="MidiTrack.h" />
-    <ClInclude Include="Model.h" />
     <ClInclude Include="NotesEditor.h" />
     <ClInclude Include="PageViewComponent.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="SelectGuitarEventCallback.h" />
-    <ClInclude Include="SelectGuitarNoteCallback.h" />
+    <ClInclude Include="SelectedEvent.h" />
     <ClInclude Include="Serialization.h" />
     <ClInclude Include="SimplePageViewComponent.h" />
     <ClInclude Include="SixStringGuitarFactory.h" />
     <ClInclude Include="TactContainerViewComponent.h" />
-    <ClInclude Include="PauseMidiEvent.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Guitar.h" />
@@ -210,17 +210,18 @@
     <ClInclude Include="TrackTemplate.h" />
     <ClInclude Include="TrackViewComponent.h" />
     <ClInclude Include="View.h" />
+    <ClInclude Include="ViewInfo.h" />
     <ClInclude Include="ViewComponent.h" />
     <ClInclude Include="ViewConfiguration.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Application.cpp" />
     <ClCompile Include="BassGuitarFactory.cpp" />
     <ClCompile Include="Composition.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventContainerViewComponent.cpp" />
     <ClCompile Include="EventIterator.cpp" />
     <ClCompile Include="EventIteratorTemplate.cpp" />
-    <ClCompile Include="EventViewComponent.cpp" />
     <ClCompile Include="FactoryOfTrackEditorFactoryImpl.cpp" />
     <ClCompile Include="GuitarEventContainerViewComponent.cpp" />
     <ClCompile Include="GuitarEventFactory.cpp" />
@@ -238,6 +239,7 @@
     <ClCompile Include="HeaderPageViewComponent.cpp" />
     <ClCompile Include="HeaderViewComponent.cpp" />
     <ClCompile Include="Instrument.cpp" />
+    <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="Midi.cpp" />
     <ClCompile Include="MidiComposition.cpp" />
     <ClCompile Include="MidiDevice.cpp" />
@@ -248,13 +250,11 @@
     <ClCompile Include="NotesEditor.cpp" />
     <ClCompile Include="PageViewComponent.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="SelectGuitarEventCallback.cpp" />
-    <ClCompile Include="SelectGuitarNoteCallback.cpp" />
+    <ClCompile Include="SelectedEvent.cpp" />
     <ClCompile Include="Serialization.cpp" />
     <ClCompile Include="SimplePageViewComponent.cpp" />
     <ClCompile Include="SixStringGuitarFactory.cpp" />
     <ClCompile Include="TactContainerViewComponent.cpp" />
-    <ClCompile Include="PauseMidiEvent.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -274,7 +274,7 @@
     <ClCompile Include="TrackEditor.cpp" />
     <ClCompile Include="TrackTemplate.cpp" />
     <ClCompile Include="TrackViewComponent.cpp" />
-    <ClCompile Include="View.cpp" />
+    <ClCompile Include="Drawing.cpp" />
     <ClCompile Include="ViewComponent.cpp" />
     <ClCompile Include="ViewConfiguration.cpp" />
   </ItemGroup>
@@ -282,8 +282,21 @@
     <ResourceCompile Include="GuitarTabStudio.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="GuitarTabStudio.ico" />
-    <Image Include="small.ico" />
+    <Image Include="..\..\..\3 сем\GuitarTabStudioInterface\GuitarTabStudioInterface\Resources\16_.bmp" />
+    <Image Include="..\..\..\3 сем\GuitarTabStudioInterface\GuitarTabStudioInterface\Resources\1_.bmp" />
+    <Image Include="..\..\..\3 сем\GuitarTabStudioInterface\GuitarTabStudioInterface\Resources\2_.bmp" />
+    <Image Include="..\..\..\3 сем\GuitarTabStudioInterface\GuitarTabStudioInterface\Resources\32_.bmp" />
+    <Image Include="..\..\..\3 сем\GuitarTabStudioInterface\GuitarTabStudioInterface\Resources\4_.bmp" />
+    <Image Include="..\..\..\3 сем\GuitarTabStudioInterface\GuitarTabStudioInterface\Resources\64_.bmp" />
+    <Image Include="..\..\..\3 сем\GuitarTabStudioInterface\GuitarTabStudioInterface\Resources\8_.bmp" />
+    <Image Include="..\..\..\3 сем\GuitarTabStudioInterface\GuitarTabStudioInterface\Resources\dot.bmp" />
+    <Image Include="..\..\..\3 сем\GuitarTabStudioInterface\GuitarTabStudioInterface\Resources\down.bmp" />
+    <Image Include="..\..\..\3 сем\GuitarTabStudioInterface\GuitarTabStudioInterface\Resources\endbrd.bmp" />
+    <Image Include="..\..\..\3 сем\GuitarTabStudioInterface\GuitarTabStudioInterface\Resources\Pause.bmp" />
+    <Image Include="..\..\..\3 сем\GuitarTabStudioInterface\GuitarTabStudioInterface\Resources\startbrd.bmp" />
+    <Image Include="..\..\..\3 сем\GuitarTabStudioInterface\GuitarTabStudioInterface\Resources\triple.bmp" />
+    <Image Include="..\..\..\3 сем\GuitarTabStudioInterface\GuitarTabStudioInterface\Resources\up.bmp" />
+    <Image Include="..\Resources\guitar.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

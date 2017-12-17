@@ -30,7 +30,7 @@ BOOL GuitarInstrumentFactory::initialize() {
 		return TRUE;
 	}
 	catch (exception e) {
-		if (stream.open) {
+		if (stream.is_open()) {
 			stream.close();
 		}
 		return FALSE;

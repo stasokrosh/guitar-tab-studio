@@ -26,7 +26,7 @@ BOOL Player::getPlaying() {
 	return this->playing;
 }
 
-Player::Player(NotesEditor* notesEditor, Timer* timer) {
+Player::Player(Timer* timer, NotesEditor* notesEditor) {
 	this->notesEditor = notesEditor;
 	this->midiPlayer = new MidiPlayer(timer, new PlayerEndPlayingCallback(this));
 	this->playing = false;

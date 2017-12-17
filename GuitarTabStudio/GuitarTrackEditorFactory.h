@@ -11,7 +11,7 @@ class GuitarTrackEditorFactory : public TrackEditorFactory {
 public:
 	GuitarTrackEditorFactory(InstrumentFactory<Guitar>* instrumentFactory);
 	~GuitarTrackEditorFactory();
-	virtual TrackEditor* createTrackEditor(wstring instrumentName, TrackInfo trackInfo, NotesEditor* notesEditor);
+	virtual TrackEditor* createTrackEditor(wstring instrumentName, TrackInfo trackInfo, Callback* updateCallback);
 	virtual Instruments getInstrumentType();
 private:
 	InstrumentFactory<Guitar>* instrumentFactory;

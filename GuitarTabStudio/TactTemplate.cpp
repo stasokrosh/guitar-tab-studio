@@ -2,16 +2,16 @@
 #include "TactTemplate.h"
 
 template<class T>
-TactTemplate::TactTemplate(TactInfo* tactInfo, Track* track, EventFactory* eventFactory) : 
-	Tact(tactInfo, track, eventFactory) {}
+TactTemplate<T>::TactTemplate(TactInfo* tactInfo, EventFactory* eventFactory) : 
+	Tact(tactInfo, eventFactory) {}
 
 template<class T>
-TactTemplate::~TactTemplate() {}
+TactTemplate<T>::~TactTemplate() {}
 
 template<class T>
 EventIterator* TactTemplate<T>::pushEvent(EventInfo eventInfo) {
 	this->events.push_back(this->eventFactory->createEvent(eventInfo, this));
-	return new EventIteratorTemplate<T>(&(this->events), this->events.end()--, this, this->eventFactory);
+	return new EventIteratorTemplate<T>(&(this->events), this->events.end()--, this->eventFactory);
 }
 
 template<class T>
@@ -45,22 +45,23 @@ UCHAR TactTemplate<T>::getSize() {
 }
 
 template<class T>
-EventIteratorTemplate<T> * TactTemplate<T>::getBegin() {
-	return new EventIteratorTemplate<T>(&(this->events), this->events.begin(), this, this->eventFactory);
+EventIterator* TactTemplate<T>::getBegin() {
+	return new EventIteratorTemplate<T>(&(this->events), this->events.begin(), this->eventFactory);
 }
 
 template<class T>
-EventIteratorTemplate<T> * TactTemplate<T>::getEnd() {
-	return new EventIteratorTemplate<T>(&(this->events), this->events.end(), this, this->eventFactory);
+EventIterator* TactTemplate<T>::getEnd() {
+	return new EventIteratorTemplate<T>(&(this->events), this->events.end(), this->eventFactory);
 }
 
-template<class T>
-EventIterator * TactTemplate<T>::getEventIteratorByPosition(USHORT position) {
-	vector<T*>::iterator = this->events.begin();
-	USHORT i = 0;
-	while (i < position) {
-		i++;
-		iterator++;
-	}
-	return new EventIteratorTemplate<T>(&(this->events), iterator, this, this->eventFactory);
+template <class T>
+EventIteratorTemplate<T>* TactTemplate<T>::getTemplateBegin() {
+	return new EventIteratorTemplate<T>(&(this->events), this->events.begin(), this->eventFactory);
 }
+
+template <class T>
+EventIteratorTemplate<T>* TactTemplate<T>::getTemplateEnd() {
+	return new EventIteratorTemplate<T>(&(this->events), this->events.begin(), this->eventFactory);
+}
+
+

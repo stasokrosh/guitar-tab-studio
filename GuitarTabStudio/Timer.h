@@ -1,7 +1,9 @@
 #pragma once
-#include "Util.h"
+#include "Callback.h"
 #include <map>
 #include <vector>
+
+using namespace std;
 
 class Timer {
 public:

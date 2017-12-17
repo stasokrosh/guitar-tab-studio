@@ -33,20 +33,20 @@ void GuitarEventContainerViewComponent::selfDraw(HDC hdc) {
 	BeatTypeEx beatTypeEx = (BeatTypeEx)-1;
 	for (GuitarEventViewComponent* event : this->events) {
 		x = event->getX();
-		BeatType beatType = event->getEvent()->getBeatType();
+		BeatType beatType = event->getGuitarEvent()->getBeatType();
 		UCHAR stickHeight = GetStickHeight(this->viewInfo, beatType);
 		if (stickHeight != 0) {
 			DrawLine(hdc, x, y, x, y + stickHeight, pen);
 		}
-		UCHAR dotCount = event->getEvent()->getDotCount();
+		UCHAR dotCount = event->getGuitarEvent()->getDotCount();
 		if (dotCount > 0) {
 			UCHAR dotHeight = y + 2 * (beatType / 8 + 1);
 			for (UCHAR j = 1; j <= dotCount; j++) {
 				DrawLine(hdc, x + 2 * j, dotHeight, x + 2 * j, dotHeight, pen);
 			}
 		}
-		UCHAR eventDuration = Event::getAbsoluteBeatCount(event->getEvent()->getEventInfo());
-		BeatTypeEx eventBeatTypeEx = event->getEvent()->getBeatTypeEx();
+		UCHAR eventDuration = Event::getAbsoluteBeatCount(event->getGuitarEvent()->getEventInfo());
+		BeatTypeEx eventBeatTypeEx = event->getGuitarEvent()->getBeatTypeEx();
 		if (beatTypeEx == -1) {
 			eventsDurationSum += eventDuration;
 			beatTypeEx = eventBeatTypeEx;
@@ -71,25 +71,25 @@ void GuitarEventContainerViewComponent::drawLinks(HDC hdc, vector<GuitarEventVie
 	BOOL linkDrawed = FALSE;
 	for (UCHAR i = 0; i < sequence->size(); i++) {
 		if (i != sequence->size() - 1) {
-			UCHAR beatTypeCurrent = UCHAR(sequence->at(i)->getEvent()->getBeatType());
-			UCHAR beatTypeNext = UCHAR(sequence->at(i + 1)->getEvent()->getBeatType());
+			UCHAR beatTypeCurrent = UCHAR(sequence->at(i)->getGuitarEvent()->getBeatType());
+			UCHAR beatTypeNext = UCHAR(sequence->at(i + 1)->getGuitarEvent()->getBeatType());
 			if (beatTypeCurrent <= beatTypeNext) {
 				this->drawLink(hdc, sequence->at(i)->getX(), sequence->at(i + 1)->getX(), y, 
-					sequence->at(i)->getEvent()->getBeatType(), pen);
+					sequence->at(i)->getGuitarEvent()->getBeatType(), pen);
 				linkDrawed = FALSE;
 			} else {
 				if (!linkDrawed) {
 					this->drawLink(hdc, sequence->at(i)->getX(), y, TRUE,
-						sequence->at(i + 1)->getEvent()->getBeatType(), pen);
+						sequence->at(i + 1)->getGuitarEvent()->getBeatType(), pen);
 				}
 				this->drawLink(hdc, sequence->at(i)->getX(), sequence->at(i + 1)->getX(), y,
-					sequence->at(i + 1)->getEvent()->getBeatType(), pen);
+					sequence->at(i + 1)->getGuitarEvent()->getBeatType(), pen);
 				linkDrawed = TRUE;
 			}
 		} else {
 			if (!linkDrawed) {
 				this->drawLink(hdc, sequence->at(i)->getX(), y, FALSE,
-					sequence->at(i + 1)->getEvent()->getBeatType(), pen);
+					sequence->at(i + 1)->getGuitarEvent()->getBeatType(), pen);
 			}
 		}
 	}

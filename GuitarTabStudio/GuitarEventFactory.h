@@ -7,7 +7,7 @@ class GuitarEventFactory :
 public:
 	GuitarEventFactory(Guitar* guitar);
 	~GuitarEventFactory();
-	virtual Event* createEvent(EventInfo eventInfo, Tact* tact);
+	virtual Event* createEvent(EventInfo eventInfo);
 private:
 	Guitar* guitar;
 };

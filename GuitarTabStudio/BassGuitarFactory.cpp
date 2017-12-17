@@ -3,10 +3,15 @@
 
 
 BassGuitarFactory::BassGuitarFactory() {
+	this->defaultNoteFormation = new Note[4];
 	this->defaultNoteFormation[0].frequency = G;
+	this->defaultNoteFormation[0].octave = 3;
 	this->defaultNoteFormation[1].frequency = D;
+	this->defaultNoteFormation[1].octave = 3;
 	this->defaultNoteFormation[2].frequency = A;
+	this->defaultNoteFormation[2].octave = 2;
 	this->defaultNoteFormation[3].frequency = E;
+	this->defaultNoteFormation[3].octave = 2;
 }
 
 

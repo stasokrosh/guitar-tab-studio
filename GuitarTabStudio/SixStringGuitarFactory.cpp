@@ -5,11 +5,17 @@
 SixStringGuitarFactory::SixStringGuitarFactory() {
 	this->defaultNoteFormation = new Note[6];
 	this->defaultNoteFormation[0].frequency = E;
+	this->defaultNoteFormation[0].octave = 4;
 	this->defaultNoteFormation[1].frequency = H;
+	this->defaultNoteFormation[1].octave = 3;
 	this->defaultNoteFormation[2].frequency = G;
+	this->defaultNoteFormation[2].octave = 3;
 	this->defaultNoteFormation[3].frequency = D;
+	this->defaultNoteFormation[3].octave = 3;
 	this->defaultNoteFormation[4].frequency = A;
+	this->defaultNoteFormation[4].octave = 2;
 	this->defaultNoteFormation[5].frequency = E;
+	this->defaultNoteFormation[5].octave = 2;
 }
 
 

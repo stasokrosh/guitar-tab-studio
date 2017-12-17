@@ -2,11 +2,13 @@
 #include "GuitarTrackEditor.h"
 
 
-GuitarTrackEditor::GuitarTrackEditor(TrackTemplate<GuitarTact>* guitarTrack, Guitar* guitar, NotesEditor* NotesEditor) : TrackEditor(guitarTrack, NotesEditor) {
+GuitarTrackEditor::GuitarTrackEditor(TrackTemplate<GuitarTact>* guitarTrack, Guitar* guitar, Callback* updateCallback) : 
+	TrackEditor(guitarTrack, updateCallback) {
 	this->guitar = guitar;
 	this->guitarTrack = guitarTrack;
 	this->stringSelected = FALSE;
 	this->trackViewComponent = NULL;
+	this->selectedString = 0;
 }
 
 
@@ -18,7 +20,7 @@ GuitarTrackEditor::~GuitarTrackEditor() {
 }
 
 void GuitarTrackEditor::moveUp() {
-	if (!this->getSelectedEvent()->isPause()) {
+	if (!this->getSelectedGuitarEvent()->isPause()) {
 		this->stringSelected = TRUE;
 		if (this->selectedString != 0) {
 			this->selectedString--;
@@ -27,7 +29,7 @@ void GuitarTrackEditor::moveUp() {
 }
 
 void GuitarTrackEditor::moveDown() {
-	if (!this->getSelectedEvent()->isPause()) {
+	if (!this->getSelectedGuitarEvent()->isPause()) {
 		this->stringSelected = TRUE;
 		if (this->selectedString != this->guitar->getStringCount() - 1) {
 			this->selectedString++;
@@ -36,7 +38,7 @@ void GuitarTrackEditor::moveDown() {
 }
 
 void GuitarTrackEditor::selectString(UCHAR num) {
-	if (!this->getSelectedEvent()->isPause()) {
+	if (!this->getSelectedGuitarEvent()->isPause()) {
 		this->selectedString = num;
 		this->stringSelected = TRUE;
 	}
@@ -46,29 +48,26 @@ void GuitarTrackEditor::deselectString() {
 	this->stringSelected = FALSE;
 }
 
-TrackViewComponent * GuitarTrackEditor::getTrackViewComponent(ViewInfo * viewInfo) {
+TrackViewComponent * GuitarTrackEditor::getTrackViewComponent(ViewInfo * viewInfo, CompositionInfo* compositionInfo) {
 	if (this->trackViewComponent != NULL) {
 		delete this->trackViewComponent;
 	}
 	this->trackViewComponent = new TrackViewComponent(viewInfo);
-	TactIteratorTemplate<GuitarTact>* iterator = this->guitarTrack->getBegin();
-	TactIteratorTemplate<GuitarTact>* end = this->guitarTrack->getEnd();
+	TactIteratorTemplate<GuitarTact>* iterator = this->guitarTrack->getTemplateBegin();
+	TactIteratorTemplate<GuitarTact>* end = this->guitarTrack->getTemplateEnd();
 	vector<ViewComponent*> tacts;
-	ViewComponent* selectedComponent;
+	ViewComponent* selectedComponent = NULL;
 	USHORT i = 0;
 	while (!iterator->equal(end)) {
 		GuitarTact* guitarTact = iterator->getTemplateTact();
-		GuitarTactViewComponent* tactViewComponent = guitarTact->getViewComponent(viewInfo, i + 1);
-		if (i == this->guitarTrack->getSize() - 1) {
-			tactViewComponent->setLast(TRUE);
-		}
+		GuitarTactViewComponent* tactViewComponent = this->getTactViewComponent(viewInfo, i + 1, guitarTact);
 		vector<GuitarEventViewComponent*> events;
-		EventIteratorTemplate<GuitarEvent>* eventIterator = guitarTact->getBegin();
-		EventIteratorTemplate<GuitarEvent>* endIterator = guitarTact->getEnd();
+		EventIteratorTemplate<GuitarEvent>* eventIterator = guitarTact->getTemplateBegin();
+		EventIteratorTemplate<GuitarEvent>* endIterator = guitarTact->getTemplateEnd();
 		while (!eventIterator->equal(endIterator)) {
 			GuitarEvent* event = eventIterator->getTemplateEvent();
-			GuitarEventViewComponent* eventViewComponent = event->getViewComponent(viewInfo, this->notesEditor, this);
-			if (event == this->getSelectedEvent()) {
+			GuitarEventViewComponent* eventViewComponent = this->getEventViewComponent(viewInfo, eventIterator);
+			if (event == this->selectedEvent->getIterator()->getEvent()) {
 				selectedComponent = eventViewComponent;
 			}
 			events.push_back(eventViewComponent);
@@ -84,8 +83,8 @@ TrackViewComponent * GuitarTrackEditor::getTrackViewComponent(ViewInfo * viewInf
 	while (tacts.size() != 0) {
 		PageViewComponent* page;
 		if (i == 0) {
-			HeaderViewComponent* header = new HeaderViewComponent(viewInfo, 
-				this->notesEditor->getComposition()->getCompositionInfo(), this->guitarTrack->getTrackInfo(), this->guitar);
+			HeaderViewComponent* header = new HeaderViewComponent(viewInfo, compositionInfo, 
+				this->guitarTrack->getTrackInfo(), this->guitar);
 			page = new HeaderPageViewComponent(viewInfo, header);
 		} else {
 			page = new SimplePageViewComponent(viewInfo, i);
@@ -105,22 +104,17 @@ void GuitarTrackEditor::Write(wofstream * stream) {
 	WriteGuitar(stream, this->guitar);
 	WriteLine(stream, to_wstring(this->stringSelected));
 	WriteLine(stream, to_wstring(this->selectedString));
-	TactIteratorTemplate<GuitarTact>* iterator = this->guitarTrack->getBegin();
-	TactIteratorTemplate<GuitarTact>* end = this->guitarTrack->getEnd();
+	TactIteratorTemplate<GuitarTact>* iterator = this->guitarTrack->getTemplateBegin();
+	TactIteratorTemplate<GuitarTact>* end = this->guitarTrack->getTemplateEnd();
 	while (!iterator->equal(end)) {
 		GuitarTact* tact = iterator->getTemplateTact();
-		if (tact == this->notesEditor->getSelectedTact()) {
-			WriteLine(stream, to_wstring(TRUE));
-		} else {
-			WriteLine(stream, to_wstring(FALSE));
-		}
 		UCHAR size = tact->getSize();
 		WriteLine(stream,to_wstring(size));
-		EventIteratorTemplate<GuitarEvent>* eventIterator = tact->getBegin();
-		EventIteratorTemplate<GuitarEvent>* eventEndIterator = tact->getEnd();
+		EventIteratorTemplate<GuitarEvent>* eventIterator = tact->getTemplateBegin();
+		EventIteratorTemplate<GuitarEvent>* eventEndIterator = tact->getTemplateEnd();
 		while (!eventIterator->equal(eventEndIterator)) {
 			GuitarEvent* guitarEvent = eventIterator->getTemplateEvent();
-			if (guitarEvent == this->notesEditor->getSelectedEvent()) {
+			if (guitarEvent == this->selectedEvent->getIterator()->getEvent()) {
 				WriteLine(stream, to_wstring(TRUE));
 			} else {
 				WriteLine(stream, to_wstring(FALSE));
@@ -137,8 +131,7 @@ void GuitarTrackEditor::Write(wofstream * stream) {
 	delete end;
 }
 
-BOOL GuitarTrackEditor::Load(wifstream * stream, vector<TactInfo*>* tacts, TactIterator ** selectedTact,
-	EventIterator ** selectedEvent) {
+BOOL GuitarTrackEditor::Load(wifstream * stream, vector<TactInfo*>* tacts) {
 	if (!ReadGuitar(stream, this->guitar)) {
 		return FALSE;
 	}
@@ -148,15 +141,8 @@ BOOL GuitarTrackEditor::Load(wifstream * stream, vector<TactInfo*>* tacts, TactI
 	ReadLine(stream, &text);
 	this->selectedString = (UCHAR)stoi(text);
 	for (USHORT i = 0; i < tacts->size(); i++) {
-		ReadLine(stream, &text);
 		TactIterator* iterator = this->getTrack()->pushTact(tacts->at(i));
 		Tact* tact = iterator->getTact();
-		BOOL selected = (BOOL)stoi(text);
-		if (selected) {
-			*selectedTact = iterator;
-		} else {
-			delete iterator;
-		}
 		ReadLine(stream, &text);
 		UCHAR eventCount = (UCHAR)stoi(text);
 		for (UCHAR j = 0; j < eventCount; j++) {
@@ -166,12 +152,12 @@ BOOL GuitarTrackEditor::Load(wifstream * stream, vector<TactInfo*>* tacts, TactI
 			if (!ReadEventInfo(stream, &eventInfo)) {
 				return FALSE;
 			}
-			EventIterator* iterator = tact->pushEvent(eventInfo);
-			Event* event = iterator->getEvent();
+			EventIterator* eventIterator = tact->pushEvent(eventInfo);
+			Event* event = eventIterator->getEvent();
 			if (selected) {
-				*selectedEvent = iterator;
+				this->selectedEvent->setIterator(eventIterator);
 			} else {
-				delete iterator;
+				delete eventIterator;
 			}
 			GuitarEvent* guitarEvent = reinterpret_cast<GuitarEvent*>(event);
 			if (!ReadGuitarEvent(stream, guitarEvent)) {
@@ -182,8 +168,53 @@ BOOL GuitarTrackEditor::Load(wifstream * stream, vector<TactInfo*>* tacts, TactI
 	return TRUE;
 }
 
+void GuitarTrackEditor::preparePlaying() {
+	this->stringSelected = FALSE;
+}
+
+MidiEvent* GuitarTrackEditor::getMidiEvent(Event* event, UCHAR channel, Callback* selectEventCallback) {
+	GuitarEvent* guitarEvent = reinterpret_cast<GuitarEvent*>(event);
+	if (guitarEvent->isPause()) {
+		return new MidiEvent(guitarEvent->getAbsoluteBeatCount(), channel, selectEventCallback);
+	} else {
+		vector<UCHAR> notes;
+		for (UCHAR i = 0; i < guitarEvent->getStringCount(); i++) {
+			if (*(guitarEvent->getNote(i)) != -1) {
+				notes.push_back(*(guitarEvent->getNote(i)));
+			}
+		}
+		return new GuitarMidiEvent(guitarEvent->getAbsoluteBeatCount(), channel, notes, guitarEvent->getChordDirection(),
+			&(this->track->getTrackInfo()->velocity), selectEventCallback);
+	}
+}
+
+GuitarTactViewComponent* GuitarTrackEditor::getTactViewComponent(ViewInfo* viewInfo, USHORT num, GuitarTact* tact) {
+	if (num == 1) {
+		return new GuitarHeadTactViewComponent(viewInfo, this->guitar, tact->getTactInfo(), tact->isValid());
+	} else {
+		return new GuitarTactViewComponent(viewInfo, num, this->guitar->getStringCount(), tact->getTactInfo(), tact->isValid());
+	}
+}
+
+GuitarEventViewComponent* GuitarTrackEditor::getEventViewComponent(ViewInfo* viewInfo,EventIteratorTemplate<GuitarEvent>* iterator) {
+	Callback* clickCallback = new SelectedEvent::SelectEventCallback(this->selectedEvent, iterator);
+	GuitarEvent* guitarEvent = iterator->getTemplateEvent();
+	BOOL selected = guitarEvent == this->getSelectedGuitarEvent();
+	CHAR stringSelected = this->stringSelected ? this->selectedString : -1;
+	vector<Callback*> notesCallbacks;
+	for (UCHAR i = 0; i < guitarEvent->getStringCount(); i++) {
+		Callback* callback;
+		if (guitarEvent->isPause()) {
+			callback = NULL;
+		} else {
+			callback = new SelectStringCallback(clickCallback, i, this);
+		}
+	}
+	return new GuitarEventViewComponent(viewInfo, clickCallback, notesCallbacks, guitarEvent, selected, stringSelected);
+}
+
 GuitarEvent * GuitarTrackEditor::getSelectedGuitarEvent() {
-	return reinterpret_cast<GuitarEvent*>(this->getSelectedEvent());
+	return reinterpret_cast<GuitarEvent*>(this->selectedEvent->getIterator()->getEvent());
 }
 
 void GuitarTrackEditor::WriteGuitarEvent(wofstream * stream, GuitarEvent * guitarEvent) {
@@ -238,5 +269,20 @@ BOOL GuitarTrackEditor::ReadGuitar(wifstream * stream, Guitar * guitar) {
 		(*guitar->getString(i)) = note;
 	}
 	return TRUE;
+}
+
+GuitarTrackEditor::SelectStringCallback::SelectStringCallback(Callback* selectEventCallback, UCHAR stringNum, 
+	GuitarTrackEditor* trackEditor) {
+	this->selectEventCallback = selectEventCallback;
+	this->stringNum = stringNum;
+	this->trackEditor = trackEditor;
+}
+
+GuitarTrackEditor::SelectStringCallback::~SelectStringCallback() {
+}
+
+void GuitarTrackEditor::SelectStringCallback::call() {
+	this->trackEditor->selectString(this->stringNum);
+	this->selectEventCallback->call();
 }
 

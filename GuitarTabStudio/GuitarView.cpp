@@ -35,7 +35,7 @@ USHORT GetStickHeight(ViewInfo * viewInfo, BeatType beatType) {
 }
 
 void DrawArrow(HDC hdc, USHORT x1, USHORT y1, USHORT x2, USHORT y2,HPEN pen, BOOL forward) {
-	DrawLine(hdc, x1, y1, x2, y2);
+	DrawLine(hdc, x1, y1, x2, y2, pen);
 	if (forward) {
 		DrawLine(hdc, x2, y2, x2 - 2, y2 - 3, pen);
 		DrawLine(hdc, x2, y2, x2 + 2, y2 - 3, pen);

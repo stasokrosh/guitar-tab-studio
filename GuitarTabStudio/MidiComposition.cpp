@@ -34,13 +34,13 @@ void MidiComposition::setCompositionEndCallback(Callback* compositionEndCallback
 
 void MidiComposition::call() {
 	UCHAR i = 0;
-	for (MidiTrack* midiTrack : (this->tracks)) {
+	for (UCHAR i = 0; i < this->trackCount; i++) {
 		if (!this->trackEnded[i]) {
-			trackEnded[i] = midiTrack->play();
+			trackEnded[i] = this->tracks[i]->play();
 		}
 		i++;
 	}
-	if (this->compositionEnded) {
+	if (this->compositionEnded()) {
 		this->compositionEndCallback->call();
 	}
 }

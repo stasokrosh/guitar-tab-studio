@@ -8,14 +8,14 @@ GuitarTrackEditorFactory::GuitarTrackEditorFactory(InstrumentFactory<Guitar>* in
 
 
 GuitarTrackEditorFactory::~GuitarTrackEditorFactory() {
-	delete this->instrumentFactory
+	delete this->instrumentFactory;
 }
 
-TrackEditor * GuitarTrackEditorFactory::createTrackEditor(wstring instrumentName, TrackInfo trackInfo, NotesEditor * notesEditor) {
+TrackEditor * GuitarTrackEditorFactory::createTrackEditor(wstring instrumentName, TrackInfo trackInfo, Callback* updateCallback) {
 	Guitar* guitar = this->instrumentFactory->createInstrument(instrumentName);
 	TactFactory* tactFactory = new GuitarTactFactory(guitar);
 	TrackTemplate<GuitarTact>* track = new TrackTemplate<GuitarTact>(trackInfo, guitar, tactFactory);
-	return new GuitarTrackEditor(track, guitar, notesEditor);
+	return new GuitarTrackEditor(track, guitar, updateCallback);
 }
 
 Instruments GuitarTrackEditorFactory::getInstrumentType() {

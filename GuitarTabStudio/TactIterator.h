@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Common.h"
 #include "Tact.h"
 
 class TactIterator {
@@ -12,5 +13,4 @@ public:
 	virtual BOOL equal(TactIterator* eventIterator);
 	virtual BOOL isLast() = 0;
 	virtual BOOL isFirst() = 0;
-	virtual USHORT getPosition() = 0;
 };

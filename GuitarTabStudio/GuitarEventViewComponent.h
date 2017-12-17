@@ -1,26 +1,24 @@
 #pragma once
-#include "EventViewComponent.h"
-#include "GuitarEvent.h"
+#include "ViewComponent.h"
 #include "GuitarView.h"
+#include "Common.h"
+#include "ChordDirections.h"
 #include "GuitarNoteViewComponent.h"
-#include "NotesEditor.h"
-#include "SelectGuitarNoteCallback.h"
+#include "GuitarEvent.h"
 
-class GuitarEventViewComponent : public EventViewComponent {
+class GuitarTrackEditor;
+
+class GuitarEventViewComponent : public ViewComponent {
 public:
-	GuitarEventViewComponent(ViewInfo* viewInfo, Callback* clickCallback, GuitarEvent* event,
-		NotesEditor* notesEditor, GuitarTrackEditor* trackEditor);
+	GuitarEventViewComponent(ViewInfo* viewInfo, Callback* clickCallback,
+		vector<Callback*> noteCallbacks, GuitarEvent* guitarEvent, BOOL selected, CHAR stringSelected);
 	~GuitarEventViewComponent();
-	void setSelected(BOOL selected);
-	void setNoteSelected(BOOL selected, UCHAR stringNum);
-	void deselectAllNotes();
 	virtual void updateSize();
+	GuitarEvent* getGuitarEvent();
 protected:
 	virtual void selfDraw(HDC hdc);
 private:
 	BOOL selected;
-	BOOL* notesSelected;
-	UCHAR stringCount;
 	GuitarEvent* guitarEvent;
 
 	void drawPause(HDC hdc, BeatType beatType);

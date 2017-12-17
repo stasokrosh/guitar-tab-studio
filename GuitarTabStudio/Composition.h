@@ -1,16 +1,16 @@
 #pragma once
-#include "Tact.h"
+#include "Common.h"
+#include <string>
+#include <vector>
 #include "Track.h"
 
-#include "MidiComposition.h"
-#include "MidiDevice.h"
+using namespace std;
 
 class Composition {
 public:
 	Composition(CompositionInfo compositionInfo);
 	~Composition();
 	BOOL isValid();
-	UCHAR getVelocity();
 	UCHAR getSize();
 	wstring getName();
 	wstring getAuthor();
@@ -21,7 +21,6 @@ public:
 	CompositionInfo* getCompositionInfo() ;
 	void setName(wstring name);
 	void setAuthor(wstring author);
-	void setVelocity(UCHAR velocity);
 	void setTempo(UCHAR tempo);
 	void setTactDuration(TactDuration tactDuration);
 	Track* getTrack(UCHAR number);

@@ -1,12 +1,11 @@
 #include "stdafx.h"
 #include "EventIteratorTemplate.h"
 
+
 template<class T>
-EventIteratorTemplate<T>::EventIteratorTemplate(vector<T*>* events, vector<T*>::iterator iterator,
-	Tact* tact, EventFactory* eventFactory) {
+EventIteratorTemplate<T>::EventIteratorTemplate(vector<T*>* events, typename vector<T*>::iterator iterator, EventFactory* eventFactory) {
 	this->events = events;
 	this->iterator = iterator;
-	this->tact = tact;
 	this->eventFactory = eventFactory;
 }
 
@@ -66,13 +65,8 @@ BOOL EventIteratorTemplate<T>::isFirst() {
 	return this->getEvent() == this->events->front();
 }
 
-template<class T>
-USHORT EventIteratorTemplate<T>::getPosition() {
-	USHORT position = 0;
-	vector<T*>::iterator iterator = this->events->begin();
-	while (iterator != this->iterator) {
-		position++;
-		iterator++;
-	}
-	return position;
+template <class T>
+EventIterator* EventIteratorTemplate<T>::copy() {
+	return new EventIteratorTemplate<T>(this->events, this->iterator, this->eventFactory);
 }
+

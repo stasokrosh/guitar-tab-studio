@@ -3,14 +3,15 @@
 #include "GuitarEvent.h"
 
 #include <vector>
+#include "ChordDirections.h"
 
 using namespace std;
 
 class GuitarMidiEvent :
 	public MidiEvent {
 public:
-	GuitarMidiEvent(UCHAR duration, UCHAR channel,GuitarEvent * event,
-		vector<UCHAR> notes, ChordDirections chordDirection, UCHAR* velocity);
+	GuitarMidiEvent(UCHAR duration, UCHAR channel, vector<UCHAR> notes,
+		ChordDirections chordDirection, UCHAR* velocity, Callback *callback);
 	~GuitarMidiEvent();
 	virtual BOOL play(MidiDevice* midiDevice);
 private:

@@ -1,8 +1,8 @@
 #pragma once
 #include <Windows.h>
-#include "MidiDevice.h"
-#include "MidiEvent.h"
-#include "MidiMessage.h"
+#include <string>
+
+using namespace std;
 
 #define OCTAVE_SIZE 12
 

@@ -1,6 +1,6 @@
 #pragma once
+#include "Common.h"
 #include "TrackEditorFactory.h"
-
 
 class FactoryOfTrackEditorFactory {
 public:

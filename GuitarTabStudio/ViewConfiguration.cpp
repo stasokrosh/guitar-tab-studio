@@ -51,14 +51,6 @@ USHORT ViewConfiguration::getArtistNameFontHeight(Scale scale) {
 	return USHORT();
 }
 
-USHORT ViewConfiguration::getJenreNameFontHeight(Scale scale) {
-	return USHORT();
-}
-
-USHORT ViewConfiguration::getTempoFontHeight(Scale scale) {
-	return USHORT();
-}
-
 USHORT ViewConfiguration::getTrackInfoFontHeight(Scale scale) {
 	return USHORT();
 }

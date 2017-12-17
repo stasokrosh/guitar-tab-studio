@@ -2,13 +2,22 @@
 #include "Composition.h"
 #include "FactoryOfTrackEditorFactory.h"
 #include "Serialization.h"
+#include "TrackEditor.h"
+#include "TrackEditorFactory.h"
+#include "MidiComposition.h"
+#include "Event.h"
+#include "SelectedEvent.h"
 
 #include <set>
-#include <fstream>
+#include <vector>
+
+using namespace std;
+
+class TrackEditor;
 
 class NotesEditor {
 public:
-	NotesEditor(FactoryOfTrackEditorFactory* factoryOfTEFactory);
+	NotesEditor(FactoryOfTrackEditorFactory* factoryOfTEFactory, Callback* updateCallback);
 	~NotesEditor();
 	void createComposition(CompositionInfo compositionInfo);
 	BOOL loadComposition(wstring name);
@@ -16,35 +25,32 @@ public:
 	void saveComposition();
 	wstring getFileName();
 	BOOL addTrack(TrackInfo trackInfo, Instruments instrumentType, wstring instrumentName);
-	Composition* getComposition();
 	MidiComposition* createMidiComposition(MidiDevice* midiDevice);
 	vector<Track*> getTracks();
-	EventInfo getEventInfo();
+	EventInfo* getEventInfo();
 	void deleteTrack(Track* track);
 	void selectTrack(Track* track);
-	void selectTact(Tact* tactInfo);
-	void selectEvent(Event* event);
 	Track* getSelectedTrack();
 	void setEventPause();
 	void moveForward();
 	void moveBackward();
-	Tact* getSelectedTact();
-	Event* getSelectedEvent();
+	TrackViewComponent* getTrackViewComponent(ViewInfo* viewInfo);
 private:
 	Composition* composition;
 	FactoryOfTrackEditorFactory* factoryOfTEFactory;
 	vector<TrackEditor*> trackEditors;
 	TrackEditor* selectedTrackEditor;
-	TactIterator* selectedTact;
-	EventIterator* selectedEvent;
-	BOOL tactSelected;
 	EventInfo eventInfo;
 	wstring fileName;
+	SelectedEvent* selectedEvent;
+	Callback* updateCallback;
+	UCHAR velocity;
 
+	Event* getSelectedEvent();
+	TactIterator* getSelectedTactIterator();
 	void addEmptyTact(Track* track, vector<EventInfo> events, TactInfo* tactInfo);
-	void moveNextTact();
-	void movePrevTact();
-	void setTactSelected(BOOL tactSelected);
+	void moveNextTact(TactIterator* currentTact);
+	void movePrevTact(TactIterator* currentTact);
 	set<UCHAR>* validateChannelRelation();
 	void selectTrackEditor(TrackEditor* trackEditor);
 	BOOL emptyEnding();

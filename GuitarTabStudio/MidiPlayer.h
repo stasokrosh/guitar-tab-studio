@@ -1,7 +1,6 @@
 #pragma once
 #include "Timer.h"
 #include "Callback.h"
-#include "Composition.h"
 #include "MidiDevice.h"
 #include "MidiComposition.h"
 

@@ -3,10 +3,9 @@
 
 template <class T>
 TactIteratorTemplate<T>::TactIteratorTemplate(
-	vector<T*>* tacts, vector<T*>::iterator iterator, Track* track, TactFactory* tactFactory) {
+	vector<T*>* tacts, typename vector<T*>::iterator iterator, TactFactory* tactFactory) {
 	this->tacts = tacts;
 	this->iterator = iterator;
-	this->track = track;
 	this->tactFactory = tactFactory;
 }
 
@@ -53,7 +52,7 @@ void TactIteratorTemplate<T>::moveBackwards() {
 
 template<class T>
 void TactIteratorTemplate<T>::insertTact(TactInfo * tactInfo) {
-	this->tacts->insert(tactFactory->createTact(tactInfo, this->track));
+	this->tacts->insert(tactFactory->createTact(tactInfo));
 }
 
 template<class T>
@@ -66,13 +65,3 @@ BOOL TactIteratorTemplate<T>::isFirst() {
 	return this->getTact() == this->tacts->front();
 }
 
-template<class T>
-USHORT TactIteratorTemplate<T>::getPosition() {
-	USHORT position = 0;
-	vector<T*>::iterator iterator = this->events->begin();
-	while (iterator != this->iterator) {
-		position++;
-		iterator++;
-	}
-	return position;
-}

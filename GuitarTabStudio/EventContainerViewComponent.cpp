@@ -9,14 +9,15 @@ EventContainerViewComponent<T>::EventContainerViewComponent(ViewInfo* viewInfo) 
 template<class T>
 void EventContainerViewComponent<T>::addEvents(vector<T*> events) {
 	this->components.clear();
+	this->events.clear();
 	USHORT tactBorder = this->viewInfo->viewConfiguration->getTactBorder(this->viewInfo->scale);
 	USHORT x = tactBorder + this->getX();
-	for (EventViewComponent* eventViewComponent : events) {
-		this->events.push_back(eventViewCommponent);
-		this->components.push_back(eventViewComponent);
-		eventViewComponent->move(x, eventViewComponent->getY());
-		x += eventViewComponent->getWidth() + this->viewInfo->viewConfiguration->getEventInterval(this->viewInfo->scale,
-			eventViewComponent->getEvent()->getBeatType());
+	for (T* viewComponent : events) {
+		this->events.push_back(viewComponent);
+		this->components.push_back(viewComponent);
+		viewComponent->move(x, viewComponent->getY());
+		x += viewComponent->getWidth() + this->viewInfo->viewConfiguration->getEventInterval(this->viewInfo->scale,
+			viewComponent->getEvent()->getBeatType());
 	}
 	this->resize(x - this->getX(), this->getY());
 }

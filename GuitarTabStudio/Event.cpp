@@ -1,8 +1,11 @@
+#include "stdafx.h"
 #include "Event.h"
 
-Event::Event(EventInfo eventInfo, Tact* tact) {
+Event::Event(EventInfo eventInfo) {
 	this->eventInfo = eventInfo;
-	this->tact = tact;
+}
+
+Event::~Event() {
 }
 
 UCHAR Event::getAbsoluteBeatCount() {
@@ -37,10 +40,6 @@ UCHAR Event::getAbsoluteBeatCount(EventInfo * eventInfo) {
 	return absoluteBeatCount;
 }
 
-Tact * Event::getTact() {
-	return this->tact;
-}
-
 EventInfo * Event::getEventInfo() {
 	return &this->eventInfo;
 }
@@ -56,7 +55,3 @@ BeatTypeEx Event::getBeatTypeEx() {
 UCHAR Event::getDotCount() {
 	return this->eventInfo.dotCount;
 }
-
-
-
-

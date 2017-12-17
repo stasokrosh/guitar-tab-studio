@@ -1,28 +1,36 @@
 #pragma once
+#include "Common.h"
 #include "Track.h"
-#include "NotesEditor.h"
+#include <vector>
+#include "ViewInfo.h"
 #include "TrackViewComponent.h"
-#include <fstream>
+#include "SelectedEvent.h"
+#include "MidiTrack.h"
 
 using namespace std;
 
 class TrackEditor {
 public:
-	TrackEditor(Track* track, NotesEditor* notesEditor);
-	~TrackEditor();
+	TrackEditor(Track* track, Callback* updateCallback);
+	virtual ~TrackEditor();
 	Track* getTrack();
-	void getIteratorByTactInfo(TactInfo* tactInfo, TactIterator** tactIterator);
-	void getIteratorsByEvent(TactInfo* tactInfo, TactIterator** tactIterator, EventIterator** eventIterator);
-	Event* getSelectedEvent();
-	virtual void moveUp() = 0;
-	virtual void moveDown() = 0;
-	virtual TrackViewComponent* getTrackViewComponent(ViewInfo* viewInfo) = 0;
+	void setSelectedEvent(SelectedEvent* selectedEvent);
+	MidiTrack* getMidiTrack(UCHAR channel, MidiDevice* midiDevice, TactInfo* tact, BOOL selected);
+	virtual TactIterator* getTactByTactInfo(TactInfo* tactInfo);
+	virtual TactIterator* getTactByEvent(EventIterator* eventIterator);
+	virtual TrackViewComponent* getTrackViewComponent(ViewInfo* viewInfo, CompositionInfo* compositionInfo) = 0;
 	virtual void Write(wofstream* stream) = 0;
-	virtual BOOL Load(wifstream* stream, vector<TactInfo*>* tacts, TactIterator** selectedTact, 
-		EventIterator** selectedEvent) = 0;
+	virtual BOOL Load(wifstream* stream, vector<TactInfo*>* tacts) = 0;
+	virtual void preparePlaying() = 0;
 protected:
-	NotesEditor* notesEditor;
-private:
 	Track* track;
+	SelectedEvent* selectedEvent;
+	Callback* updateCallback;
+
+	virtual MidiEvent* getMidiEvent(Event* event, UCHAR channel,Callback* selectEventCallback) = 0;
+private:
+	void addMidiEventsToVector(TactIterator* iterator, UCHAR channel, vector<MidiEvent*>* events, BOOL selected);
+	static void MoveSelectorBack(TactIterator* current, TactIterator* begin);
+	static void CreateNewReprise(TactIterator* current, TactIterator* begin, vector<pair<Tact*, UCHAR>>* repriseStack);
 };
 

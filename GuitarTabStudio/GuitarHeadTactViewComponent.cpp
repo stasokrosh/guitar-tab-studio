@@ -2,8 +2,8 @@
 #include "GuitarHeadTactViewComponent.h"
 
 
-GuitarHeadTactViewComponent::GuitarHeadTactViewComponent(ViewInfo* viewInfo, Callback* doubleClickCallback, Guitar* guitar,
-	Tact* tact) : GuitarTactViewComponent(viewInfo, doubleClickCallback, 1, guitar->getStringCount(), tact) {
+GuitarHeadTactViewComponent::GuitarHeadTactViewComponent(ViewInfo* viewInfo, Guitar* guitar, TactInfo* tactInfo, BOOL valid) :
+	GuitarTactViewComponent(viewInfo, 1, guitar->getStringCount(), tactInfo, valid) {
 	this->guitar = guitar;
 }
 
@@ -26,14 +26,14 @@ void GuitarHeadTactViewComponent::selfDraw(HDC hdc) {
 	USHORT tabHeight = GetTabHeight(this->viewInfo);
 	HFONT font = this->viewInfo->viewConfiguration->getFont(tabHeight / 2);
 	HANDLE oldFont = SelectObject(hdc, font);
-	wstring text = to_wstring(this->tact->getTactInfo()->tactDuration->beatCount);
+	wstring text = to_wstring(this->tactInfo->tactDuration->beatCount);
 	RECT rect;
 	rect.top = this->getY();
 	rect.left = this->getX();
 	rect.bottom = this->getY() + tabHeight / 2;
 	rect.right = this->getX() + tabHeight;
 	DrawText(hdc, text.c_str(), text.size(), &rect, DT_CENTER);
-	text = to_wstring(this->tact->getTactInfo()->tactDuration->beatType);
+	text = to_wstring(this->tactInfo->tactDuration->beatType);
 	rect.top = rect.bottom;
 	rect.bottom = rect.bottom + tabHeight / 2;
 	DrawText(hdc, text.c_str(), text.size(), &rect, DT_CENTER);
@@ -42,7 +42,6 @@ void GuitarHeadTactViewComponent::selfDraw(HDC hdc) {
 	USHORT lineInterval = GetLineInterval(viewInfo, this->guitar->getStringCount());
 	font = this->viewInfo->viewConfiguration->getFont(noteTextFontHeight);
 	SelectObject(hdc, font);
-	RECT rect;
 	rect.top = this->getY() + tactNumFontHeight - noteTextFontHeight / 2;
 	rect.left = this->getX() - noteTextFontHeight * 2;
 	rect.bottom = rect.top + lineInterval;

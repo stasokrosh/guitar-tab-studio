@@ -6,17 +6,14 @@
 
 class GuitarTactViewComponent : public TactViewComponent<GuitarEventViewComponent> {
 public:
-	GuitarTactViewComponent(ViewInfo* viewInfo, Callback* doubleClickCallback, 
-		USHORT num, UCHAR stringCount, Tact* tact);
-	void setSelected(BOOL selected);
-	void setLast(BOOL last);
+	GuitarTactViewComponent(ViewInfo* viewInfo, USHORT num, UCHAR stringCount, TactInfo* tactInfo, BOOL valid);
 	~GuitarTactViewComponent();
+	void setLast();
 protected:
 	virtual void selfDraw(HDC hdc);
-	Tact* tact;
-private:
 	UCHAR stringCount;
-	BOOL selected;
 	BOOL last;
+	TactInfo* tactInfo;
+	BOOL valid;
 };
 

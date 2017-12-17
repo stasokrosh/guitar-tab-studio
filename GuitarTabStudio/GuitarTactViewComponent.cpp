@@ -2,38 +2,30 @@
 #include "GuitarTactViewComponent.h"
 
 
-GuitarTactViewComponent::GuitarTactViewComponent(ViewInfo* viewInfo, Callback* doubleClickCallback,
-	USHORT num, UCHAR stringCount, Tact* tact) : TactViewComponent<GuitarEventViewComponent>(viewInfo, doubleClickCallback, num) {
-	this->selected = FALSE;
+GuitarTactViewComponent::GuitarTactViewComponent(ViewInfo* viewInfo, USHORT num, UCHAR stringCount, 
+	TactInfo* tactInfo, BOOL valid) : TactViewComponent<GuitarEventViewComponent>(viewInfo, NULL, num) {
 	this->stringCount = stringCount;
-	this->tact = tact;
-	this->last = FALSE;
 	this->eventContainer = new GuitarEventContainerViewComponent(viewInfo, stringCount);
 	this->components.push_back(eventContainer);
+	this->last = FALSE;
+	this->tactInfo = tactInfo;
+	this->valid = valid;
 }
 
-void GuitarTactViewComponent::setSelected(BOOL selected) {
-	this->selected = selected;
-}
-
-void GuitarTactViewComponent::setLast(BOOL last) {
-	this->last = last;
-}
 
 GuitarTactViewComponent::~GuitarTactViewComponent() {}
 
+void GuitarTactViewComponent::setLast() {
+	this->last = TRUE;
+}
+
 void GuitarTactViewComponent::selfDraw(HDC hdc) {
-	if (this->selected) {
-		HBRUSH brush = CreateSolidBrush(this->viewInfo->selectionBackgroundColor);
-		FillRectangle(hdc, this->getX, this->getY(), this->getWidth(), this->getHeight(), brush);
-		DeleteObject(brush);
-	}
 	USHORT tactNumFontHeight = this->viewInfo->viewConfiguration->getTactNumFontHeight(this->viewInfo->scale);
 	USHORT tabHeight = GetTabHeight(this->viewInfo);
 	USHORT lineInterval = GetLineInterval(viewInfo, this->stringCount);
 	USHORT y = this->getY() + tactNumFontHeight;
 	COLORREF color;
-	if (this->tact->isValid()) {
+	if (this->valid) {
 		color = this->viewInfo->mainColor;
 	} else {
 		color = this->viewInfo->errorColor;
@@ -47,11 +39,11 @@ void GuitarTactViewComponent::selfDraw(HDC hdc) {
 	DrawLine(hdc, this->getX(), this->getY() + tactNumFontHeight, this->getX(), this->getY() + tactNumFontHeight + tabHeight, pen);
 	DrawLine(hdc, this->getX() + this->getWidth(), this->getY() + tactNumFontHeight, this->getX() + this->getWidth(), 
 		this->getY() + tactNumFontHeight + tabHeight, pen);
-	if (this->last || this->tact->getTactInfo()->repriseEnd > 1) {
+	if (this->last || this->tactInfo->repriseEnd > 1) {
 		DrawLine(hdc, this->getX() + this->getWidth() - 2, this->getY() + tactNumFontHeight, this->getX() + this->getWidth() - 2,
 			this->getY() + tactNumFontHeight + tabHeight, pen);
 	}
-	if (this->tact->getTactInfo()->repriseBegin) {
+	if (this->tactInfo->repriseBegin) {
 		DrawLine(hdc, this->getX() + 2, this->getY() + tactNumFontHeight, this->getX() + 2, this->getY() + tactNumFontHeight + tabHeight, pen);
 	}
 	SelectObject(hdc, oldPen);

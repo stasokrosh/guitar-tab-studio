@@ -7,6 +7,6 @@ GuitarEventFactory::GuitarEventFactory(Guitar * guitar) {
 
 GuitarEventFactory::~GuitarEventFactory() {}
 
-Event * GuitarEventFactory::createEvent(EventInfo eventInfo, Tact * tact) {
-	return new GuitarEvent(eventInfo, tact, this->guitar, NONE);
+Event * GuitarEventFactory::createEvent(EventInfo eventInfo) {
+	return new GuitarEvent(eventInfo, this->guitar, NONE);
 }

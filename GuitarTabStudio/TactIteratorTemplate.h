@@ -1,10 +1,15 @@
 #pragma once
 #include "TactIterator.h"
+#include "TactFactory.h"
+#include <vector>
+
+using namespace std;
+
 
 template <class T>
 class TactIteratorTemplate : public TactIterator {
 public:
-	TactIteratorTemplate(vector<T*>* tacts, vector<T*>::iterator iterator, Track* track, TactFactory* tactFactory);
+	TactIteratorTemplate(vector<T*>* tacts, typename vector<T*>::iterator iterator, TactFactory* tactFactory);
 	~TactIteratorTemplate();
 	virtual Tact* getTact();
 	T* getTemplateTact();
@@ -14,11 +19,9 @@ public:
 	virtual void insertTact(TactInfo* tactInfo);
 	virtual BOOL isLast();
 	virtual BOOL isFirst();
-	virtual USHORT getPosition();
 private:
 	vector<T*>* tacts;
-	vector<T*>::iterator iterator;
-	Track* track;
+	typename vector<T*>::iterator iterator;
 	TactFactory* tactFactory;
 };
 

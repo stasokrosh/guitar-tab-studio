@@ -2,17 +2,16 @@
 #include "GuitarEventViewComponent.h"
 
 
-GuitarEventViewComponent::GuitarEventViewComponent(ViewInfo* viewInfo, Callback* clickCallback, GuitarEvent* event, 
-	NotesEditor* notesEditor, GuitarTrackEditor* trackEditor) : EventViewComponent(viewInfo, clickCallback, event) {
+GuitarEventViewComponent::GuitarEventViewComponent(ViewInfo* viewInfo, Callback* clickCallback, vector<Callback*> noteCallbacks, 
+	GuitarEvent* guitarEvent, BOOL selected, CHAR stringSelected) : ViewComponent(viewInfo, clickCallback, NULL) {
 	this->guitarEvent = guitarEvent;
 	this->selected = false;
-	this->stringCount = event->getStringCount();
-	this->notesSelected = new BOOL[stringCount]{ FALSE };
+	UCHAR stringCount = guitarEvent->getStringCount();
 	USHORT y = 0;
 	USHORT lineInterval = GetLineInterval(viewInfo, stringCount);
 	for (UCHAR i = 0; i < stringCount; i++) {
-		Callback* callback = new SelectGuitarNoteCallback(notesEditor, trackEditor, event, i);
-		GuitarNoteViewComponent* noteViewComponent = new GuitarNoteViewComponent(viewInfo, callback, event->getNote(i),stringCount, &(this->notesSelected[i]));
+		GuitarNoteViewComponent* noteViewComponent = new GuitarNoteViewComponent(viewInfo, noteCallbacks.at(i),
+			guitarEvent->getNote(i),stringCount, i == stringSelected);
 		this->components.push_back(noteViewComponent);
 		noteViewComponent->move(this->getX(), y);
 		y += lineInterval;
@@ -22,21 +21,6 @@ GuitarEventViewComponent::GuitarEventViewComponent(ViewInfo* viewInfo, Callback*
 
 
 GuitarEventViewComponent::~GuitarEventViewComponent() {
-	delete this->notesSelected;
-}
-
-void GuitarEventViewComponent::setSelected(BOOL selected) {
-	this->selected = selected;
-}
-
-void GuitarEventViewComponent::setNoteSelected(BOOL selected, UCHAR stringNum) {
-	this->notesSelected[stringNum] = selected;
-}
-
-void GuitarEventViewComponent::deselectAllNotes() {
-	for (UCHAR i = 0; i < this->stringCount; i++) {
-		this->setNoteSelected(FALSE, i);
-	}
 }
 
 void GuitarEventViewComponent::updateSize() {
@@ -50,13 +34,17 @@ void GuitarEventViewComponent::updateSize() {
 	this->resize(maxWidth, height);
 }
 
+GuitarEvent* GuitarEventViewComponent::getGuitarEvent() {
+	return this->guitarEvent;
+}
+
 void GuitarEventViewComponent::selfDraw(HDC hdc) {
 	if (this->selected) {
 		HPEN pen = this->viewInfo->viewConfiguration->getPen(LINE_STYLE, LINE_WIDTH, this->viewInfo->selectionColor);
-		DrawRectangle(hdc, this->getX(), this->getY(), this->getWidth(), this->getHeight());
+		DrawRectangle(hdc, this->getX(), this->getY(), this->getWidth(), this->getHeight(), pen);
 	}
-	if (this->getEvent()->isPause()) {
-		this->drawPause(hdc, this->getEvent()->getBeatType());
+	if (this->guitarEvent->isPause()) {
+		this->drawPause(hdc, this->guitarEvent->getBeatType());
 	}
 	ChordDirections chordDirection = this->guitarEvent->getChordDirection();
 	if (chordDirection != NONE) {
@@ -67,9 +55,9 @@ void GuitarEventViewComponent::selfDraw(HDC hdc) {
 }
 
 void GuitarEventViewComponent::drawPause(HDC hdc, BeatType beatType) {
-	UCHAR lineInterval = GetLineInterval(this->viewInfo, this->stringCount);
+	UCHAR lineInterval = GetLineInterval(this->viewInfo, this->guitarEvent->getStringCount());
 	UCHAR tactNumFontHeight = this->viewInfo->viewConfiguration->getTactNumFontHeight(this->viewInfo->scale);
-	UCHAR y = tactNumFontHeight + lineInterval * stringCount / 2;
+	UCHAR y = tactNumFontHeight + lineInterval * this->guitarEvent->getStringCount() / 2;
 	UCHAR x = this->getX() + this->getWidth() / 4;
 	HBRUSH brush = this->viewInfo->viewConfiguration->getSolidBrush(this->viewInfo->mainColor);
 	FillRectangle(hdc, x, y, this->getWidth() / 2, lineInterval / 2, brush);

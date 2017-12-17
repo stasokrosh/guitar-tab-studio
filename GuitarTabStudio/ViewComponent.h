@@ -1,15 +1,15 @@
 #pragma once
 #include "Windows.h"
-#include "View.h"
-#include <vector>
+#include "ViewInfo.h"
 #include "Callback.h"
+#include <vector>
 
 using namespace std;
 
 class ViewComponent {
 public:
 	ViewComponent(ViewInfo* viewInfo, Callback* clickCallback, Callback* doubleClickCallback);
-	~ViewComponent();
+	virtual ~ViewComponent();
 	void draw(HDC hdc);
 	BOOL containsDot(USHORT x, USHORT y);
 	virtual void click(USHORT x, USHORT y);

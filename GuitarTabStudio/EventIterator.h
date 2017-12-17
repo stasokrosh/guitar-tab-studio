@@ -1,6 +1,7 @@
 #pragma once
-
+#include "Common.h"
 #include "Event.h"
+
 
 class EventIterator {
 public:
@@ -12,5 +13,5 @@ public:
 	virtual BOOL equal(EventIterator* eventIterator);
 	virtual BOOL isLast() = 0;
 	virtual BOOL isFirst() = 0;
-	virtual USHORT getPosition() = 0;
+	virtual EventIterator* copy() = 0;
 };

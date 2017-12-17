@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Midi.h"
 
 UCHAR GetFrequency(UCHAR octave, Notes note) {

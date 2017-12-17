@@ -1,6 +1,6 @@
 #pragma once
 #include "View.h"
-#include "Model.h"
+#include "Common.h"
 
 class ViewConfiguration {
 public:

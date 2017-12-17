@@ -3,7 +3,6 @@
 
 Composition::Composition(CompositionInfo compositionInfo) {
 	this->compositionInfo = compositionInfo;
-	this->setVelocity(this->getVelocity());
 }
 
 
@@ -21,13 +20,6 @@ BOOL Composition::isValid() {
 		}
 	}
 	return TRUE;
-}
-
-void Composition::setVelocity(UCHAR velocity) {
-	this->compositionInfo.velocity = velocity;
-	for (Track* track : this->tracks) {
-		track->updateVelocity();
-	}
 }
 
 void Composition::setTempo(UCHAR tempo) {
@@ -58,9 +50,6 @@ void Composition::popTactInfo() {
 	this->tactsSchema.pop_back();
 }
 
-UCHAR Composition::getVelocity() {
-	return this->compositionInfo.velocity;
-}
 
 UCHAR Composition::getSize() {
 	return this->tracks.size();
@@ -107,9 +96,8 @@ Track * Composition::getTrack(UCHAR number) {
 }
 
 Track * Composition::addTrack(Track* track) {
-	track->setComposition(this);
 	this->tracks.push_back(track);
-	return this->tracks.back;
+	return this->tracks.back();
 }
 
 void Composition::deleteTrack(UCHAR number) {

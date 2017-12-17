@@ -32,16 +32,16 @@ void HeaderViewComponent::selfDraw(HDC hdc) {
 	rect.left = this->getX() + horizontalBorder;
 	rect.right = this->getX() + this->getWidth() - horizontalBorder;
 	HFONT font = this->viewInfo->viewConfiguration->getFont(compositionNameHeight);
-	DrawText(hdc, this->compositionInfo->name.c_str, this->compositionInfo->name.size(), &rect, DT_CENTER);
+	DrawText(hdc, this->compositionInfo->name.c_str(), this->compositionInfo->name.size(), &rect, DT_CENTER);
 	rect.top = rect.bottom + intervalHeight;
 	rect.bottom = rect.top + artistNameHeight;
-	HFONT font = this->viewInfo->viewConfiguration->getFont(artistNameHeight);
-	DrawText(hdc, this->compositionInfo->author.c_str, this->compositionInfo->author.size(), &rect, DT_CENTER);
+	font = this->viewInfo->viewConfiguration->getFont(artistNameHeight);
+	DrawText(hdc, this->compositionInfo->author.c_str(), this->compositionInfo->author.size(), &rect, DT_CENTER);
 	rect.top = rect.bottom + intervalHeight;
 	rect.bottom = rect.top + trackInformationHeight;
-	HFONT font = this->viewInfo->viewConfiguration->getFont(trackInformationHeight);
+	font = this->viewInfo->viewConfiguration->getFont(trackInformationHeight);
 	wstring trackInfo = L"Track : " + this->trackInfo->name + L"(" + this->instrument->getName() + L")";
-	DrawText(hdc, trackInfo.c_str, trackInfo.size(), &rect, DT_LEFT);
+	DrawText(hdc, trackInfo.c_str(), trackInfo.size(), &rect, DT_LEFT);
 	wstring tempoInfo = L"Tempo = " + to_wstring(this->compositionInfo->tempo);
-	DrawText(hdc, trackInfo.c_str, trackInfo.size(), &rect, DT_RIGHT);
+	DrawText(hdc, trackInfo.c_str(), trackInfo.size(), &rect, DT_RIGHT);
 }

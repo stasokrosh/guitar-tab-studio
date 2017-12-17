@@ -1,6 +1,8 @@
 #pragma once
 #include "ViewComponent.h"
-#include "EventViewComponent.h"
+#include <vector>
+
+using namespace std;
 
 template<class T>
 class EventContainerViewComponent : public ViewComponent {

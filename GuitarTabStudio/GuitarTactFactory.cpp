@@ -12,6 +12,6 @@ GuitarTactFactory::~GuitarTactFactory() {
 	delete this->eventFactory;
 }
 
-Tact * GuitarTactFactory::createTact(TactInfo * tactInfo, Track * track) {
-	return new GuitarTact(tactInfo, track, this->eventFactory, this->guitar);
+Tact * GuitarTactFactory::createTact(TactInfo * tactInfo) {
+	return new GuitarTact(tactInfo, this->eventFactory, this->guitar);
 }

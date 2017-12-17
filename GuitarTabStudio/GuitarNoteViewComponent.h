@@ -8,14 +8,14 @@ using namespace std;
 class GuitarNoteViewComponent :
 	public ViewComponent {
 public:
-	GuitarNoteViewComponent(ViewInfo* viewInfo, Callback* doubleClickCallback, CHAR* note, UCHAR stringCount, BOOL* selected);
+	GuitarNoteViewComponent(ViewInfo* viewInfo, Callback* doubleClickCallback, CHAR* note, UCHAR stringCount, BOOL selected);
 	~GuitarNoteViewComponent();
 	virtual void updateSize();
 protected:
 	virtual void selfDraw(HDC hdc, HPEN mainPen);
 private:
 	CHAR* note;
-	BOOL* selected;
+	BOOL selected;
 	UCHAR stringCount;
 };
 

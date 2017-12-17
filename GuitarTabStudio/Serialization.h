@@ -1,9 +1,10 @@
 #pragma once
+#include <string>
+#include <vector>
 #include <fstream>
 #include <sstream>
-#include <vector>
 #include "Common.h"
-
+#include "Instrument.h"
 
 using namespace std;
 

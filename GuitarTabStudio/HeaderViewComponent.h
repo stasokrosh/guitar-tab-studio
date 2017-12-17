@@ -1,6 +1,7 @@
 #pragma once
 #include "ViewComponent.h"
-#include "Model.h"
+#include "Instrument.h"
+#include "Common.h"
 #include <string>
 
 using namespace std;

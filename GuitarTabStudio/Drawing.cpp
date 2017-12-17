@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "View.h"
+#include "Drawing.h"
 
 void DrawLine(HDC hdc, USHORT x1, USHORT y1, USHORT x2, USHORT y2, HPEN pen) {
 	HANDLE oldPen = SelectObject(hdc, pen);

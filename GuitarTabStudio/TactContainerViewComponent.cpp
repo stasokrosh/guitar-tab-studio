@@ -7,12 +7,12 @@ TactContainerViewComponent::TactContainerViewComponent(ViewInfo* viewInfo, USHOR
 }
 
 void TactContainerViewComponent::addTacts(vector<ViewComponent*>* tacts) {
-	this->components.clear;
+	this->components.clear();
 	USHORT horizontalBorder = this->viewInfo->viewConfiguration->getHorizontalBorder(this->viewInfo->scale);
 	USHORT verticalBorder = this->viewInfo->viewConfiguration->getVerticalBorder(this->viewInfo->scale);
 	USHORT tactHeight = this->viewInfo->viewConfiguration->getTactHeight(this->viewInfo->scale);
-	USHORT containerWidth = this->getWidth - 2* horizontalBorder;
-	USHORT containerHeight = this->getHeight - verticalBorder;
+	USHORT containerWidth = this->getWidth() - 2* horizontalBorder;
+	USHORT containerHeight = this->getHeight() - verticalBorder;
 	USHORT y = verticalBorder;
 	while (y + tactHeight < containerHeight && tacts->size() != 0) {
 		UCHAR lineWidth = 0;

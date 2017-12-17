@@ -1,16 +1,17 @@
 #pragma once
 #include "Midi.h"
-#include "Event.h"
+#include "MidiDevice.h"
+#include "Callback.h"
 
 class MidiEvent {
 public:
-	MidiEvent(UCHAR duration, UCHAR channel, Event* event);
-	Event* getEvent();
+	MidiEvent(UCHAR duration, UCHAR channel,Callback* changeNoteCallback);
 	virtual BOOL play(MidiDevice* midiDevice);
+	Callback* getChangeNoteCallback();
 protected:
 	UCHAR startDuration;
 	UCHAR currentDuration;
 	UCHAR channel;
-	Event* event;
+	Callback* changeNoteCallback;
 };
 

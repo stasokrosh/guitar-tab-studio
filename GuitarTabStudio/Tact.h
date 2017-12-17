@@ -1,17 +1,19 @@
 #pragma once
 #include "Common.h"
 #include "Event.h"
-#include "EventIterator.h"
-#include "Track.h"
 #include "EventFactory.h"
+#include "MidiEvent.h"
+#include "EventIterator.h"
+#include <vector>
+
+using namespace std;
 
 class Tact {
 public:
-	Tact(TactInfo* tactInfo, Track* track, EventFactory* eventFactory);
+	Tact(TactInfo* tactInfo, EventFactory* eventFactory);
 	~Tact();
 	TactValidity isValid();
 	void addMidiEventsToVector(UCHAR channel, UCHAR* velocity, vector<MidiEvent*>* vector);
-	Track* getTrack();
 	TactInfo* getTactInfo();
 	BOOL isEmpty();
 	static USHORT getTactAbsoluteBeatCount(TactDuration* tactDuration);
@@ -22,9 +24,7 @@ public:
 	virtual UCHAR getSize() = 0;
 	virtual EventIterator* getBegin() = 0;
 	virtual EventIterator* getEnd() = 0;
-	virtual EventIterator* getEventIteratorByPosition(USHORT position) = 0;
 protected: 
-	Track* track;
 	TactInfo* tactInfo;
 	EventFactory* eventFactory;
 };

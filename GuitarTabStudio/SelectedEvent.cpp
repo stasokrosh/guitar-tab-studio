@@ -4,7 +4,7 @@
 
 SelectedEvent::SelectedEvent(Callback* updateCallback) {
 	this->iterator = NULL;
-	this->updateCallback;
+	this->updateCallback = updateCallback;
 }
 
 
@@ -26,6 +26,9 @@ void SelectedEvent::setIterator(EventIterator* iterator) {
 }
 
 void SelectedEvent::setIteratorAndUpdate(EventIterator* iterator) {
+	if (!iterator->equal(this->iterator) && this->iterator->getEvent()->isEmpty()) {
+		this->iterator->getEvent()->setPause(TRUE);
+	}
 	this->setIterator(iterator->copy());
 	this->updateCallback->call();
 }

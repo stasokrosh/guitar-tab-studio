@@ -1,7 +1,7 @@
 #pragma once
 
 enum Scale {
-	MIN = 75,
+	MIN = 85,
 	MDM = 100,
-	HGH = 125
+	HGH = 115
 };

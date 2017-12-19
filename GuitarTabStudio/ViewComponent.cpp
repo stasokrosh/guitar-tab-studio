@@ -4,7 +4,7 @@
 
 ViewComponent::ViewComponent(ViewInfo* viewInfo, Callback* clickCallback, Callback* doubleClickCallback) {
 	this->viewInfo = viewInfo;
-	this->clickCallBack = clickCallBack;
+	this->clickCallBack = clickCallback;
 	this->doubleClickCallback = doubleClickCallback;
 	this->width = 0;
 	this->height = 0;
@@ -14,9 +14,7 @@ ViewComponent::ViewComponent(ViewInfo* viewInfo, Callback* clickCallback, Callba
 
 
 ViewComponent::~ViewComponent() {
-	for (ViewComponent* viewComponent : this->components) {
-		delete viewComponent;
-	}
+	this->components.clear();
 	if (this->clickCallBack != NULL) {
 		delete this->clickCallBack;
 	}
@@ -25,22 +23,23 @@ ViewComponent::~ViewComponent() {
 	}
 }
 
-void ViewComponent::draw(HDC hdc) {
-	this->selfDraw(hdc);
-	for (ViewComponent* component : this->components) {
-		component->draw(hdc);
+void ViewComponent::draw(HDC hdc, SHORT width, SHORT height) {
+	if (this->isVisible(width, height)){
+		this->selfDraw(hdc);
+		for (ViewComponent* component : this->components) {
+			component->draw(hdc, width, height);
+		}
 	}
 }
 
-BOOL ViewComponent::containsDot(USHORT x, USHORT y) {
-	return (x >= this->x) && (x <= this->x + this->width) && (y >= this->y) && (y <= this->y + this->width);
+BOOL ViewComponent::containsDot(SHORT x, SHORT y) {
+	return (x >= this->x) && (x <= this->x + this->width) && (y >= this->y) && (y <= this->y + this->height);
 }
 
-void ViewComponent::click(USHORT x, USHORT y) {
+void ViewComponent::click(SHORT x, SHORT y) {
 	for (ViewComponent* component : this->components) {
 		if (component->containsDot(x, y)) {
 			component->click(x, y);
-			return;
 		}
 	}
 	if (this->clickCallBack != NULL) {
@@ -48,7 +47,7 @@ void ViewComponent::click(USHORT x, USHORT y) {
 	}
 }
 
-void ViewComponent::doubleClick(USHORT x, USHORT y) {
+void ViewComponent::doubleClick(SHORT x, SHORT y) {
 	for (ViewComponent* component : this->components) {
 		if (component->containsDot(x, y)) {
 			component->doubleClick(x, y);
@@ -60,9 +59,9 @@ void ViewComponent::doubleClick(USHORT x, USHORT y) {
 	}
 }
 
-void ViewComponent::move(USHORT x, USHORT y) {
-	USHORT deltaX = x - this->x;
-	USHORT deltaY = y - this->y;
+void ViewComponent::move(SHORT x, SHORT y) {
+	SHORT deltaX = x - this->x;
+	SHORT deltaY = y - this->y;
 	this->x = x;
 	this->y = y;
 	for (ViewComponent* viewComponent : this->components) {
@@ -70,7 +69,7 @@ void ViewComponent::move(USHORT x, USHORT y) {
 	}
 }
 
-void ViewComponent::resize(USHORT width, USHORT height) {
+void ViewComponent::resize(SHORT width, SHORT height) {
 	this->width = width;
 	this->height = height;
 }
@@ -81,19 +80,19 @@ vector<ViewComponent*>* ViewComponent::getComponents() {
 	return &(this->components);
 }
 
-USHORT ViewComponent::getX() {
+SHORT ViewComponent::getX() {
 	return this->x;
 }
 
-USHORT ViewComponent::getY() {
+SHORT ViewComponent::getY() {
 	return this->y;
 }
 
-USHORT ViewComponent::getWidth() {
+SHORT ViewComponent::getWidth() {
 	return this->width;
 }
 
-USHORT ViewComponent::getHeight() {
+SHORT ViewComponent::getHeight() {
 	return this->height;
 }
 
@@ -102,4 +101,14 @@ ViewInfo * ViewComponent::getViewInfo() {
 }
 
 void ViewComponent::selfDraw(HDC hdc) {}
+
+BOOL ViewComponent::isVisible(SHORT width, SHORT height) {
+	if (this->getX() > width || this->getX() + this->getWidth() < 0) {
+		return FALSE;
+	}
+	if (this->getY() > height || this->getY() + this->getHeight() < 0) {
+		return FALSE;
+	}
+	return TRUE;
+}
 

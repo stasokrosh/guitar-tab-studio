@@ -6,6 +6,8 @@
 #include "Common.h"
 #include "Instrument.h"
 
+#define EXTENSION L".gt"
+
 using namespace std;
 
 void WriteLine(wofstream* stream, wstring line);

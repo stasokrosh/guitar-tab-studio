@@ -71,7 +71,7 @@ TactDuration* Composition::getTactDuration() {
 	return &(this->compositionInfo.tactDuration);
 }
 
-USHORT Composition::getTactInfoCount() {
+SHORT Composition::getTactInfoCount() {
 	return this->tactsSchema.size();
 }
 

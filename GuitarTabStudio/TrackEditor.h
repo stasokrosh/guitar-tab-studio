@@ -15,6 +15,7 @@ public:
 	virtual ~TrackEditor();
 	Track* getTrack();
 	void setSelectedEvent(SelectedEvent* selectedEvent);
+	void setTrackInfo(TrackInfo* trackInfo);
 	MidiTrack* getMidiTrack(UCHAR channel, MidiDevice* midiDevice, TactInfo* tact, BOOL selected);
 	virtual TactIterator* getTactByTactInfo(TactInfo* tactInfo);
 	virtual TactIterator* getTactByEvent(EventIterator* eventIterator);
@@ -22,6 +23,8 @@ public:
 	virtual void Write(wofstream* stream) = 0;
 	virtual BOOL Load(wifstream* stream, vector<TactInfo*>* tacts) = 0;
 	virtual void preparePlaying() = 0;
+	virtual void moveForward() = 0;
+	virtual void moveBackwards() = 0;
 protected:
 	Track* track;
 	SelectedEvent* selectedEvent;

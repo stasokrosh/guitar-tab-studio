@@ -7,7 +7,7 @@ using namespace std;
 #define OCTAVE_SIZE 12
 
 union Message {
-	ULONG fullMessage;
+	DWORD fullMessage;
 	UCHAR params[4];
 };
 

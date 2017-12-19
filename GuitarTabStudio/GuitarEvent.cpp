@@ -6,7 +6,10 @@ GuitarEvent::GuitarEvent(EventInfo eventInfo, Guitar* guitar, ChordDirections ch
 	Event(eventInfo) {
 	this->guitar = guitar;
 	this->chordDirection = chordDirection;
-	this->notes = new CHAR[guitar->getStringCount()] { -1 };
+	this->notes = new CHAR[guitar->getStringCount()];
+	for (UCHAR i = 0; i < guitar->getStringCount(); i++) {
+		this->notes[i] = -1;
+	}
 }
 
 
@@ -15,6 +18,9 @@ GuitarEvent::~GuitarEvent() {
 }
 
 BOOL GuitarEvent::isEmpty() {
+	if (this->isPause()) {
+		return FALSE;
+	}
 	for (int i = 0; i < this->guitar->getStringCount(); i++) {
 		if (this->notes[i] >= 0) {
 			return FALSE;
@@ -27,11 +33,12 @@ void GuitarEvent::setEmpty() {
 	for (int i = 0; i < this->guitar->getStringCount(); i++) {
 		notes[i] = -1;
 	}
+	this->eventInfo.pause = FALSE;
 }
 
 void GuitarEvent::setPause(BOOL pause) {
 	Event::setPause(pause);
-	if (pause) {
+	if (!pause) {
 		this->setEmpty();
 	}
 }

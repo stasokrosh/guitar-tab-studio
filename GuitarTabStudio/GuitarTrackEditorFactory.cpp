@@ -21,3 +21,7 @@ TrackEditor * GuitarTrackEditorFactory::createTrackEditor(wstring instrumentName
 Instruments GuitarTrackEditorFactory::getInstrumentType() {
 	return GUITAR;
 }
+
+vector<wstring> GuitarTrackEditorFactory::getInstrumentNames() {
+	return this->instrumentFactory->getInstrumentNames();
+}

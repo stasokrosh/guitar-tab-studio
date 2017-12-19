@@ -27,11 +27,21 @@ public:
 	BOOL addTrack(TrackInfo trackInfo, Instruments instrumentType, wstring instrumentName);
 	MidiComposition* createMidiComposition(MidiDevice* midiDevice);
 	vector<Track*> getTracks();
-	EventInfo* getEventInfo();
+	Event* getSelectedEvent();
+	TactInfo* getSelectedTact();
 	void deleteTrack(Track* track);
 	void selectTrack(Track* track);
 	Track* getSelectedTrack();
-	void setEventPause();
+	Composition* getComposition();
+	TrackEditor* getSelectedTrackEditor();
+	FactoryOfTrackEditorFactory* getFactory();
+	void setEventPause(BOOL pause);
+	void setBeatType(BeatType beatType);
+	void setBeatTypeEx(BeatTypeEx beatTypeEx);
+	void setDotCount(UCHAR dotCount);
+	void setRepriseBegin(BOOL begin, TactInfo* tactInfo);
+	void setRepriseEnd(UCHAR repriseCount, TactInfo* tactInfo);
+	void setCompositionInfo(CompositionInfo* compositionInfo);
 	void moveForward();
 	void moveBackward();
 	TrackViewComponent* getTrackViewComponent(ViewInfo* viewInfo);
@@ -46,7 +56,6 @@ private:
 	Callback* updateCallback;
 	UCHAR velocity;
 
-	Event* getSelectedEvent();
 	TactIterator* getSelectedTactIterator();
 	void addEmptyTact(Track* track, vector<EventInfo> events, TactInfo* tactInfo);
 	void moveNextTact(TactIterator* currentTact);

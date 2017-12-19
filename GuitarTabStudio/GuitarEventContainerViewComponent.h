@@ -13,10 +13,12 @@ protected:
 private:
 	UCHAR stringCount;
 
-	void drawLinks(HDC hdc, vector<GuitarEventViewComponent*>* sequence, BeatTypeEx beatTypeEx, UCHAR y, HPEN pen);
+	void drawLinks(HDC hdc, vector<GuitarEventViewComponent*>* sequence, BeatTypeEx beatTypeEx, SHORT y, HPEN pen);
 
-	void drawLink(HDC hdc, UCHAR leftX, UCHAR rightX, UCHAR y, BeatType beatType, HPEN pen);
+	void drawLink(HDC hdc, SHORT leftX, SHORT rightX, SHORT y, BeatType beatType, HPEN pen);
 
-	void drawLink(HDC hdc, UCHAR x, UCHAR y, BOOL forward, BeatType beatType, HPEN pen);
+	void drawLink(HDC hdc, SHORT x, SHORT y, BOOL forward, BeatType beatType, HPEN pen);
+
+	static SHORT GetLinkCount(BeatType beatType);
 };
 

@@ -10,9 +10,8 @@ class GuitarNoteViewComponent :
 public:
 	GuitarNoteViewComponent(ViewInfo* viewInfo, Callback* doubleClickCallback, CHAR* note, UCHAR stringCount, BOOL selected);
 	~GuitarNoteViewComponent();
-	virtual void updateSize();
 protected:
-	virtual void selfDraw(HDC hdc, HPEN mainPen);
+	virtual void selfDraw(HDC hdc);
 private:
 	CHAR* note;
 	BOOL selected;

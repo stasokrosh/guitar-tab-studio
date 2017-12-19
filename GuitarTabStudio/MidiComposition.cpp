@@ -7,14 +7,14 @@ MidiComposition::MidiComposition(MidiDevice* midiDevice, UCHAR tempo, MidiTrack*
 	this->timerElapse = MidiComposition::getTimerElapseFromTempo(tempo);
 	this->trackCount = trackCount;
 	this->tracks = tracks;
-	this->trackEnded = new BOOL[trackCount] { FALSE }; 
+	this->trackEnded = new BOOL[trackCount];
+	for (UCHAR i = 0; i < trackCount; i++) {
+		this->trackEnded[i] = FALSE;
+	}
 }
 
 
 MidiComposition::~MidiComposition() {
-	if (this->compositionEndCallback) {
-		delete this->compositionEndCallback;
-	}
 	for (int i = 0; i < this->trackCount; i++) {
 		delete this->tracks[i];
 	}
@@ -50,7 +50,7 @@ UINT MidiComposition::getTimerElapse() {
 }
 
 UINT MidiComposition::getTimerElapseFromTempo(UCHAR tempo) {
-	return 1000 * 60 / tempo;
+	return (1000 * 60) / (tempo * 48);
 }
 
 BOOL MidiComposition::compositionEnded() {

@@ -5,72 +5,110 @@
 ViewConfiguration::ViewConfiguration() {}
 
 
-ViewConfiguration::~ViewConfiguration() {}
-
-USHORT ViewConfiguration::getPageWidth(Scale scale) {
-	return USHORT();
+ViewConfiguration::~ViewConfiguration() {
+	this->fonts.clear();
+	this->pens.clear();
+	this->brushes.clear();
 }
 
-USHORT ViewConfiguration::getPageHeight(Scale scale) {
-	return USHORT();
+SHORT ViewConfiguration::getPageWidth(Scale scale) {
+	return GetByScale(scale, DEFAULT_PAGE_WIDTH);
 }
 
-USHORT ViewConfiguration::getPageInterval(Scale scale) {
-	return USHORT();
+SHORT ViewConfiguration::getPageHeight(Scale scale) {
+	return GetByScale(scale, DEFAULT_PAGE_HEIGHT);
 }
 
-USHORT ViewConfiguration::getTactHeight(Scale scale) {
-	return USHORT();
+SHORT ViewConfiguration::getPageInterval(Scale scale) {
+	return GetByScale(scale, DEFAULT_PAGE_HEIGHT / 20);
 }
 
-USHORT ViewConfiguration::getEventInterval(Scale scale, BeatType beatType) {
-	return USHORT();
+SHORT ViewConfiguration::getTactHeight(Scale scale) {
+	return GetByScale(scale, DEFAULT_PAGE_HEIGHT / 8);
 }
 
-USHORT ViewConfiguration::getHorizontalBorder(Scale scale) {
-	return USHORT();
+SHORT ViewConfiguration::getEventInterval(Scale scale, BeatType beatType) {
+	return GetByScale(scale, DEFAULT_PAGE_WIDTH / 40 + 64 / beatType);
 }
 
-USHORT ViewConfiguration::getVerticalBorder(Scale scale) {
-	return USHORT();
+SHORT ViewConfiguration::getHorizontalBorder(Scale scale) {
+	return GetByScale(scale, DEFAULT_PAGE_HEIGHT / 15);
 }
 
-USHORT ViewConfiguration::getTactBorder(Scale scale) {
-	return USHORT();
+SHORT ViewConfiguration::getVerticalBorder(Scale scale) {
+	return GetByScale(scale, DEFAULT_PAGE_HEIGHT / 25);
 }
 
-USHORT ViewConfiguration::getTactNumFontHeight(Scale scale) {
-	return USHORT();
+SHORT ViewConfiguration::getHeadVerticalBorder(Scale scale) {
+	return this->getVerticalBorder(scale) * 2;
 }
 
-USHORT ViewConfiguration::getCompositionNameFontHeight(Scale scale) {
-	return USHORT();
+SHORT ViewConfiguration::getTactBorder(Scale scale) {
+	return GetByScale(scale, DEFAULT_PAGE_WIDTH / 40);
 }
 
-USHORT ViewConfiguration::getArtistNameFontHeight(Scale scale) {
-	return USHORT();
+SHORT ViewConfiguration::getTactNumFontHeight(Scale scale) {
+	return this->getTactHeight(scale) / 10;
 }
 
-USHORT ViewConfiguration::getTrackInfoFontHeight(Scale scale) {
-	return USHORT();
+SHORT ViewConfiguration::getCompositionNameFontHeight(Scale scale) {
+	return GetByScale(scale, DEFAULT_PAGE_HEIGHT / 25);
 }
 
-USHORT ViewConfiguration::getInformationIntervalHeight(Scale scale) {
-	return USHORT();
+SHORT ViewConfiguration::getArtistNameFontHeight(Scale scale) {
+	return GetByScale(scale, DEFAULT_PAGE_HEIGHT / 30);
 }
 
-USHORT ViewConfiguration::getPageNumFontHeight(Scale scale) {
-	return USHORT();
+SHORT ViewConfiguration::getTrackInfoFontHeight(Scale scale) {
+	return GetByScale(scale, DEFAULT_PAGE_HEIGHT / 50);
+}
+
+SHORT ViewConfiguration::getInformationIntervalHeight(Scale scale) {
+	return this->getCompositionNameFontHeight(scale) / 2;
+}
+
+SHORT ViewConfiguration::getPageNumFontHeight(Scale scale) {
+	return GetByScale(scale, DEFAULT_PAGE_HEIGHT / 50);
 }
 
 HFONT ViewConfiguration::getFont(UCHAR fontHeight) {
-	return HFONT();
+	map<SHORT, HFONT>::iterator iterator = this->fonts.find(fontHeight);
+	if (iterator != this->fonts.end()) {
+		return (*iterator).second;
+	} else {
+		HFONT font = CreateFont(fontHeight, 0, 0, 0,
+			FW_NORMAL, FALSE, FALSE, FALSE,
+			ANSI_CHARSET, OUT_DEFAULT_PRECIS,
+			CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+			DEFAULT_PITCH | FF_ROMAN,
+			L"Times New Roman");
+		this->fonts.insert(pair<SHORT, HFONT>(fontHeight, font));
+		return font;
+	}
 }
 
 HPEN ViewConfiguration::getPen(int style, int width, COLORREF color) {
-	return HPEN();
+	map<COLORREF, HPEN>::iterator iterator = this->pens.find(color);
+	if (iterator != this->pens.end()) {
+		return (*iterator).second;
+	} else {
+		HPEN pen = CreatePen(style, width, color);
+		this->pens.insert(pair<COLORREF, HPEN>(color, pen));
+		return pen;
+	}
 }
 
 HBRUSH ViewConfiguration::getSolidBrush(COLORREF color) {
-	return HBRUSH();
+	map<COLORREF, HBRUSH>::iterator iterator = this->brushes.find(color);
+	if (iterator != this->brushes.end()) {
+		return (*iterator).second;
+	} else {
+		HBRUSH brush = CreateSolidBrush(color);
+		this->brushes.insert(pair<COLORREF, HBRUSH>(color, brush));
+		return brush;
+	}
+}
+
+SHORT ViewConfiguration::GetByScale(Scale scale, SHORT size) {
+	return (size * scale) / MDM;
 }

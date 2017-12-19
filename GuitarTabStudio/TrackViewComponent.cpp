@@ -7,14 +7,14 @@ TrackViewComponent::TrackViewComponent(ViewInfo* viewInfo) : ViewComponent(viewI
 }
 
 void TrackViewComponent::addPages(vector<PageViewComponent*> pages) {
-	this->components.clear();
-	USHORT x = this->getX();
-	USHORT y = this->getY();
-	USHORT pageInterval = this->viewInfo->viewConfiguration->getPageInterval(this->viewInfo->scale);
+	SHORT x = this->getX();
+	SHORT y = this->getY();
+	SHORT pageInterval = this->viewInfo->viewConfiguration->getPageInterval(this->viewInfo->scale);
 	for (PageViewComponent* page : pages) {
+		y += pageInterval;
 		this->components.push_back(page);
 		page->move(x, y);
-		y += page->getHeight() + pageInterval;
+		y += page->getHeight();
 	}
 	this->resize(this->getWidth(), y - this->getY());
 }

@@ -1,26 +1,26 @@
 #include "stdafx.h"
 #include "GuitarView.h"
 
-USHORT GetTabHeight(ViewInfo * viewInfo) {
-	USHORT tactHeight = viewInfo->viewConfiguration->getTactHeight(viewInfo->scale);
-	USHORT tactNumFontHeight = viewInfo->viewConfiguration->getTactNumFontHeight(viewInfo->scale);
+SHORT GetTabHeight(ViewInfo * viewInfo) {
+	SHORT tactHeight = viewInfo->viewConfiguration->getTactHeight(viewInfo->scale);
+	SHORT tactNumFontHeight = viewInfo->viewConfiguration->getTactNumFontHeight(viewInfo->scale);
 	return tactHeight / 2 - tactNumFontHeight;
 }
 
-USHORT GetLineInterval(ViewInfo * viewInfo, int stringCount) {
-	USHORT tabHeight = GetTabHeight(viewInfo);
+SHORT GetLineInterval(ViewInfo * viewInfo, int stringCount) {
+	SHORT tabHeight = GetTabHeight(viewInfo);
 	return tabHeight / (stringCount - 1);
 }
 
-USHORT GetNoteTextFontHeight(ViewInfo* viewInfo, int stringCount) {
+SHORT GetNoteTextFontHeight(ViewInfo* viewInfo, int stringCount) {
 	return GetLineInterval(viewInfo, stringCount) - 1;
 }
 
-USHORT GetBeatTypeExFontHeight(ViewInfo * viewInfo) {
-	return GetTabHeight(viewInfo) / 4;
+SHORT GetBeatTypeExFontHeight(ViewInfo * viewInfo) {
+	return GetTabHeight(viewInfo) / 3;
 }
 
-USHORT GetStickHeight(ViewInfo * viewInfo, BeatType beatType) {
+SHORT GetStickHeight(ViewInfo * viewInfo, BeatType beatType) {
 	switch (beatType) {
 	case  WHOLE: {
 		return 0;
@@ -34,7 +34,11 @@ USHORT GetStickHeight(ViewInfo * viewInfo, BeatType beatType) {
 	}
 }
 
-void DrawArrow(HDC hdc, USHORT x1, USHORT y1, USHORT x2, USHORT y2,HPEN pen, BOOL forward) {
+SHORT GetTactDuarationFontHeight(ViewInfo * viewInfo) {
+	return GetTabHeight(viewInfo) / 2 - 2;
+}
+
+void DrawArrow(HDC hdc, SHORT x1, SHORT y1, SHORT x2, SHORT y2,HPEN pen, BOOL forward) {
 	DrawLine(hdc, x1, y1, x2, y2, pen);
 	if (forward) {
 		DrawLine(hdc, x2, y2, x2 - 2, y2 - 3, pen);

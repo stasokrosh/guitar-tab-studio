@@ -21,18 +21,18 @@ BOOL GuitarMidiEvent::play(MidiDevice * midiDevice) {
 		}
 	} break;
 	case UP: {
-		if (delta < this->notes.size()) {
-			this->play(this->notes.size() - 1 - this->notes.at(delta), midiDevice);
+		if (delta < this->notes.size() * CHORD_SOUND_INTERVAL && !(delta % CHORD_SOUND_INTERVAL)) {
+			this->play(this->notes.size() - 1 - delta / CHORD_SOUND_INTERVAL, midiDevice);
 		}
 	} break;
 	case DOWN: {
-		if (delta < this->notes.size()) {
-			this->play(this->notes.at(delta), midiDevice);
+		if (delta < this->notes.size() * CHORD_SOUND_INTERVAL && !(delta % CHORD_SOUND_INTERVAL)) {
+			this->play(delta / CHORD_SOUND_INTERVAL, midiDevice);
 		}
 	}
 	}
 	BOOL result = MidiEvent::play(midiDevice);
-	if (!result) {
+	if (result) {
 		this->stopAll(midiDevice);
 	}
 	return result;
@@ -48,7 +48,7 @@ void GuitarMidiEvent::play(UCHAR noteNum, MidiDevice* midiDevice) {
 }
 
 void GuitarMidiEvent::stop(UCHAR noteNum, MidiDevice * midiDevice) {
-	MidiMessage message = MidiMessage::StopNoteMessage(this->channel, this->notes[noteNum]);
+	MidiMessage message = MidiMessage::StopNoteMessage(this->channel, this->notes[noteNum], * (this->velocity));
 	midiDevice->sendMessage(&message);
 }
 

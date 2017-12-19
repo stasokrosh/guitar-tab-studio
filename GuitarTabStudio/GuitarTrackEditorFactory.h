@@ -13,6 +13,7 @@ public:
 	~GuitarTrackEditorFactory();
 	virtual TrackEditor* createTrackEditor(wstring instrumentName, TrackInfo trackInfo, Callback* updateCallback);
 	virtual Instruments getInstrumentType();
+	virtual vector<wstring> getInstrumentNames();
 private:
 	InstrumentFactory<Guitar>* instrumentFactory;
 };

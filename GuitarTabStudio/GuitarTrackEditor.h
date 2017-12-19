@@ -21,10 +21,16 @@ public:
 	void selectString(UCHAR num);
 	void deselectString();
 	virtual TrackViewComponent* getTrackViewComponent(ViewInfo* viewInfo, CompositionInfo* compositionInfo);
-	void setCapo(UCHAR capo);
 	virtual void Write(wofstream* stream);
 	virtual BOOL Load(wifstream* stream, vector<TactInfo*>* tacts);
 	virtual void preparePlaying();
+	virtual void moveForward();
+	virtual void moveBackwards();
+	GuitarEvent* getSelectedGuitarEvent();
+	Guitar* getGuitar();
+	void deleteSymbol();
+	void addSymbol(UCHAR num);
+	void setChordDirection(ChordDirections chordDirection);
 protected:
 	virtual MidiEvent* getMidiEvent(Event* event, UCHAR channel, Callback* selectEventCallback);
 private:
@@ -34,9 +40,8 @@ private:
 	BOOL stringSelected;
 	UCHAR selectedString; 
 
-	GuitarTactViewComponent* getTactViewComponent(ViewInfo* viewInfo, USHORT num, GuitarTact* tact);
+	GuitarTactViewComponent* getTactViewComponent(ViewInfo* viewInfo, SHORT num, GuitarTact* tact, Tact* selectedTact);
 	GuitarEventViewComponent* getEventViewComponent(ViewInfo* viewInfo, EventIteratorTemplate<GuitarEvent>* iterator);
-	GuitarEvent* getSelectedGuitarEvent();
 	static void WriteGuitarEvent(wofstream* stream, GuitarEvent* guitarEvent);
 	static BOOL ReadGuitarEvent(wifstream* stream, GuitarEvent* guitarEvent);
 	static void WriteGuitar(wofstream* stream, Guitar* guitar);
@@ -50,6 +55,16 @@ private:
 		void call();
 	private:
 		UCHAR stringNum;
+		GuitarTrackEditor* trackEditor;
+		Callback* selectEventCallback;
+	};
+
+	class SelectNoteCallback : public Callback {
+	public:
+		SelectNoteCallback(Callback* selectEventCallback, GuitarTrackEditor* trackEditor);
+		~SelectNoteCallback();
+		void call();
+	private:
 		GuitarTrackEditor* trackEditor;
 		Callback* selectEventCallback;
 	};

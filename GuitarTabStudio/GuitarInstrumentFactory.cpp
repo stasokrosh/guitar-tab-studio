@@ -42,7 +42,8 @@ Guitar * GuitarInstrumentFactory::createInstrument(wstring name) {
 	if (iData == this->guitarsData.end()) {
 		return NULL;
 	} else {
-		GuitarFactory* factory = (*(this->factories.find((*iData).first))).second;
+		wstring guitarType = ((*iData).second).first;
+		GuitarFactory* factory = (*(this->factories.find(guitarType))).second;
 		return factory->createGuitar((*iData).second.second, name);
 	}
 }

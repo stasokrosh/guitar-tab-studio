@@ -20,7 +20,7 @@ MidiEvent * MidiTrack::getCurrentEvent() {
 
 BOOL MidiTrack::play() {
 	if (this->getCurrentEvent()->play(this->midiDevice)) {
-		this->events->erase(this->events->begin(), this->events->begin());
+		this->events->erase(this->events->begin());
 		if (this->events->size() != 0) {
 			this->getCurrentEvent()->getChangeNoteCallback()->call();
 		}

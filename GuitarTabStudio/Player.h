@@ -6,18 +6,21 @@
 
 class Player {
 public:
-	Player(Timer* timer, NotesEditor* notesEditor);
+	Player(Timer* timer, NotesEditor* notesEditor, Callback* updateCallback);
 	~Player();
 	void play();
 	void pause();
 	void resume();
 	void stop();
 	BOOL getPlaying();
+	BOOL getStopped();
 private:
 	BOOL playing;
 	BOOL stopped;
 	MidiPlayer* midiPlayer;
 	NotesEditor* notesEditor;
+	Callback* updateCallback;
+
 	class PlayerEndPlayingCallback : public Callback{
 	public:
 		PlayerEndPlayingCallback(Player* player);

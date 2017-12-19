@@ -8,63 +8,97 @@ NotesEditor::NotesEditor(FactoryOfTrackEditorFactory* factoryOfTEFactory, Callba
 	this->fileName = L"";
 	this->selectedEvent = new SelectedEvent(updateCallback);
 	this->updateCallback = updateCallback;
+	this->composition = NULL;
 }
 
 void NotesEditor::createComposition(CompositionInfo compositionInfo) {
+	if (this->composition != NULL) {
+		delete this->composition;
+	}
 	this->composition = new Composition(compositionInfo);
 }
 
 BOOL NotesEditor::loadComposition(wstring name) {
 	wifstream stream;
+	Composition* oldComposition = this->composition;
+	vector<TrackEditor*> oldtrackEditors = this->trackEditors;
+	EventIterator* oldEventIterator = this->selectedEvent->getIterator();
+	TrackEditor* oldSelectedEditor = this->selectedTrackEditor;
+	this->trackEditors.erase(this->trackEditors.begin(), this->trackEditors.end());
 	try {
 		stream.open(name);
 		CompositionInfo compositionInfo;
 		if (!ReadCompositionInfo(&stream, &compositionInfo)) {
+			this->trackEditors = oldtrackEditors;
 			return FALSE;
 		}
 		this->composition = new Composition(compositionInfo);
 		wstring text;
 		ReadLine(&stream, &text);
-		USHORT tactCount = stoi(text);
+		SHORT tactCount = stoi(text);
 		vector<TactInfo*> tacts;
-		for (USHORT i = 0; i < tactCount; i++) {
-			TactInfo* tactInfo = new TactInfo(&compositionInfo.tactDuration);
+		for (SHORT i = 0; i < tactCount; i++) {
+			TactInfo* tactInfo = new TactInfo(this->composition->getTactDuration());
 			if (!ReadTactInfo(&stream, tactInfo)) {
+				this->trackEditors = oldtrackEditors;
+				this->composition = oldComposition;
 				return FALSE;
 			}
 			this->composition->pushTactInfo(tactInfo);
 			tacts.push_back(tactInfo);
 		}
 		ReadLine(&stream, &text);
-		USHORT trackCount = stoi(text);
-		for (USHORT i = 0; i < trackCount; i++) {
+		SHORT trackCount = stoi(text);
+		for (SHORT i = 0; i < trackCount; i++) {
 			ReadLine(&stream, &text);
 			BOOL selected = (BOOL)stoi(text);
 			TrackInfo trackInfo;
 			if (!ReadTrackInfo(&stream, &trackInfo)) {
+				this->trackEditors = oldtrackEditors;
+				this->composition = oldComposition;
+				this->selectedEvent->setIterator(oldEventIterator);
+				this->selectedTrackEditor = oldSelectedEditor;
 				return FALSE;
 			}
 			wstring name;
 			Instruments type;
 			if (!ReadInstrumentInfo(&stream, &name, &type)) {
+				this->trackEditors = oldtrackEditors;
+				this->composition = oldComposition;
+				this->selectedEvent->setIterator(oldEventIterator);
+				this->selectedTrackEditor = oldSelectedEditor;
 				return FALSE;
 			}
 			TrackEditorFactory* factory = this->factoryOfTEFactory->getTrackEditorFactory(type);
 			TrackEditor* trackEditor = factory->createTrackEditor(name, trackInfo, this->updateCallback);
 			if (trackEditor == NULL) {
+				this->trackEditors = oldtrackEditors;
+				this->composition = oldComposition;
+				this->selectedEvent->setIterator(oldEventIterator);
+				this->selectedTrackEditor = oldSelectedEditor;
 				return FALSE;
 			}
 			this->trackEditors.push_back(trackEditor);
+			trackEditor->setSelectedEvent(this->selectedEvent);
 			if (selected) {
 				this->selectedTrackEditor = trackEditor;
 			}
 			if (!trackEditor->Load(&stream, &tacts)) {
+				this->trackEditors = oldtrackEditors;
+				this->composition = oldComposition;
+				this->selectedEvent->setIterator(oldEventIterator);
+				this->selectedTrackEditor = oldSelectedEditor;
 				return FALSE;
 			}
+			composition->addTrack(trackEditor->getTrack());
 		}
 		stream.close();
+		this->fileName = name;
+		this->updateCallback->call();
 		return TRUE;
 	} catch (exception e) {
+		puts(e.what());
+		getchar();
 		if (stream.is_open()) {
 			stream.close();
 		}
@@ -75,9 +109,9 @@ BOOL NotesEditor::loadComposition(wstring name) {
 void NotesEditor::saveComposition(wstring name) {
 	wofstream stream(name);
 	WriteCompositionInfo(&stream, this->composition->getCompositionInfo());
-	USHORT tactInfoCount = this->composition->getTactInfoCount();
+	SHORT tactInfoCount = this->composition->getTactInfoCount();
 	WriteLine(&stream, to_wstring(tactInfoCount));
-	for (USHORT i = 0; i < tactInfoCount; i++) {
+	for (SHORT i = 0; i < tactInfoCount; i++) {
 		WriteTactInfo(&stream, this->composition->getTactInfo(i));
 	}
 	WriteLine(&stream, to_wstring(this->composition->getSize()));
@@ -91,7 +125,9 @@ void NotesEditor::saveComposition(wstring name) {
 		WriteInstrument(&stream, trackEditor->getTrack()->getInstrument());
 		trackEditor->Write(&stream);
 	}
+	this->fileName = name;
 	stream.close();
+	this->updateCallback->call();
 }
 
 void NotesEditor::saveComposition() {
@@ -123,18 +159,20 @@ BOOL NotesEditor::addTrack(TrackInfo trackInfo, Instruments instrumentType, wstr
 				this->addEmptyTact(trackEditor->getTrack(), events, this->composition->getTactInfo(i));
 			}
 			this->selectTrackEditor(trackEditor);
+			this->updateCallback->call();
 			return TRUE;
 		}
 	}
 }
 
 NotesEditor::~NotesEditor() {
-	this->clearComposition();
 	delete this->selectedEvent;
+	this->clearComposition();
+	delete this->updateCallback;
 }
 
 MidiComposition * NotesEditor::createMidiComposition(MidiDevice * midiDevice) {
-	if (!this->composition->isValid()) {
+	if (!(this->composition->isValid())) {
 		return NULL;
 	}
 	TactIterator* selectedTact = this->selectedTrackEditor->getTactByEvent(this->selectedEvent->getIterator());
@@ -144,11 +182,11 @@ MidiComposition * NotesEditor::createMidiComposition(MidiDevice * midiDevice) {
 		return NULL;
 	}
 	MidiTrack** tracks = new MidiTrack*[this->composition->getSize()];
-	UCHAR notPreferredChannelBeginValue = 0;
+	UCHAR notPreferredChannelBeginValue = 1;
 	for (UCHAR i = 0; i < this->trackEditors.size(); i++) {
 		TrackEditor* trackEditor = this->trackEditors.at(i);
-		UCHAR preferedChannel = trackEditor->getTrack()->getInstrument()->getPreferedChannel();
-		if (preferedChannel == -1) {
+		CHAR preferedChannel = trackEditor->getTrack()->getInstrument()->getPreferedChannel();
+		if (preferedChannel == 0) {
 			notPreferredChannelBeginValue = NotesEditor::FindMinValueNotInSet(notPreferredChannelBeginValue, channelSet);
 			preferedChannel = notPreferredChannelBeginValue;
 			notPreferredChannelBeginValue++;
@@ -169,35 +207,85 @@ vector<Track*> NotesEditor::getTracks() {
 	return result;
 }
 
-EventInfo*  NotesEditor::getEventInfo() {
-	return &(this->eventInfo);
-}
-
 void NotesEditor::deleteTrack(Track * track) {
 	vector<TrackEditor*>::iterator iterator = this->findTrackEditorIteratorByTrack(track);
 	if (iterator != this->trackEditors.end()) {
 		this->trackEditors.erase(iterator, iterator);
 	}
 	this->selectTrack(this->composition->getTrack(0));
+	this->updateCallback->call();
 }
 
 void NotesEditor::selectTrack(Track * track) {
 	if (this->getSelectedEvent()->isEmpty()) {
-		this->setEventPause();
+		this->setEventPause(TRUE);
 	}
 	TrackEditor* trackEditor = this->findTrackEditorByTrack(track);
 	if (trackEditor != NULL) {
 		this->selectTrackEditor(trackEditor);
 	}
+	this->updateCallback->call();
 }
 
 
-void NotesEditor::setEventPause() {
-	this->getSelectedEvent()->setPause(TRUE);
+void NotesEditor::setEventPause(BOOL pause) {
+	this->getSelectedEvent()->setPause(pause);
+	this->updateCallback->call();
+}
+
+void NotesEditor::setBeatType(BeatType beatType) {
+	this->eventInfo.beatType = beatType;
+	Event* event = this->getSelectedEvent();
+	event->setBeatType(beatType);
+	this->updateCallback->call();
+}
+
+void NotesEditor::setBeatTypeEx(BeatTypeEx beatTypeEx) {
+	this->eventInfo.beatTypeEx = beatTypeEx;
+	Event* event = this->getSelectedEvent();
+	event->setBeatTypeEx(beatTypeEx);
+	this->updateCallback->call();
+}
+
+void NotesEditor::setDotCount(UCHAR dotCount) {
+	this->eventInfo.dotCount = dotCount;
+	Event* event = this->getSelectedEvent();
+	event->setDotCount(dotCount);
+	this->updateCallback->call();
+}
+
+void NotesEditor::setRepriseBegin(BOOL begin, TactInfo * tactInfo) {
+	tactInfo->repriseBegin = begin;
+	this->updateCallback->call();
+}
+
+void NotesEditor::setRepriseEnd(UCHAR repriseCount, TactInfo * tactInfo) {
+	tactInfo->repriseEnd = repriseCount;
+	this->updateCallback->call();
+}
+
+void NotesEditor::setCompositionInfo(CompositionInfo * compositionInfo) {
+	this->composition->setName(compositionInfo->name);
+	this->composition->setAuthor(compositionInfo->author);
+	this->composition->setTactDuration(compositionInfo->tactDuration);
+	this->composition->setTempo(compositionInfo->tempo);
+	this->updateCallback->call();
 }
 
 Track * NotesEditor::getSelectedTrack() {
 	return this->selectedTrackEditor->getTrack();
+}
+
+Composition * NotesEditor::getComposition() {
+	return this->composition;
+}
+
+TrackEditor * NotesEditor::getSelectedTrackEditor() {
+	return this->selectedTrackEditor;
+}
+
+FactoryOfTrackEditorFactory * NotesEditor::getFactory() {
+	return this->factoryOfTEFactory;
 }
 
 void NotesEditor::moveForward() {
@@ -206,7 +294,7 @@ void NotesEditor::moveForward() {
 		TactIterator* tactIterator = this->getSelectedTactIterator();
 		Tact* selectedTact = tactIterator->getTact();
 		if (selectedTact->getSize() == 1) {
-			this->setEventPause();
+			this->setEventPause(TRUE);
 		} else {
 			selectedEventIterator->deleteEvent();
 		}
@@ -217,7 +305,7 @@ void NotesEditor::moveForward() {
 		}
 		delete tactIterator;
 	} else {
-		if (selectedEventIterator) {
+		if (selectedEventIterator->isLast()) {
 			selectedEventIterator->insertEvent(this->eventInfo);
 			selectedEventIterator->moveForward();
 			this->getSelectedEvent()->setEmpty();
@@ -225,6 +313,8 @@ void NotesEditor::moveForward() {
 			selectedEventIterator->moveForward();
 		}
 	}
+	this->selectedTrackEditor->moveForward();
+	this->updateCallback->call();
 }
 
 void NotesEditor::moveBackward() {
@@ -250,6 +340,8 @@ void NotesEditor::moveBackward() {
 			selectedEventIterator->moveBackwards();
 		}
 	}
+	this->selectedTrackEditor->moveBackwards();
+	this->updateCallback->call();
 }
 
 TrackViewComponent* NotesEditor::getTrackViewComponent(ViewInfo* viewInfo) {
@@ -260,6 +352,17 @@ TrackViewComponent* NotesEditor::getTrackViewComponent(ViewInfo* viewInfo) {
 Event* NotesEditor::getSelectedEvent() {
 	EventIterator* iterator = this->selectedEvent->getIterator();
 	return iterator == NULL ? NULL : iterator->getEvent();
+}
+
+TactInfo * NotesEditor::getSelectedTact() {
+	if (this->selectedTrackEditor == NULL) {
+		return NULL;
+	} else {
+		TactIterator* iterator = this->selectedTrackEditor->getTactByEvent(this->selectedEvent->getIterator());
+		TactInfo* tactInfo = iterator->getTact()->getTactInfo();
+		delete iterator;
+		return tactInfo;
+	}
 }
 
 TactIterator* NotesEditor::getSelectedTactIterator() {
@@ -312,6 +415,7 @@ set<UCHAR>* NotesEditor::validateChannelRelation() {
 				return NULL;
 			}
 		}
+		i++;
 	}
 	return channelSet;
 }
@@ -323,7 +427,10 @@ void NotesEditor::selectTrackEditor(TrackEditor * trackEditor) {
 		TactIterator* newTactIterator = trackEditor->getTactByTactInfo(tactIterator->getTact()->getTactInfo());
 		this->selectedEvent->setIterator(newTactIterator->getTact()->getBegin());
 		delete tactIterator;
-		delete tactIterator;
+	} else {
+		TactIterator* iterator = trackEditor->getTrack()->getBegin();
+		this->selectedEvent->setIterator(iterator->getTact()->getBegin());
+		delete iterator;
 	}
 	this->selectedTrackEditor = trackEditor;	
 }
@@ -387,8 +494,9 @@ UCHAR NotesEditor::FindMinValueNotInSet(UCHAR beginValue, set<UCHAR>* set) {
 
 vector<EventInfo> NotesEditor::GetEventsForTactDuration(TactDuration * tactDuration) {
 	EventInfo eventInfo;
+	eventInfo.beatType = WHOLE;
 	vector<EventInfo> result;
-	USHORT tactBeatCount = Tact::getTactAbsoluteBeatCount(tactDuration);
+	SHORT tactBeatCount = Tact::getTactAbsoluteBeatCount(tactDuration);
 	while (tactBeatCount != 0) {
 		UCHAR eventBeatCount = Event::getAbsoluteBeatCount(&eventInfo);
 		if (eventBeatCount > tactBeatCount) {

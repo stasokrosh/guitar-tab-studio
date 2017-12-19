@@ -10,7 +10,6 @@ TrackEditor::TrackEditor(Track* track, Callback* updateCallback) {
 
 
 TrackEditor::~TrackEditor() {
-	delete this->track;
 }
 
 Track * TrackEditor::getTrack() {
@@ -19,6 +18,12 @@ Track * TrackEditor::getTrack() {
 
 void TrackEditor::setSelectedEvent(SelectedEvent* selectedEvent) {
 	this->selectedEvent = selectedEvent;
+}
+
+void TrackEditor::setTrackInfo(TrackInfo * trackInfo) {
+	this->track->setName(trackInfo->name);
+	this->track->setVelocity(trackInfo->velocity);
+	this->updateCallback->call();
 }
 
 MidiTrack* TrackEditor::getMidiTrack(UCHAR channel, MidiDevice* midiDevice, TactInfo* tact, BOOL selected) {
@@ -80,9 +85,11 @@ TactIterator* TrackEditor::getTactByEvent(EventIterator* eventIterator) {
 				delete endEventIterator;
 				return tactIterator;
 			}
+			tactEventIterator->moveForward();
 		}
-		delete eventIterator;
+		delete tactEventIterator;
 		delete endEventIterator;
+		tactIterator->moveForward();
 	}
 	delete tactIterator;
 	delete endTactIterator;
@@ -100,6 +107,7 @@ void TrackEditor::addMidiEventsToVector(TactIterator* iterator, UCHAR channel,ve
 			changeNoteCallback = NULL;
 		}
 		events->push_back(this->getMidiEvent(event, channel, changeNoteCallback));
+		eventIterator->moveForward();
 	}
 	delete eventIterator;
 	delete endIterator;

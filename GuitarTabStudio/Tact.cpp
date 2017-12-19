@@ -6,13 +6,14 @@ Tact::Tact(TactInfo* tactInfo, EventFactory* eventFactory) {
 	this->eventFactory = eventFactory;
 }
 
-Tact::~Tact() {}
+Tact::~Tact() {
+}
 
 TactValidity Tact::isValid() {
-	USHORT tactAbsoluteBeatCount = Tact::getTactAbsoluteBeatCount(this->tactInfo->tactDuration);
-	USHORT notesAboluteBeatCount = 0;
+	SHORT tactAbsoluteBeatCount = Tact::getTactAbsoluteBeatCount(this->tactInfo->tactDuration);
+	SHORT notesAboluteBeatCount = 0;
 	EventIterator* currentIterator = this->getBegin();
-	EventIterator* endIterator = this->getBegin();
+	EventIterator* endIterator = this->getEnd();
 	while (!currentIterator->equal(endIterator)) {
 		notesAboluteBeatCount += currentIterator->getEvent()->getAbsoluteBeatCount();
 		currentIterator->moveForward();
@@ -29,16 +30,17 @@ TactInfo * Tact::getTactInfo() {
 
 BOOL Tact::isEmpty() {
 	EventIterator* currentIterator = this->getBegin();
-	EventIterator* endIterator = this->getBegin();
+	EventIterator* endIterator = this->getEnd();
 	while (!currentIterator->equal(endIterator)) {
-		if (!currentIterator->getEvent()->isPause() && !currentIterator->getEvent()->isEmpty()) {
+		if (!currentIterator->getEvent()->isPause()) {
 			return FALSE;
 		}
+		currentIterator->moveForward();
 	}
 	return TRUE;
 }
 
-USHORT Tact::getTactAbsoluteBeatCount(TactDuration * tactDuration) {
+SHORT Tact::getTactAbsoluteBeatCount(TactDuration * tactDuration) {
 	return ABSOLUTE_BEAT_COUNT_BASE * tactDuration->beatCount / tactDuration->beatType;
 }
 

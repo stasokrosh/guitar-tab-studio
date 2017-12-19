@@ -10,30 +10,32 @@ class ViewComponent {
 public:
 	ViewComponent(ViewInfo* viewInfo, Callback* clickCallback, Callback* doubleClickCallback);
 	virtual ~ViewComponent();
-	void draw(HDC hdc);
-	BOOL containsDot(USHORT x, USHORT y);
-	virtual void click(USHORT x, USHORT y);
-	virtual void doubleClick(USHORT x, USHORT y);
-	virtual void move(USHORT x, USHORT y);
-	virtual void resize(USHORT width, USHORT height);
+	void draw(HDC hdc, SHORT width, SHORT height);
+	BOOL containsDot(SHORT x, SHORT y);
+	virtual void click(SHORT x, SHORT y);
+	virtual void doubleClick(SHORT x, SHORT y);
+	virtual void move(SHORT x, SHORT y);
+	virtual void resize(SHORT width, SHORT height);
 	vector<ViewComponent*>* getComponents();
-	USHORT getX();
-	USHORT getY();
-	USHORT getWidth();
-	USHORT getHeight();
+	SHORT getX();
+	SHORT getY();
+	SHORT getWidth();
+	SHORT getHeight();
 	ViewInfo* getViewInfo();
 protected:
 	vector<ViewComponent*> components;
 	ViewInfo* viewInfo;
+	SHORT x;
+	SHORT y;
+	SHORT width;
+	SHORT height;
 
 	virtual void updateSize();
 	virtual void selfDraw(HDC hdc);
 private:
 	Callback* clickCallBack;
 	Callback* doubleClickCallback;
-	USHORT x;
-	USHORT y;
-	USHORT width;
-	USHORT height;
+
+	BOOL isVisible(SHORT width, SHORT height);
 };
 

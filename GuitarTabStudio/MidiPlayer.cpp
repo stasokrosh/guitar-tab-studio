@@ -23,7 +23,7 @@ MidiComposition* MidiPlayer::play(MidiComposition* composition) {
 		return NULL;
 	}
 	this->midiComposition = composition;
-	this->midiComposition->setCompositionEndCallback(new CompositionEndCallback(this));
+	this->midiComposition->setCompositionEndCallback(this->stopCompositionCallback);
 	this->startComposition();
 	return this->midiComposition;
 }
@@ -64,13 +64,6 @@ void MidiPlayer::startComposition() {
 }
 
 void MidiPlayer::stopComposition() {
-	this->timer->deleteCallBack(this->midiComposition);
+	this->timer->deleteCallBack();
 }
 
-MidiPlayer::CompositionEndCallback::CompositionEndCallback(MidiPlayer * midiPlayer) {
-	this->midiPlayer = midiPlayer;
-}
-
-void MidiPlayer::CompositionEndCallback::call() {
-	this->midiPlayer->stop();
-}

@@ -5,6 +5,8 @@
 #include <vector>
 #include "ChordDirections.h"
 
+#define CHORD_SOUND_INTERVAL 3
+
 using namespace std;
 
 class GuitarMidiEvent :

@@ -35,7 +35,7 @@ void Event::setPause(BOOL pause) {
 
 
 UCHAR Event::getAbsoluteBeatCount(EventInfo * eventInfo) {
-	UCHAR absoluteBeatCount = ABSOLUTE_BEAT_COUNT_BASE / (1 << eventInfo->beatType) * NORMAL / eventInfo->beatTypeEx;
+	UCHAR absoluteBeatCount = ABSOLUTE_BEAT_COUNT_BASE / (eventInfo->beatType) * NORMAL / eventInfo->beatTypeEx;
 	absoluteBeatCount = absoluteBeatCount * 2 - absoluteBeatCount / (1 << eventInfo->dotCount);
 	return absoluteBeatCount;
 }

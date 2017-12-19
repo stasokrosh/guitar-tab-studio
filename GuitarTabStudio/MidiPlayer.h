@@ -13,14 +13,6 @@ public:
 	BOOL stop();
 	BOOL resume();
 	MidiDevice* getMidiDevice();
-
-	class CompositionEndCallback : public Callback {
-	public:
-		CompositionEndCallback(MidiPlayer* midiPlayer);
-		void call();
-	private:
-		MidiPlayer* midiPlayer;
-	};
 private:
 	MidiComposition* midiComposition;
 	MidiDevice midiDevice;

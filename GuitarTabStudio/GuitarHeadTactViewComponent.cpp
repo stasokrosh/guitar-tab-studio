@@ -5,41 +5,44 @@
 GuitarHeadTactViewComponent::GuitarHeadTactViewComponent(ViewInfo* viewInfo, Guitar* guitar, TactInfo* tactInfo, BOOL valid) :
 	GuitarTactViewComponent(viewInfo, 1, guitar->getStringCount(), tactInfo, valid) {
 	this->guitar = guitar;
+	SHORT tabHeight = GetTabHeight(this->viewInfo);
+	this->eventContainer->move(this->eventContainer->getX() + tabHeight, this->eventContainer->getY());
 }
 
 GuitarHeadTactViewComponent::~GuitarHeadTactViewComponent() {}
 
-void GuitarHeadTactViewComponent::resize(USHORT width, USHORT height) {
+void GuitarHeadTactViewComponent::resize(SHORT width, SHORT height) {
 	ViewComponent::resize(width, height);
-	USHORT tabHeight = GetTabHeight(this->viewInfo);
+	SHORT tabHeight = GetTabHeight(this->viewInfo);
 	this->eventContainer->resize(width - tabHeight, this->getHeight());
 }
 
 void GuitarHeadTactViewComponent::addEvents(vector<GuitarEventViewComponent*> events) {
 	this->eventContainer->addEvents(events);
-	USHORT tabHeight = GetTabHeight(this->viewInfo);
+	SHORT tabHeight = GetTabHeight(this->viewInfo);
 	this->resize(this->eventContainer->getWidth() + tabHeight, this->getHeight());
 }
 
 void GuitarHeadTactViewComponent::selfDraw(HDC hdc) {
 	GuitarTactViewComponent::selfDraw(hdc);
-	USHORT tabHeight = GetTabHeight(this->viewInfo);
-	HFONT font = this->viewInfo->viewConfiguration->getFont(tabHeight / 2);
+	SHORT tabHeight = GetTabHeight(this->viewInfo);
+	SHORT tactNumFontHeight = this->viewInfo->viewConfiguration->getTactNumFontHeight(this->viewInfo->scale);
+	SHORT tactDurationFontHeight = GetTactDuarationFontHeight(this->viewInfo);
+	HFONT font = this->viewInfo->viewConfiguration->getFont(tactDurationFontHeight);
 	HANDLE oldFont = SelectObject(hdc, font);
 	wstring text = to_wstring(this->tactInfo->tactDuration->beatCount);
 	RECT rect;
-	rect.top = this->getY();
+	rect.top = this->getY() + tactNumFontHeight + 1;
 	rect.left = this->getX();
-	rect.bottom = this->getY() + tabHeight / 2;
+	rect.bottom = rect.top + tactDurationFontHeight;
 	rect.right = this->getX() + tabHeight;
 	DrawText(hdc, text.c_str(), text.size(), &rect, DT_CENTER);
 	text = to_wstring(this->tactInfo->tactDuration->beatType);
 	rect.top = rect.bottom;
-	rect.bottom = rect.bottom + tabHeight / 2;
+	rect.bottom = rect.bottom + tactDurationFontHeight;
 	DrawText(hdc, text.c_str(), text.size(), &rect, DT_CENTER);
-	USHORT tactNumFontHeight = this->viewInfo->viewConfiguration->getTactNumFontHeight(this->viewInfo->scale);
-	USHORT noteTextFontHeight = GetNoteTextFontHeight(viewInfo, this->guitar->getStringCount());
-	USHORT lineInterval = GetLineInterval(viewInfo, this->guitar->getStringCount());
+	SHORT noteTextFontHeight = GetNoteTextFontHeight(viewInfo, this->guitar->getStringCount());
+	SHORT lineInterval = GetLineInterval(viewInfo, this->guitar->getStringCount());
 	font = this->viewInfo->viewConfiguration->getFont(noteTextFontHeight);
 	SelectObject(hdc, font);
 	rect.top = this->getY() + tactNumFontHeight - noteTextFontHeight / 2;

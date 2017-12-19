@@ -93,6 +93,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>Winmm.lib;Comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -148,10 +149,12 @@
     <ClInclude Include="Callback.h" />
     <ClInclude Include="ChordDirections.h" />
     <ClInclude Include="Composition.h" />
+    <ClInclude Include="Controls.h" />
     <ClInclude Include="Drawing.h" />
     <ClInclude Include="EventContainerViewComponent.h" />
     <ClInclude Include="EventFactory.h" />
     <ClInclude Include="EventIteratorTemplate.h" />
+    <ClInclude Include="EViewComponent.h" />
     <ClInclude Include="FactoryOfTrackEditorFactory.h" />
     <ClInclude Include="FactoryOfTrackEditorFactoryImpl.h" />
     <ClInclude Include="GuitarEventContainerViewComponent.h" />
@@ -184,6 +187,7 @@
     <ClInclude Include="MidiPlayer.h" />
     <ClInclude Include="MidiTrack.h" />
     <ClInclude Include="NotesEditor.h" />
+    <ClInclude Include="NotesForm.h" />
     <ClInclude Include="PageViewComponent.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SelectedEvent.h" />
@@ -218,10 +222,10 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BassGuitarFactory.cpp" />
     <ClCompile Include="Composition.cpp" />
+    <ClCompile Include="Controls.cpp" />
     <ClCompile Include="Event.cpp" />
-    <ClCompile Include="EventContainerViewComponent.cpp" />
     <ClCompile Include="EventIterator.cpp" />
-    <ClCompile Include="EventIteratorTemplate.cpp" />
+    <ClCompile Include="EViewComponent.cpp" />
     <ClCompile Include="FactoryOfTrackEditorFactoryImpl.cpp" />
     <ClCompile Include="GuitarEventContainerViewComponent.cpp" />
     <ClCompile Include="GuitarEventFactory.cpp" />
@@ -248,6 +252,7 @@
     <ClCompile Include="MidiPlayer.cpp" />
     <ClCompile Include="MidiTrack.cpp" />
     <ClCompile Include="NotesEditor.cpp" />
+    <ClCompile Include="NotesForm.cpp" />
     <ClCompile Include="PageViewComponent.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SelectedEvent.cpp" />
@@ -266,13 +271,9 @@
     <ClCompile Include="GuitarMidiEvent.cpp" />
     <ClCompile Include="Tact.cpp" />
     <ClCompile Include="TactIterator.cpp" />
-    <ClCompile Include="TactIteratorTemplate.cpp" />
-    <ClCompile Include="TactTemplate.cpp" />
-    <ClCompile Include="TactViewComponent.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Track.cpp" />
     <ClCompile Include="TrackEditor.cpp" />
-    <ClCompile Include="TrackTemplate.cpp" />
     <ClCompile Include="TrackViewComponent.cpp" />
     <ClCompile Include="Drawing.cpp" />
     <ClCompile Include="ViewComponent.cpp" />
@@ -296,7 +297,29 @@
     <Image Include="..\..\..\3 сем\GuitarTabStudioInterface\GuitarTabStudioInterface\Resources\startbrd.bmp" />
     <Image Include="..\..\..\3 сем\GuitarTabStudioInterface\GuitarTabStudioInterface\Resources\triple.bmp" />
     <Image Include="..\..\..\3 сем\GuitarTabStudioInterface\GuitarTabStudioInterface\Resources\up.bmp" />
-    <Image Include="..\Resources\guitar.bmp" />
+    <Image Include="..\Resources\16_.bmp" />
+    <Image Include="..\Resources\1_.bmp" />
+    <Image Include="..\Resources\2_.bmp" />
+    <Image Include="..\Resources\32_.bmp" />
+    <Image Include="..\Resources\4_.bmp" />
+    <Image Include="..\Resources\64_.bmp" />
+    <Image Include="..\Resources\8_.bmp" />
+    <Image Include="..\Resources\back.bmp" />
+    <Image Include="..\Resources\chord.bmp" />
+    <Image Include="..\Resources\dot.bmp" />
+    <Image Include="..\Resources\down.bmp" />
+    <Image Include="..\Resources\endbrd.bmp" />
+    <Image Include="..\Resources\icon.ico" />
+    <Image Include="..\Resources\iconSm.ico" />
+    <Image Include="..\Resources\next.bmp" />
+    <Image Include="..\Resources\Pause.bmp" />
+    <Image Include="..\Resources\pausePlay.bmp" />
+    <Image Include="..\Resources\play.bmp" />
+    <Image Include="..\Resources\plus.bmp" />
+    <Image Include="..\Resources\startbrd.bmp" />
+    <Image Include="..\Resources\stop.bmp" />
+    <Image Include="..\Resources\triple.bmp" />
+    <Image Include="..\Resources\up.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

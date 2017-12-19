@@ -6,14 +6,16 @@
 #define LINE_STYLE PS_SOLID
 #define LINE_WIDTH 1
 
-USHORT GetTabHeight(ViewInfo* viewInfo);
+SHORT GetTabHeight(ViewInfo* viewInfo);
 
-USHORT GetLineInterval(ViewInfo* viewInfo, int stringCount);
+SHORT GetLineInterval(ViewInfo* viewInfo, int stringCount);
 
-USHORT GetNoteTextFontHeight(ViewInfo* viewInfo, int stringCount);
+SHORT GetNoteTextFontHeight(ViewInfo* viewInfo, int stringCount);
 
-USHORT GetBeatTypeExFontHeight(ViewInfo* viewInfo);
+SHORT GetBeatTypeExFontHeight(ViewInfo* viewInfo);
 
-USHORT GetStickHeight(ViewInfo* viewInfo, BeatType beatType);
+SHORT GetStickHeight(ViewInfo* viewInfo, BeatType beatType);
 
-void DrawArrow(HDC hdc, USHORT x1, USHORT y1, USHORT x2, USHORT y2, HPEN pen, BOOL forward);
+SHORT GetTactDuarationFontHeight(ViewInfo* viewInfo);
+
+void DrawArrow(HDC hdc, SHORT x1, SHORT y1, SHORT x2, SHORT y2, HPEN pen, BOOL forward);

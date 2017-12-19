@@ -3,6 +3,9 @@
 #include <string>
 
 #define ABSOLUTE_BEAT_COUNT_BASE 192
+#define DEFAULT_TEMPO 140
+#define DEFAULT_BEAT_TYPE QUATER
+#define DEFAULT_BEAT_TYPE_EX NORMAL
 
 using namespace std;
 
@@ -11,13 +14,13 @@ enum Instruments {
 };
 
 enum BeatType {
-	WHOLE,
-	HALF,
-	QUATER,
-	EIGHTH,
-	SIXTEENTH,
-	THIRTY_SECOND,
-	SIXTY_FOURTH
+	WHOLE = 1,
+	HALF = 2,
+	QUATER = 4,
+	EIGHTH = 8,
+	SIXTEENTH = 16,
+	THIRTY_SECOND = 32,
+	SIXTY_FOURTH = 64
 };
 
 enum BeatTypeEx {
@@ -33,8 +36,8 @@ enum TactValidity {
 
 struct EventInfo {
 	EventInfo() {
-		this->beatType = QUATER;
-		this->beatTypeEx = NORMAL;
+		this->beatType = DEFAULT_BEAT_TYPE;
+		this->beatTypeEx = DEFAULT_BEAT_TYPE_EX;
 		this->dotCount = 0;
 		this->pause = true;
 	}
@@ -45,11 +48,20 @@ struct EventInfo {
 };
 
 struct TactDuration {
+	TactDuration() {
+		beatCount = (UCHAR)DEFAULT_BEAT_TYPE;
+		beatType = DEFAULT_BEAT_TYPE;
+	}
 	UCHAR beatCount;
 	BeatType beatType;
 };
 
 struct CompositionInfo {
+	CompositionInfo() {
+		name = L"";
+		author = L"";
+		tempo = DEFAULT_TEMPO;
+	}
 	wstring name;
 	wstring author;
 	UCHAR tempo;
@@ -68,6 +80,10 @@ struct TactInfo {
 };
 
 struct TrackInfo {
+	TrackInfo() {
+		name = L"";
+		velocity = 0x7F;
+	}
 	UCHAR velocity;
 	wstring name;
 };

@@ -17,8 +17,10 @@ TactContainerViewComponent * PageViewComponent::getTactContainer() {
 }
 
 void PageViewComponent::selfDraw(HDC hdc) {
-	USHORT height = this->viewInfo->viewConfiguration->getPageNumFontHeight(this->viewInfo->scale);
-	USHORT width = height * 4;
+	FillRectangle(hdc, this->getX(), this->getY(), this->getWidth(), this->getHeight(),
+		this->viewInfo->viewConfiguration->getSolidBrush(this->viewInfo->mainBackgroundColor));
+	SHORT height = this->viewInfo->viewConfiguration->getPageNumFontHeight(this->viewInfo->scale);
+	SHORT width = height * 4;
 	HFONT font = this->viewInfo->viewConfiguration->getFont(height);
 	wstring text = to_wstring(this->num);
 	RECT rect;
@@ -27,6 +29,6 @@ void PageViewComponent::selfDraw(HDC hdc) {
 	rect.bottom = this->getY() + this->getHeight();
 	rect.right = this->getX() + this->getWidth();
 	HANDLE oldFont = SelectObject(hdc, font);
-	DrawText(hdc, text.c_str(), text.size(), &rect, DT_RIGHT);
+	DrawText(hdc, text.c_str(), text.size(), &rect, DT_CENTER);
 	SelectObject(hdc, oldFont);
 }

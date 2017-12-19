@@ -24,5 +24,5 @@ Instruments Instrument::getInstrumentType() {
 }
 
 UCHAR Instrument::getPreferedChannel() {
-	return -1;
+	return 0;
 }

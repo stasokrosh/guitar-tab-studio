@@ -3,7 +3,7 @@
 
 class TactContainerViewComponent : public ViewComponent {
 public:
-	TactContainerViewComponent(ViewInfo* viewInfo, USHORT height);
+	TactContainerViewComponent(ViewInfo* viewInfo, SHORT height);
 	~TactContainerViewComponent();
 	void addTacts(vector<ViewComponent*>* tacts);
 };

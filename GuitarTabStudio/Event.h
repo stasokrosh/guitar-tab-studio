@@ -17,7 +17,6 @@ public:
 	void setDotCount(UCHAR dotCount);
 	static UCHAR getAbsoluteBeatCount(EventInfo* eventInfo);
 	UCHAR getAbsoluteBeatCount();
-	virtual MidiEvent* getMidiEvent(UCHAR channel, UCHAR* velocity,Callback* changeNoteCallback) = 0;
 	virtual void setPause(BOOL pause);
 	virtual BOOL isEmpty() = 0;
 	virtual void setEmpty() = 0;

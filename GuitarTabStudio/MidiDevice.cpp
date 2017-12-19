@@ -5,16 +5,17 @@
 MidiDevice::MidiDevice() {
 	UCHAR midiDeviceCount = midiOutGetNumDevs();
 	UCHAR i = 0;
-	while (i < midiDeviceCount && midiOutOpen(&hMidi, i, 0, 0, CALLBACK_NULL) != MMSYSERR_NOERROR) {
+	while (i < midiDeviceCount && midiOutOpen(&(this->hMidi), i, 0, 0, CALLBACK_NULL) != MMSYSERR_NOERROR) {
 		i++;
 	}
-	if (i != midiDeviceCount) {
+	if (i == midiDeviceCount) {
 		throw exception("No midi devices available");
 	}
 }
 
 void MidiDevice::sendMessage(MidiMessage* midiMessage) {
-	midiOutShortMsg(hMidi, midiMessage->getMessage());
+	DWORD message = midiMessage->getMessage();
+	midiOutShortMsg(this->hMidi, message);
 }
 
 

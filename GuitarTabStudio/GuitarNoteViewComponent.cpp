@@ -7,21 +7,13 @@ GuitarNoteViewComponent::GuitarNoteViewComponent(ViewInfo* viewInfo, Callback* d
 	this->note = note;
 	this->stringCount = stringCount;
 	this->selected = selected;
-	this->updateSize();
+	SHORT noteTextWidth = GetNoteTextFontHeight(this->viewInfo, this->stringCount);
+	this->resize(noteTextWidth, noteTextWidth);
 }
 
 GuitarNoteViewComponent::~GuitarNoteViewComponent() {}
 
-void GuitarNoteViewComponent::updateSize() {
-	USHORT noteTextWidth = GetNoteTextFontHeight(this->viewInfo, this->stringCount);
-	if (*(this->note) > 9) {
-		this->resize(noteTextWidth, noteTextWidth);
-	} else {
-		this->resize(noteTextWidth * 2, noteTextWidth);
-	}
-}
-
-void GuitarNoteViewComponent::selfDraw(HDC hdc, HPEN mainPen) {
+void GuitarNoteViewComponent::selfDraw(HDC hdc) {
 	if (*(this->note) != -1) {
 		wstring text = to_wstring(*(this->note));
 		RECT rect;
@@ -31,7 +23,7 @@ void GuitarNoteViewComponent::selfDraw(HDC hdc, HPEN mainPen) {
 		rect.right = this->getX() + this->getWidth();
 		HFONT font = this->viewInfo->viewConfiguration->getFont(GetNoteTextFontHeight(this->viewInfo, this->stringCount));
 		HANDLE oldFont = SelectObject(hdc, font);
-		DrawText(hdc, text.c_str(), text.size(), &rect, DT_LEFT);
+		DrawText(hdc, text.c_str(), text.size(), &rect, DT_CENTER);
 		SelectObject(hdc, oldFont);
 	}
 	if (this->selected) {

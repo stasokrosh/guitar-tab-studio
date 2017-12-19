@@ -12,7 +12,6 @@ Guitar::Guitar(UCHAR number, wstring name, UCHAR stringCount, Note* defaultForma
 
 
 Guitar::~Guitar() {
-	delete[] this->formation;
 }
 
 UCHAR Guitar::getStringCount() {

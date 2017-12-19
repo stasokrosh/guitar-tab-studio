@@ -1,6 +1,7 @@
 #pragma once
 #include "ViewComponent.h"
 #include "TactContainerViewComponent.h"
+#include "Drawing.h"
 
 class PageViewComponent : public ViewComponent {
 public:

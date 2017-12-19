@@ -1,6 +1,6 @@
 #pragma once
 #include "MidiMessage.h"
-#include <mmsystem.h>
+#include <Mmsystem.h>
 
 using namespace std;
 

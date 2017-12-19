@@ -16,7 +16,7 @@ public:
 	wstring getAuthor();
 	UCHAR getTempo();
 	TactDuration* getTactDuration();
-	USHORT getTactInfoCount();
+	SHORT getTactInfoCount();
 	TactInfo* getTactInfo(UCHAR number);
 	CompositionInfo* getCompositionInfo() ;
 	void setName(wstring name);

@@ -6,7 +6,7 @@
 
 class GuitarTactViewComponent : public TactViewComponent<GuitarEventViewComponent> {
 public:
-	GuitarTactViewComponent(ViewInfo* viewInfo, USHORT num, UCHAR stringCount, TactInfo* tactInfo, BOOL valid);
+	GuitarTactViewComponent(ViewInfo* viewInfo, SHORT num, UCHAR stringCount, TactInfo* tactInfo, BOOL valid);
 	~GuitarTactViewComponent();
 	void setLast();
 protected:

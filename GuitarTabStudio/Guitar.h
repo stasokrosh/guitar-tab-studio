@@ -2,6 +2,8 @@
 #include "Instrument.h"
 #include "Midi.h"
 
+#define MAX_NUM 20
+
 class Guitar : public Instrument {
 public:
 	Guitar(UCHAR number, wstring name, UCHAR stringCount, Note* defaultFormation, UCHAR capo);

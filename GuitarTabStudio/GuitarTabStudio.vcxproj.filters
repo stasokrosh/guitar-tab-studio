@@ -100,9 +100,6 @@
     <Filter Include="Исходные файлы\view\component\page">
       <UniqueIdentifier>{b22cb836-0271-49df-b848-cbc08418b4c9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\view\component\tact">
-      <UniqueIdentifier>{d968f259-cd54-4dcb-8097-caa5e2e822f1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Файлы заголовков\view\component">
       <UniqueIdentifier>{321d75b3-2c80-4269-b7e3-bd0b0f5522fc}</UniqueIdentifier>
     </Filter>
@@ -333,6 +330,15 @@
     <ClInclude Include="SelectedEvent.h">
       <Filter>Файлы заголовков\model\editor</Filter>
     </ClInclude>
+    <ClInclude Include="EViewComponent.h">
+      <Filter>Файлы заголовков\view\component</Filter>
+    </ClInclude>
+    <ClInclude Include="NotesForm.h">
+      <Filter>Файлы заголовков\view\control</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls.h">
+      <Filter>Файлы заголовков\view\control</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -371,9 +377,6 @@
     <ClCompile Include="TrackEditor.cpp">
       <Filter>Исходные файлы\model\editor</Filter>
     </ClCompile>
-    <ClCompile Include="TactViewComponent.cpp">
-      <Filter>Исходные файлы\view\component\tact</Filter>
-    </ClCompile>
     <ClCompile Include="HeaderPageViewComponent.cpp">
       <Filter>Исходные файлы\view\component\page</Filter>
     </ClCompile>
@@ -388,9 +391,6 @@
     </ClCompile>
     <ClCompile Include="TactContainerViewComponent.cpp">
       <Filter>Исходные файлы\view\component\page</Filter>
-    </ClCompile>
-    <ClCompile Include="EventContainerViewComponent.cpp">
-      <Filter>Исходные файлы\view\component\tact</Filter>
     </ClCompile>
     <ClCompile Include="GuitarEventContainerViewComponent.cpp">
       <Filter>Исходные файлы\impl\guitar\view</Filter>
@@ -440,9 +440,6 @@
     <ClCompile Include="EventIterator.cpp">
       <Filter>Исходные файлы\model\structure</Filter>
     </ClCompile>
-    <ClCompile Include="EventIteratorTemplate.cpp">
-      <Filter>Исходные файлы\model\structure</Filter>
-    </ClCompile>
     <ClCompile Include="Instrument.cpp">
       <Filter>Исходные файлы\model\structure</Filter>
     </ClCompile>
@@ -452,16 +449,7 @@
     <ClCompile Include="TactIterator.cpp">
       <Filter>Исходные файлы\model\structure</Filter>
     </ClCompile>
-    <ClCompile Include="TactIteratorTemplate.cpp">
-      <Filter>Исходные файлы\model\structure</Filter>
-    </ClCompile>
-    <ClCompile Include="TactTemplate.cpp">
-      <Filter>Исходные файлы\model\structure</Filter>
-    </ClCompile>
     <ClCompile Include="Track.cpp">
-      <Filter>Исходные файлы\model\structure</Filter>
-    </ClCompile>
-    <ClCompile Include="TrackTemplate.cpp">
       <Filter>Исходные файлы\model\structure</Filter>
     </ClCompile>
     <ClCompile Include="Guitar.cpp">
@@ -505,6 +493,15 @@
     </ClCompile>
     <ClCompile Include="SelectedEvent.cpp">
       <Filter>Исходные файлы\model\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EViewComponent.cpp">
+      <Filter>Исходные файлы\view\component</Filter>
+    </ClCompile>
+    <ClCompile Include="NotesForm.cpp">
+      <Filter>Исходные файлы\view\control</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls.cpp">
+      <Filter>Исходные файлы\view\control</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -555,7 +552,73 @@
     <Image Include="..\..\..\3 сем\GuitarTabStudioInterface\GuitarTabStudioInterface\Resources\up.bmp">
       <Filter>Файлы ресурсов</Filter>
     </Image>
-    <Image Include="..\Resources\guitar.bmp">
+    <Image Include="..\Resources\1_.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\2_.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\4_.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\8_.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\16_.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\32_.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\64_.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\dot.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\down.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\endbrd.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\Pause.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\startbrd.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\triple.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\up.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\icon.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\iconSm.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\chord.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\back.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\next.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\pausePlay.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\play.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\plus.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="..\Resources\stop.bmp">
       <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>

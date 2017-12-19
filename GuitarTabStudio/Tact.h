@@ -11,12 +11,11 @@ using namespace std;
 class Tact {
 public:
 	Tact(TactInfo* tactInfo, EventFactory* eventFactory);
-	~Tact();
+	virtual ~Tact();
 	TactValidity isValid();
-	void addMidiEventsToVector(UCHAR channel, UCHAR* velocity, vector<MidiEvent*>* vector);
 	TactInfo* getTactInfo();
 	BOOL isEmpty();
-	static USHORT getTactAbsoluteBeatCount(TactDuration* tactDuration);
+	static SHORT getTactAbsoluteBeatCount(TactDuration* tactDuration);
 	virtual EventIterator* pushEvent(EventInfo eventInfo) = 0;
 	virtual void popEvent() = 0;
 	virtual Event* getFront() = 0;

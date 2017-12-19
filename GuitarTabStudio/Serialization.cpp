@@ -7,31 +7,31 @@ void WriteLine(wofstream * stream, wstring line) {
 }
 
 void WriteCompositionInfo(wofstream * stream, CompositionInfo * compositionInfo) {
-	wstring line = compositionInfo->name + L" " + compositionInfo->author + L" " +
-		to_wstring(compositionInfo->tactDuration.beatCount) + L" " + to_wstring(compositionInfo->tactDuration.beatType) +
-		to_wstring(compositionInfo->tempo);
+	wstring line = compositionInfo->name + L"|" + compositionInfo->author + L"|" +
+		to_wstring(compositionInfo->tactDuration.beatCount) + L"|" + to_wstring(compositionInfo->tactDuration.beatType) + L"|"
+		+ to_wstring(compositionInfo->tempo);
 	WriteLine(stream, line);
 }
 
 void WriteTrackInfo(wofstream * stream, TrackInfo * trackInfo) {
-	wstring line = to_wstring(trackInfo->velocity) + L" " + trackInfo->name;
+	wstring line = to_wstring(trackInfo->velocity) + L"|" + trackInfo->name;
 	WriteLine(stream, line);
 }
 
 
 void WriteTactInfo(wofstream * stream, TactInfo * tactInfo) {
-	wstring line = to_wstring(tactInfo->repriseBegin) + L" " + to_wstring(tactInfo->repriseEnd);
+	wstring line = to_wstring(tactInfo->repriseBegin) + L"|" + to_wstring(tactInfo->repriseEnd);
 	WriteLine(stream, line);
 }
 
 void WriteInstrument(wofstream * stream, Instrument * instrument) {
-	wstring line = instrument->getName() + L" " + to_wstring(instrument->getInstrumentType());
+	wstring line = instrument->getName() + L"|" + to_wstring(instrument->getInstrumentType());
 	WriteLine(stream, line);
 }
 
 void WriteEventInfo(wofstream * stream, EventInfo* eventInfo) {
-	wstring line = to_wstring(eventInfo->beatType) + L" " + to_wstring(eventInfo->beatTypeEx) + L" " +
-		to_wstring(eventInfo->dotCount) + L" " + to_wstring(eventInfo->pause);
+	wstring line = to_wstring(eventInfo->beatType) + L"|" + to_wstring(eventInfo->beatTypeEx) + L"|" +
+		to_wstring(eventInfo->dotCount) + L"|" + to_wstring(eventInfo->pause);
 	WriteLine(stream, line);
 }
 
@@ -41,10 +41,10 @@ void ReadLine(wifstream * stream, wstring * line) {
 
 vector<wstring> Divide(wstring text) {
 	vector<wstring> parts;
-	wstringstream sstream;
+	wstringstream sstream(text);
 	while (!sstream.eof()) {
 		wstring part;
-		getline(sstream, part, L' ');
+		getline(sstream, part, L'|');
 		parts.push_back(part);
 	}
 	return parts;

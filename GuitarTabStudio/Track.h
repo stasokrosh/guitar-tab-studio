@@ -32,7 +32,6 @@ public:
 	virtual TactIterator* getEnd() = 0;
 protected:
 	TrackInfo trackInfo;
-	UCHAR* compositionVelocity;
 	TactFactory* tactFactory;
 	Instrument* instrument;
 };

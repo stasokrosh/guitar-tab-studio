@@ -2,31 +2,31 @@
 #include "TactContainerViewComponent.h"
 
 
-TactContainerViewComponent::TactContainerViewComponent(ViewInfo* viewInfo, USHORT height) : ViewComponent(viewInfo, NULL, NULL) {
+TactContainerViewComponent::TactContainerViewComponent(ViewInfo* viewInfo, SHORT height) : ViewComponent(viewInfo, NULL, NULL) {
 	this->resize(viewInfo->viewConfiguration->getPageWidth(viewInfo->scale), height);
 }
 
 void TactContainerViewComponent::addTacts(vector<ViewComponent*>* tacts) {
 	this->components.clear();
-	USHORT horizontalBorder = this->viewInfo->viewConfiguration->getHorizontalBorder(this->viewInfo->scale);
-	USHORT verticalBorder = this->viewInfo->viewConfiguration->getVerticalBorder(this->viewInfo->scale);
-	USHORT tactHeight = this->viewInfo->viewConfiguration->getTactHeight(this->viewInfo->scale);
-	USHORT containerWidth = this->getWidth() - 2* horizontalBorder;
-	USHORT containerHeight = this->getHeight() - verticalBorder;
-	USHORT y = verticalBorder;
+	SHORT horizontalBorder = this->viewInfo->viewConfiguration->getHorizontalBorder(this->viewInfo->scale);
+	SHORT verticalBorder = this->viewInfo->viewConfiguration->getVerticalBorder(this->viewInfo->scale);
+	SHORT tactHeight = this->viewInfo->viewConfiguration->getTactHeight(this->viewInfo->scale);
+	SHORT containerWidth = this->getWidth() - 2* horizontalBorder;
+	SHORT containerHeight = this->getHeight() - verticalBorder;
+	SHORT y = this->getY() + verticalBorder;
 	while (y + tactHeight < containerHeight && tacts->size() != 0) {
-		UCHAR lineWidth = 0;
+		SHORT lineWidth = 0;
 		vector<ViewComponent*> addedComponents;
 		vector<ViewComponent*>::iterator iterator = tacts->begin();
-		while (lineWidth + (*iterator)->getWidth() < containerWidth && iterator != tacts->end()) {
-			(*iterator)->move(lineWidth, y);
+		while (iterator != tacts->end() && lineWidth + (*iterator)->getWidth() < containerWidth) {
+			(*iterator)->move(this->getX() + horizontalBorder + lineWidth, y);
 			lineWidth += (*iterator)->getWidth();
 			this->components.push_back(*iterator);
 			addedComponents.push_back(*iterator);
 			iterator++;
 		}
 		if (iterator != tacts->end()) {
-			USHORT delta = containerWidth / addedComponents.size();
+			SHORT delta = (containerWidth - lineWidth) / addedComponents.size();
 			UCHAR i = 0;
 			for (ViewComponent* tactViewComponent : addedComponents) {
 				tactViewComponent->move(tactViewComponent->getX() + i * delta, tactViewComponent->getY());
@@ -34,8 +34,7 @@ void TactContainerViewComponent::addTacts(vector<ViewComponent*>* tacts) {
 				i++;
 			}
 		}
-		iterator--;
-		addedComponents.clear();
+		addedComponents.erase(addedComponents.begin(), addedComponents.end());
 		tacts->erase(tacts->begin(), iterator);
 		y += tactHeight;
 	}

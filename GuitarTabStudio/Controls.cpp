@@ -221,7 +221,9 @@ INT_PTR CALLBACK ShowTracksDialogProc(HWND hDlg, UINT uMsg, WPARAM wParam, LPARA
 		case IDC_LIST1: {
 			NotesEditor* editor = (NotesEditor*)GetWindowLongPtr(hDlg, GWLP_USERDATA);
 			vector<Track*> tracks = editor->getTracks();
-			WORD cursel = SendMessage(GetDlgItem(hDlg, IDC_LIST1), LB_GETCURSEL, 0, 0);
+			auto cursel = SendMessage(GetDlgItem(hDlg, IDC_LIST1), LB_GETCURSEL, 0, 0);
+			if (cursel < 0)
+				return FALSE;
 			Track* track = tracks.at(cursel);
 			editor->selectTrack(track);
 			DestroyWindow(hDlg);

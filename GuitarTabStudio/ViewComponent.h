@@ -12,7 +12,7 @@ public:
 	virtual ~ViewComponent();
 	void draw(HDC hdc, SHORT width, SHORT height);
 	BOOL containsDot(SHORT x, SHORT y);
-	virtual void click(SHORT x, SHORT y);
+	void click(SHORT x, SHORT y);
 	virtual void doubleClick(SHORT x, SHORT y);
 	virtual void move(SHORT x, SHORT y);
 	virtual void resize(SHORT width, SHORT height);

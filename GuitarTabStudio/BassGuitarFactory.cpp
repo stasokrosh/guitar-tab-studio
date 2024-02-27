@@ -20,7 +20,7 @@ BassGuitarFactory::~BassGuitarFactory() {
 }
 
 Guitar * BassGuitarFactory::createGuitar(UCHAR instrumentNum, wstring name) {
-	return new Guitar(instrumentNum, name, 6, this->defaultNoteFormation, 0);
+	return new Guitar(instrumentNum, name, 4, this->defaultNoteFormation, 0);
 }
 
 wstring BassGuitarFactory::getGuitarTypeName() {

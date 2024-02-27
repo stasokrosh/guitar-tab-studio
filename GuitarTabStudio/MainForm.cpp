@@ -6,7 +6,7 @@ MainForm::MainForm(HINSTANCE hInstance) {
 	this->hInstance = hInstance;
 	this->hWnd = CreateWindowW(MAIN_FORM_CLASS_NAME, MAIN_FORM_DEFAULT_TITLE, WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, this->hInstance, nullptr);
-	SetClassLong(this->hWnd, 0, (long)this);
+	SetClassLongPtr(this->hWnd, 0, (LONG_PTR)this);
 	this->toolBar = this->CreateToolBar();
 	this->notesEditor = NULL;
 	this->player = NULL;
@@ -76,7 +76,7 @@ BOOL MainForm::RegisterMainFormClass(HINSTANCE hInstance) {
 }
 
 LRESULT CALLBACK MainForm::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-	MainForm* mainForm = (MainForm*)GetClassLong(hWnd, 0);
+	MainForm* mainForm = (MainForm*)GetClassLongPtr(hWnd, 0);
 	switch (message) {
 	case WM_TIMER: {
 		mainForm->getTimer()->processMessage(wParam);

@@ -8,7 +8,7 @@
 #include "Serialization.h"
 using namespace std;
 
-#define GUITAR_DATA_FILE_NAME "C:\\guitars.ini"
+#define GUITAR_DATA_FILE_NAME ".\\guitars.ini"
 
 class GuitarInstrumentFactory : public InstrumentFactory<Guitar> {
 public:

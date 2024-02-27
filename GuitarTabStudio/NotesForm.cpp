@@ -5,7 +5,7 @@
 NotesForm::NotesForm(HWND parent, HINSTANCE hInstance) {
 	this->hWnd = CreateWindowW(NOTES_FORM_CLASS_NAME, NOTES_FORM_DEFAULT_TITLE, WS_OVERLAPPEDWINDOW,
 		0, 37, 100, 100, parent, nullptr, hInstance, nullptr);
-	SetClassLong(this->hWnd, 0, (long)this);
+	SetClassLongPtr(this->hWnd, 0, (LONG_PTR)this);
 	ShowWindow(this->hWnd, 1);
 	UpdateWindow(this->hWnd);
 }
@@ -36,7 +36,7 @@ HWND NotesForm::getHwnd() {
 }
 
 LRESULT NotesForm::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-	NotesForm* notesForm = (NotesForm*)GetClassLong(hWnd, 0);
+	NotesForm* notesForm = (NotesForm*)GetClassLongPtr(hWnd, 0);
 	switch (message) {
 	case WM_DESTROY:
 	{

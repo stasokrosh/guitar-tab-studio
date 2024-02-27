@@ -1,7 +1,7 @@
 #pragma once
 #include "resource.h"
 #include "Windows.h"
-#include "Commctrl.h"
+#include "CommCtrl.h"
 #include "Commdlg.h"
 #include "Timer.h"
 #include "NotesEditor.h"

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "GuitarInstrumentFactory.h"
 
-
 GuitarInstrumentFactory::GuitarInstrumentFactory() {
 	GuitarFactory* factory = new SixStringGuitarFactory();
 	this->factories.insert(pair<wstring, GuitarFactory*>(factory->getGuitarTypeName(), factory));
